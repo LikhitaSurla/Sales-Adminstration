@@ -28,13 +28,13 @@ export default function Billing(props) {
        <div>UserId: db,name</div>
 
 
-       <div>billing</div>
+       <div>Billing</div>
        <form action="">
         <input type="text" />
         <button>submit-code</button>
        </form>
 
-       <div>customer-details</div>
+       <div>Customer-Details</div>
        <form action="">
         <input type="text" placeholder='enter name' />
         <input type="text" placeholder='phone number' />

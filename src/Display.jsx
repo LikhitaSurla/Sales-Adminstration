@@ -16,7 +16,7 @@ const billingClicked=()=>{
   setBilling(true)
   setDisplay(false)
 }
-if(display==true){
+if(display===true){
   return (
     <>
     
