@@ -4,16 +4,24 @@ import Billing from './Billing';
 export default function Display() {
   const [state,setState] = useState(true);
   const[billState,setBillState] = useState(false);
+
+
   const newBill = ()=>{
     setState(false);
   }
   const idSubmit =()=>{
     setBillState(true);
   }
+  const ownerLogin=()=>{
+    
+  }
+
+
   if(state){
   return (
     <div>
       <button onClick={newBill}>New Bill</button> 
+      <button onClick={ownerLogin}>owner login</button>
     </div>
   )}
   else if(state===false&&billState==false){
