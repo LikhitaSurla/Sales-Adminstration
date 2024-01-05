@@ -10,38 +10,23 @@ function App() {
   const [userName,setUserName]=useState('');
   const [password,setPassword]=useState('');
   const [state,setState] = useState(false);
-  const[dataArray,setDataArray] = useState([{}]);
-  const [matchFound,setMatchFound]=useState(false);
-
-  useEffect(()=>{
-    const dataFetching = async()=>{
-
-      
+ 
+  const submitBtn =async()=>{
+      let matchfound = false;
       try{
-       const temp = await fetchData();
-       setDataArray(temp);
-       temp.forEach((doc)=>{
-        const data= doc.data();
-        console.log(data)
-        if(data.name==userName && data.password==password){
-          setMatchFound(true);
-    
-         }
-       })
-       
-       
-      }catch(err){
-        console.log(err);
+          const usersData = await fetchData();
+          usersData.forEach((doc)=>{
+            if(doc.name===userName && doc.password ===password){
+              matchfound = true;
+            }
+          });
+          if(matchfound){
+            setState(true);
+          }
       }
-    }
-    dataFetching();
-  },[]);
-
-  const submitBtn =()=>{
-    console.log(matchFound)
-    if(matchFound==true){
-      setState(true);
-     }
+      catch(err){
+        console.error(err);
+      }
   }
 
   if( state==false){
@@ -50,11 +35,7 @@ function App() {
     <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
     <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} />
     <button onClick={submitBtn}> submit</button>
-    
-  
-   
     </>
-    
   )
   }
   else{
@@ -64,7 +45,5 @@ function App() {
       </>
     )
   }
- 
-
 }
 export default App
