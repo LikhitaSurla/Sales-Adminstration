@@ -1,44 +1,35 @@
-import React,{useState} from 'react'
-import Admin from './Admin.jsx'
-import Billing from './Billing.jsx'
-
+import React from 'react'
+import { useState } from 'react';
+import Billing from './Billing';
 export default function Display() {
-
-const [display,setDisplay]=useState(true)
-const [admin,setAdmin]=useState(false)
-const [billing,setBilling]=useState(false)
-
-const adminClicked=()=>{
-  setAdmin(true)
-  setDisplay(false)
-}
-const billingClicked=()=>{
-  setBilling(true)
-  setDisplay(false)
-}
-if(display===true){
+  const [state,setState] = useState(true);
+  const[billState,setBillState] = useState(false);
+  const newBill = ()=>{
+    setState(false);
+  }
+  const idSubmit =()=>{
+    setBillState(true);
+  }
+  if(state){
   return (
-    <>
-    
-    <div>Who are using this ?</div>
-    <button onClick={adminClicked}>Admin</button>
-    <button onClick={billingClicked}>Billing</button>
-    </>
-  )
-}
-else if(display==false && admin==true){
-  return(
-  <>
-  <Admin setAdmin={setAdmin} setDisplay={setDisplay} />
-  </>
-  )
-}
-else{
-  return(
-  <>
-  <Billing setBilling={setBilling} setDisplay={setDisplay} billing={billing}/>
-
-  </>
-  )
-}
+    <div>
+      <button onClick={newBill}>New Bill</button> 
+    </div>
+  )}
+  else if(state===false&&billState==false){
+      return(
+       <>
+          <input type="text" placeholder='service id'/>
+          <button onClick={idSubmit}>submit</button>
+          <Billing/>
+       </>
+      )
+  }
+  else if(state===false&&billState==true){
+    return(
+          <>
+          <Billing/>
+          </>
+    )
+  }
 }

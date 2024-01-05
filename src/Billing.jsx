@@ -1,46 +1,21 @@
-import React,{useState} from 'react'
+import React from 'react'
 
-export default function Billing(props) {
-    const backclick=()=>{
-        props.setDisplay(true)
-        props.setBilling(false)
-    }
+export default function Billing() {
+  return (
+      <>
+      <p>Customer Details</p>
+        <form action="">
+          <input type="text" placeholder='Enter Customer name:' />;
+          <input type="text" placeholder='Enter customer phone no:' />;
+        </form>
 
-   const [popup,setPopup]=useState(true)
-    console.log(popup)
-    const formsubmit=()=>{
-        setPopup(false)
-    }
-    if(popup==true){
+      <p>Item Details</p>
+      <input type="text" placeholder='Item code' />
+      <button>-</button>
+      <input type="number" placeholder='Quantity'/>
+      <button>+</button>
 
-  return (<>
-    <button onClick={backclick}>Back</button>
-    <form action="form-submit">
-        <input type="text" />
-        <button onClick={formsubmit}>Submit</button>
-    </form>
-   
-    </>
-  )}
-  else {
-    return(
-       <>
-       <div>UserId: db,name</div>
-
-
-       <div>Billing</div>
-       <form action="">
-        <input type="text" />
-        <button>submit-code</button>
-       </form>
-
-       <div>Customer-Details</div>
-       <form action="">
-        <input type="text" placeholder='enter name' />
-        <input type="text" placeholder='phone number' />
-       </form>      
-
+      <p>price:{'value'}</p>
       </>
-    )
-  }
+  )
 }

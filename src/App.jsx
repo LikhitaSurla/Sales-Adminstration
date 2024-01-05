@@ -1,58 +1,53 @@
-import { useState , useEffect} from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { useState } from 'react'
 import './App.css'
 import { db } from './config/firebase'
 import {collection ,getDocs } from 'firebase/firestore'
 import Billing from './Billing'
+import Display from './Display'
 
 function App() {
-  
-
-  const [count, setCount] = useState(0)
-  const [userList,setUserList] = useState([]);
-  const [userName,setUserName]=useState('vijay');
-  const [password,setPassword]=useState('vija');
- 
-  
-  
-
+  const [userName,setUserName]=useState('');
+  const [password,setPassword]=useState('');
+  const [state,setState] = useState(false);
 
   const submitBtn = async () => {
     const userCollectionRef = collection(db, 'userdata');
-        
+    let matchFound = false;
+  
     try {
       const userCredentials = await getDocs(userCollectionRef);
-  
       userCredentials.forEach((doc) => {
         const data = doc.data();
-         const named=data.name;
-         const pass =data.password;
+  
+        if (data.name === userName && data.password === password) {
+          matchFound = true;
+        }
       });
+  
+      if (matchFound){
+        setState(true);
+      } else {
+        console.log('Unmatched');
+      }
     } catch (error) {
       console.error('Error fetching user data from Firestore:', error);
-      // You might want to handle the error appropriately (e.g., display an error message)
-    }
-
-    
-    if (named === userName && pass === password) {
-      console.log('Credentials matched for user:', userName);
-      console.log('User Data:', data);
-      // You might want to perform further actions upon successful login
-    } else {
-      console.log('Credentials do not match for user:', userName);
     }
   };
+  if(state==false){
   return (
     <>
-    
-    {/* <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
-    <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} /> */}
-
-<button onClick={submitBtn}> submit</button>
-    {/* {userName==filterData[0].name && password==filterData[0].password ? <Billing/> :<Display/>} */}
+    <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
+    <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} />
+    <button onClick={submitBtn}> submit</button>
     </>
   )
+  }
+  else{
+    return (
+      <>
+      <Display/>
+      </>
+    )
+  }
 }
-
 export default App
