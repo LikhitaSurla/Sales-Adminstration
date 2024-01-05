@@ -19,11 +19,14 @@ export default function Display() {
 
   if(state){
   return (
+    <>
+
     <div>
       <button onClick={newBill}>New Bill</button> 
       <button onClick={ownerLogin}>owner login</button>
       <p>bagaaa ayyindii</p>
     </div>
+    </>
   )}
   else if(state===false&&billState==false){
       return(
@@ -41,4 +44,5 @@ export default function Display() {
           </>
     )
   }
+
 }
