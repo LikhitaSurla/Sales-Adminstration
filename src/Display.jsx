@@ -13,10 +13,8 @@ export default function Display() {
     setBillState(true);
   }
   const ownerLogin=()=>{
-
+      
   }
-
-
   if(state){
   return (
     <>
@@ -24,7 +22,6 @@ export default function Display() {
     <div>
       <button onClick={newBill}>New Bill</button> 
       <button onClick={ownerLogin}>owner login</button>
-      <p>bagaaa ayyindii</p>
     </div>
     </>
   )}

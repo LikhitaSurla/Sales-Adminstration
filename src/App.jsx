@@ -1,44 +1,36 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import { db } from './config/firebase'
 import {collection ,getDocs } from 'firebase/firestore'
 import Billing from './Billing'
 import Display from './Display'
+import fetchData from './Data'
 
 function App() {
   const [userName,setUserName]=useState('');
   const [password,setPassword]=useState('');
   const [state,setState] = useState(false);
+  
+  const[dataArray,setDataArray] = useState([{}]);
 
-  const submitBtn = async () => {
-    const userCollectionRef = collection(db, 'userdata');
-    let matchFound = false;
-  
-    try {
-      const userCredentials = await getDocs(userCollectionRef);
-      userCredentials.forEach((doc) => {
-        const data = doc.data();
-  
-        if (data.name === userName && data.password === password) {
-          matchFound = true;
-        }
-      });
-  
-      if (matchFound){
-        setState(true);
-      } else {
-        console.log('Unmatched');
+  useEffect(()=>{
+    const dataFetching = async()=>{
+      try{
+       const temp = await fetchData();
+       
+      }catch(err){
+        console.log(err);
       }
-    } catch (error) {
-      console.error('Error fetching user data from Firestore:', error);
     }
-  };
+    dataFetching();
+  },[]);
+
   if(state==false){
   return (
     <>
     <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
     <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} />
-    <button onClick={submitBtn}> submit</button>
+    {/* <button onClick={submitBtn}> submit</button> */}
     </>
   )
   }
