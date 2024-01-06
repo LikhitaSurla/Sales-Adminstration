@@ -1,27 +1,25 @@
-import React,{useReducer, useState} from 'react'
+import React,{useEffect, useReducer, useState} from 'react'
 import employeeData from './Employee';
 import { empReducer, firststate } from './empReducer';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from './config/firebase';
 
 export default function EmpDetails() {
-  const[state,dispatch]=useReducer(empReducer,firststate)
- const employeeCollectionRef =collection(db,'employeedata')
- const[form,setForm]=useState(false);
-let employeeDb;
+    const[state,dispatch]=useReducer(empReducer,firststate)
+    const employeeCollectionRef =collection(db,'employeedata')
+    const[form,setForm]=useState(false);
+    const [empData,setEmpData] = useState([]);
     const employeeDetails=async()=>{
-        
-        // let matchFound=false;
         try{
-             employeeDb = await employeeData();
-             console.log(employeeDb)
-            
+             const employeeDb = await employeeData();
+             setEmpData(employeeDb);
         }catch(err){
             console.error(err);
         }
     }
-    employeeDetails();
-
+    useEffect(()=>{
+        employeeDetails();
+    },[])
     const handleChange=(e)=>{
         dispatch(
             {
@@ -31,47 +29,54 @@ let employeeDb;
             }
         )
         console.log(state)
-
     }
     const addEmployee=()=>{
-        setForm(true);
-try{
-    addDoc(employeeCollectionRef,{
-        empid:state.empid,
-        name:state.empname,
-        age:state.age,
-        gender:state.gender,
-        phoneNumber:state.phonenumber,
-        salary:state.salary,
-        bonus:state.bonus
-
-
-    })
-}catch(err){
-       console.error(err) 
-}
+        setForm(false);
+        try{
+            addDoc(employeeCollectionRef,{
+                empid:state.empid,
+                name:state.empname,
+                age:state.age,
+                gender:state.gender,
+                phoneNumber:state.phonenumber,
+                salary:state.salary,
+                bonus:state.bonus
+            })
+            employeeDetails();
+        }catch(err){
+            console.error(err) 
+        }
     }
-if(state==true){
+    const viewDetails =()=>{
+        setForm(true);
+    }
+if(form==true){
   return (
-<>
-<input type="text" name="empid" placeholder='employeeid' onChange={handleChange}/>
-<input type="text" name="empname" placeholder='enter name'onChange={handleChange} />
-<input type="number" name="age" placeholder='enter age'onChange={handleChange}/>
-<input type="text" name="gender" placeholder='enter gender' onChange={handleChange}/>
-<input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
-<input type="text" name="salary" placeholder='salary' onChange={handleChange}/>
-<input type="text" name="bonus" placeholder='bonus' onChange={handleChange}/>
-
-
-
-</>  )}
+    <>
+        <input type="text" name="empid" placeholder='employeeid' onChange={handleChange}/>
+        <input type="text" name="empname" placeholder='enter name'onChange={handleChange} />
+        <input type="number" name="age" placeholder='enter age'onChange={handleChange}/>
+        <input type="text" name="gender" placeholder='enter gender' onChange={handleChange}/>
+        <input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
+        <input type="text" name="salary" placeholder='salary' onChange={handleChange}/>
+        <input type="text" name="bonus" placeholder='bonus' onChange={handleChange}/>
+        <button onClick={addEmployee}>addEmployee</button>
+    </> 
+ )}
 else{
     return(
         <>
-        <button onClick={addEmployee}>addEmployee</button>
-        <div>{employeeDb.map((item,index)=>(
-       <div key={index} >{item.empid},{item.name}</div>
-    ))}
+        <button onClick={viewDetails}>View Details</button>
+        <div>
+            {empData.map((data)=>(
+                <>
+                <h1>{data.empid}</h1>
+                <h1>{data.name}</h1>
+                <h1>{data.age}</h1>
+                <h1>{data.gender}</h1>
+                <h1>{data.phoneNumber}</h1>
+                </>
+            ))}
     </div>
         </>
     )
