@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import fetchData from './Data';
-
+import EmpDetails from './EmpDetails';
 export default function Admin(props) {
   const [state,setState] =useState(false);
   const [ownerName,setOwnerName]=useState('');
@@ -42,10 +42,11 @@ export default function Admin(props) {
     else{
       return(
         <>
-        <div>Sales Deatils</div>
-        <div>Employee Details</div>
-        <div>New Customer count</div>
-        <div>Customer Reviews</div>
+        {/* <div>Sales Deatils</div> */}
+        {/* <div>Employee Details</div> */}
+        {/* <div>New Customer count</div>
+        <div>Customer Reviews</div> */}
+        <EmpDetails/>
         
         </>
       )
