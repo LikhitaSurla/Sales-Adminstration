@@ -30,10 +30,6 @@ export default function Billing() {
       
       <p>Total sum</p>
       <button onClick={proceedBtn}>Proceed</button>
-
-
-
-
       </>
   )}
   else{
