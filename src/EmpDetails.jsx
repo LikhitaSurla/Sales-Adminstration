@@ -1,6 +1,6 @@
 import React,{useEffect, useReducer, useState} from 'react'
-import employeeData from './Employee';
-import { empReducer, firststate } from './empReducer';
+import employeeData from './FetchingData/Employee';
+import { empReducer, firststate } from './FetchingData/empReducer';
 import { addDoc, collection } from 'firebase/firestore';
 import { db } from './config/firebase';
 
@@ -60,13 +60,13 @@ if(form==true){
         <input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
         <input type="text" name="salary" placeholder='salary' onChange={handleChange}/>
         <input type="text" name="bonus" placeholder='bonus' onChange={handleChange}/>
-        <button onClick={addEmployee}>addEmployee</button>
+        <button onClick={addEmployee}>Submit</button>
     </> 
  )}
 else{
     return(
         <>
-        <button onClick={viewDetails}>View Details</button>
+        <button onClick={viewDetails}>Add new</button>
         <div>
             {empData.map((data)=>(
                 <>
@@ -75,6 +75,8 @@ else{
                 <h1>{data.age}</h1>
                 <h1>{data.gender}</h1>
                 <h1>{data.phoneNumber}</h1>
+                <h1>{data.salary}</h1>
+                <h1>{data.bonus}</h1>
                 </>
             ))}
     </div>

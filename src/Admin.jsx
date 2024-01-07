@@ -1,6 +1,8 @@
 import React,{useState} from 'react'
-import fetchData from './Data';
+import fetchData from './FetchingData/Data';
 import EmpDetails from './EmpDetails';
+import {Link} from 'react-router-dom';
+
 export default function Admin(props) {
   const [state,setState] =useState(false);
   const [ownerName,setOwnerName]=useState('');
@@ -26,6 +28,9 @@ export default function Admin(props) {
         console.error(err);
       }
   }
+  // const emploData=()=>{
+  //   <EmpDetails/>
+  // }
     if(state==false){
       return (
         <>
@@ -42,12 +47,18 @@ export default function Admin(props) {
     else{
       return(
         <>
-        {/* <div>Sales Deatils</div> */}
-        {/* <div>Employee Details</div> */}
-        {/* <div>New Customer count</div>
-        <div>Customer Reviews</div> */}
-        <EmpDetails/>
-        
+{/*         
+        <button>Sales Details</button>
+        <button onClick={emploData}>Employee Details</button>
+        <button>New Customer</button>
+        <button>Customer Reviews</button> */}
+       
+        <Link to="./EmpDetails">
+          <button>Employee Details</button>
+        </Link>
+        <Link to="./SalesDetails">
+          <button>Sale Details</button>
+        </Link>
         </>
       )
     }
