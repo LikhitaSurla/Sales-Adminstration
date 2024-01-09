@@ -1,11 +1,13 @@
 import React,{useState} from 'react'
-import fetchData from './FetchingData/Data';
-import EmpDetails from './EmpDetails';
+import fetchData from '../FetchingData/Data';
+import EmpDetails from '../AdminFeaturesPages/EmpDetails';
+import { useNavigate} from 'react-router-dom';
 
 export default function Admin(props) {
   const [state,setState] =useState(false);
   const [ownerName,setOwnerName]=useState('');
   const [ownerPassword,setOwnerPassword]=useState('');
+  const navigate=useNavigate();
 
    
     const ownerClicked =async()=>{
@@ -25,6 +27,7 @@ export default function Admin(props) {
         console.error(err);
       }
   }
+
     if(state==false){
       return (
         <>
@@ -39,9 +42,17 @@ export default function Admin(props) {
     else{
       return(
         <>
-          <EmpDetails/>
+      <button onClick={()=> navigate ("/empdetails")
+      }>Emp details</button>
+        <button onClick={() =>navigate("/salesdata")}>Sales Data</button>
+        <button onClick={() =>navigate("/newcustomers")}>New Customers </button>
+        <button onClick={() =>navigate("/customerreviews")}>Customer Reviews</button>
+        
         </>
       )
     }
 
 }
+
+
+

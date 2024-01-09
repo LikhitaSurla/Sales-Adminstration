@@ -111,7 +111,7 @@ export default function EmpDetails() {
             console.log('message',err);
         }
     }
-    const[name,setName] = useState('vijay')
+    
 
     if(updateData){
         return(

@@ -1,49 +1,31 @@
-import { useEffect, useState } from 'react'
+import { BrowserRouter as Router,Routes,Route,useNavigate} from "react-router-dom";
+import EmpDetails from "./AdminFeaturesPages/EmpDetails";
+import SalesData from "./AdminFeaturesPages/SalesData";
+import React from 'react'
+import Admin from "./AftDisplyPages/Admin";
+import Display from "./Display";
+import LoginPro from "./LoginPro";
+import CustomerReviews from "./AdminFeaturesPages/CustomerReviews";
+import NewCustomers from "./AdminFeaturesPages/NewCustomers";
+import Billing from "./AftDisplyPages/Billing";
 
-import { db } from './config/firebase'
-import {collection ,getDocs } from 'firebase/firestore'
-import Billing from './Billing'
-import Display from './Display'
-import fetchData from './FetchingData/Data'
-
-function App() {
-  const [userName,setUserName]=useState('');
-  const [password,setPassword]=useState('');
-  const [state,setState] = useState(false);
- 
-  const submitBtn =async()=>{
-      let matchfound = false;
-      try{
-          const usersData = await fetchData();
-          usersData.forEach((doc)=>{
-            if(doc.name===userName && doc.password ===password){
-              matchfound = true;
-            }
-          });
-          if(matchfound){
-            setState(true);
-          }
-      }
-      catch(err){
-        console.error(err);
-      }
-  }
-
-  if( state==false){
+export default function App() {
   return (
     <>
-    <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
-    <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} />
-    <button onClick={submitBtn}> submit</button>
+    <Router>
+        <Routes>
+            <Route path="/" element={<LoginPro />} />
+            <Route path='/display' element={<Display/>}/>
+            <Route path='/admin' element={<Admin/>}/>
+            <Route path='/billing' element={<Billing/>}/>
+            <Route path="/salesdata" element={<SalesData />}/>
+            <Route path='/empdetails' element={<EmpDetails />}/>
+            <Route path="/customerreviews" element={<CustomerReviews />}/>
+            <Route path="/newcustomers" element={<NewCustomers />}/>
+
+
+        </Routes>
+    </Router>
     </>
   )
-  }
-  else{
-    return (
-      <>
-      <Display/>
-      </>
-    )
-  }
 }
-export default App
