@@ -1,8 +1,8 @@
 import React from 'react'
 import { useState } from 'react';
-import Billing from '../Billing';
-import Admin from './Admin';
-import fetchData from '../FetchingData/Data';
+import Billing from './AftDisplyPages/Billing';
+import Admin from './AftDisplyPages/Admin';
+import fetchData from './FetchingData/Data';
 export default function Display() {
 
   const [state,setState] = useState(true);

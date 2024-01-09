@@ -3,11 +3,11 @@ import EmpDetails from "./AdminFeaturesPages/EmpDetails";
 import SalesData from "./AdminFeaturesPages/SalesData";
 import React from 'react'
 import Admin from "./AftDisplyPages/Admin";
-import Display from "./AftDisplyPages/Display";
+import Display from "./Display";
 import LoginPro from "./LoginPro";
 import CustomerReviews from "./AdminFeaturesPages/CustomerReviews";
 import NewCustomers from "./AdminFeaturesPages/NewCustomers";
-import Billing from "./Billing";
+import Billing from "./AftDisplyPages/Billing";
 
 export default function App() {
   return (

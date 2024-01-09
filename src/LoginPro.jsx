@@ -1,5 +1,5 @@
 import React from 'react'
-import Display from './AftDisplyPages/Display'
+import Display from './Display'
 import fetchData from './FetchingData/Data'
 import { useEffect, useState } from 'react'
 
