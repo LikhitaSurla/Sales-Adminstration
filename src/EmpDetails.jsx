@@ -1,7 +1,7 @@
 import React,{useEffect, useReducer, useState} from 'react'
 import employeeData from './FetchingData/Employee';
 import { empReducer, firststate } from './FetchingData/empReducer';
-import { addDoc,query,where, collection, deleteDoc, getDocs,getDoc, updateDoc } from 'firebase/firestore';
+import { addDoc,query,where, collection, deleteDoc, getDocs,doc,getDoc, updateDoc } from 'firebase/firestore';
 import { db } from './config/firebase';
 
 export default function EmpDetails() {
@@ -12,8 +12,6 @@ export default function EmpDetails() {
     const[updateData,setUpdateData] = useState(false);
     const[tempId,setTempId] = useState('');
     const[empDetails,setEmpDetails] = useState([]);
-
-
     const employeeDetails=async()=>{
         try{
             const employeeDb = await employeeData();
@@ -86,14 +84,10 @@ export default function EmpDetails() {
     const updateEmployeeBtn=async(id)=>{
        setTempId(id);
        setUpdateData(true);
-    //    try{
-    //     const empDetails = await getDocs(
-    //         query(collection(db, 'employeedata'),where('empid', '==',id ))
-    //     )
-    //     console.log(empDetails)
-    //    }catch(err){
-    //     console.log(err.message);
-    //    }
+       const dataa = doc(employeeCollectionRef,'S001');
+       dataa.map((vall)=>{
+        console.log(vall.name)
+       })
     }
 
     const handleUpdateButton=async()=>{
@@ -122,14 +116,14 @@ export default function EmpDetails() {
     if(updateData){
         return(
             <> 
-            {/* <input type="text" name="empid" placeholder='employeeid' readOnly/>
+            <input type="text" name="empid" placeholder='employeeid' readOnly/>
             <input type="text" name="empname" placeholder='enter name' value={name} onChange={(e)=>setName(e.target.value)} />
             <input type="number" name="age" placeholder='enter age'onChange={handleChange}/>
             <input type="text" name="gender" placeholder='enter gender' onChange={handleChange}/>
             <input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
             <input type="text" name="salary" placeholder='salary' onChange={handleChange}/>
             <input type="text" name="bonus" placeholder='bonus' onChange={handleChange}/>
-            <button onClick={handleUpdateButton}>changeDetails</button> */}
+            <button onClick={handleUpdateButton}>changeDetails</button> 
             </>
         )
     }
