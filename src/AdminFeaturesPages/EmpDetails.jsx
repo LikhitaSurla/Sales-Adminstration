@@ -1,8 +1,8 @@
 import React,{useEffect, useReducer, useState} from 'react'
-import employeeData from './FetchingData/Employee';
-import { empReducer, firststate } from './FetchingData/empReducer';
+import employeeData from '../FetchingData/Employee';
+import { empReducer, firststate } from '../FetchingData/empReducer';
 import { addDoc,query,where, collection, deleteDoc, getDocs,getDoc, updateDoc } from 'firebase/firestore';
-import { db } from './config/firebase';
+import { db } from '../config/firebase';
 
 export default function EmpDetails() {
     const[state,dispatch]=useReducer(empReducer,firststate)

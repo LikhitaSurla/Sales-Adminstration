@@ -1,12 +1,12 @@
 import { BrowserRouter as Router,Routes,Route,useNavigate} from "react-router-dom";
-import EmpDetails from "./EmpDetails";
-import SalesData from "./SalesData";
+import EmpDetails from "./AdminFeaturesPages/EmpDetails";
+import SalesData from "./AdminFeaturesPages/SalesData";
 import React from 'react'
-import Admin from "./Admin";
-import Display from "./Display";
+import Admin from "./AftDisplyPages/Admin";
+import Display from "./AftDisplyPages/Display";
 import LoginPro from "./LoginPro";
-import CustomerReviews from "./CustomerReviews";
-import NewCustomers from "./NewCustomers";
+import CustomerReviews from "./AdminFeaturesPages/CustomerReviews";
+import NewCustomers from "./AdminFeaturesPages/NewCustomers";
 import Billing from "./Billing";
 
 export default function App() {

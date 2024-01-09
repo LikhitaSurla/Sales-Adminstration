@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
-import fetchData from './FetchingData/Data';
-import EmpDetails from './EmpDetails';
+import fetchData from '../FetchingData/Data';
+import EmpDetails from '../AdminFeaturesPages/EmpDetails';
 import { useNavigate} from 'react-router-dom';
 
 export default function Admin(props) {
