@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs } from 'firebase/firestore';
+import { collection, query, where, getDocs,addDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
 export default function Billing() {
+
   const productCollectionRef = collection(db, 'productdetails');
+  const customerCollectionRef = collection(db, 'customers');
+
   const [items, setItems] = useState([]);
   const [code, setCode] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [prevQuantity, setPrevQuantity] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
-
-  // There are small small errors the error is the items are diplaying but when we try to increse
-  //the quantityt of second item the first items quantity and value is also changing check it out
+  const[customerName,setCustomerName]=useState('');
+  const[customerNumber,setCustomerNumber]=useState();
+  const[payment,setPayment]=useState(false);
+  
   const [obj, setObj] = useState({
     productname: 'None',
     price: 0,
@@ -37,10 +40,15 @@ export default function Billing() {
   };
 
   const doneBtn = () => {
-    setFinalPrice(quantity*obj.price)
-    setPrevQuantity(quantity);
-    setItems((prevItems) => [...prevItems, obj]);
+  
+  
+    const totalPrice = quantity * obj.price;
+    setFinalPrice((prevFinalPrice) => prevFinalPrice + totalPrice);
+    const newItem = { ...obj, quantity, totalPrice, id: Date.now() };
+    setItems((prevItems) => [...prevItems, newItem]);
+
     newInput();
+
   };
 
   const searchCode = async () => {
@@ -62,12 +70,40 @@ export default function Billing() {
   useEffect(() => {
   }, [obj]);
 
+const paymentSuccess=()=>{
+    setPayment(false);
+    setCustomerName('');
+    setCustomerNumber('');
+    setItems([]);
+    setFinalPrice(0);
+
+try{
+  addDoc(customerCollectionRef,{
+    name:customerName,
+    phonenumber:customerNumber
+  })
+
+}catch(err){
+  console.error(err)
+}
+  }
+
+  const deleteItem = (itemId,itemPrice,itemQuantity) => {
+    setItems((prevItems) => prevItems.filter((item) => item.id !== itemId));
+    setFinalPrice(finalPrice-(itemPrice*itemQuantity))
+  };
+
+  const generateBill=()=>{
+    setPayment(true);
+  }
+
+
   return (
     <div>
       <section>
         <p>Customer details</p>
-        <input type="text" placeholder="Customer name" />
-        <input type="text" placeholder="Customer Number" />
+        <input type="text" placeholder="Customer Name" value={customerName} onChange={(e)=>setCustomerName(e.target.value)} required/>
+        <input type="text" placeholder="Customer Number" value={customerNumber} onChange={(e)=>setCustomerNumber(e.target.value)} required/>
       </section>
       <section>
         <p>Items:</p>
@@ -103,11 +139,21 @@ export default function Billing() {
       <section>
         <p>Selected Items:</p>
           {items.map((item, index) => (
-            <li >
-              {item.productname} - {finalPrice} - Quantity: {prevQuantity}
+            <li key={item.id}>
+              {item.productname} - {item.price*item.quantity} - Quantity: {item.quantity}
+              <button onClick={() => deleteItem(item.id,item.price,item.quantity)}>Delete</button>
+
             </li>
+
           ))}
       </section>
+      <p>To Pay:{finalPrice}</p>
+      {
+        finalPrice>0?<button onClick={generateBill}>Generate Bill</button>
+        :<p>No products to bill on list</p>
+      }
+      
+      {payment && <button onClick={paymentSuccess}>Payment Succesful</button>  }
     </div>
   );
 }
