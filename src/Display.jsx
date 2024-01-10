@@ -2,7 +2,6 @@ import React from 'react'
 import { useState } from 'react';
 import Billing from './AftDisplyPages/Billing';
 import Admin from './AftDisplyPages/Admin';
-import fetchData from './FetchingData/Data';
 export default function Display() {
 
   const [state,setState] = useState(true);
@@ -17,21 +16,7 @@ export default function Display() {
   }
 
   const ownerLogin=async()=>{
-    let matchfound = false;
-    try{
-        const usersData = await fetchData();
-        usersData.forEach((doc)=>{
-          if(doc.name==='vijay' && doc.password ==='vijay'){
-            matchfound = true;
-          }
-        });
-        if(matchfound){
-         setMatchFound(true);
-        }
-    }
-    catch(err){
-      console.error(err);
-    }
+    setMatchFound(true);
   }
 
   if(matchFound){
@@ -46,7 +31,7 @@ export default function Display() {
     <>
     <div>
       <button onClick={newBill}>New Bill</button> 
-      <button onClick={ ownerLogin}>owner login</button>
+      <button onClick={ownerLogin}>owner login</button>
     </div>
     </>
   )}

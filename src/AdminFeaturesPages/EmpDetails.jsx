@@ -1,8 +1,8 @@
 import React,{useEffect, useReducer, useState} from 'react'
-import employeeData from './FetchingData/Employee';
-import { empReducer, firststate } from './FetchingData/empReducer';
+import employeeData from '../FetchingData/Employee'
+import { empReducer, firststate } from '../FetchingData/empReducer'
 import { addDoc,query,where, collection, deleteDoc, getDocs,doc,getDoc, updateDoc } from 'firebase/firestore';
-import { db } from './config/firebase';
+import { db } from '../config/firebase';
 
 export default function EmpDetails() {
     const[state,dispatch]=useReducer(empReducer,firststate)
@@ -11,7 +11,17 @@ export default function EmpDetails() {
     const [empData,setEmpData] = useState([]);
     const[updateData,setUpdateData] = useState(false);
     const[tempId,setTempId] = useState('');
-    const[empDetails,setEmpDetails] = useState([]);
+    const [empDetails, setEmpDetails] = useState({
+        empid: '',
+        name: '',
+        age: 0,
+        gender: '',
+        number: 0,
+        salary: '',
+        bonus: ''
+    });
+
+
     const employeeDetails=async()=>{
         try{
             const employeeDb = await employeeData();
@@ -20,8 +30,6 @@ export default function EmpDetails() {
             console.error(err);
         }
     }
-
-
     useEffect(()=>{
         employeeDetails();
     },[])
@@ -80,15 +88,32 @@ export default function EmpDetails() {
         }
     };
 
-
-    const updateEmployeeBtn=async(id)=>{
-       setTempId(id);
-       setUpdateData(true);
-       const dataa = doc(employeeCollectionRef,'S001');
-       dataa.map((vall)=>{
-        console.log(vall.name)
-       })
-    }
+    const updateEmployeeBtn = async (id) => {
+      try {
+        setTempId(id);
+        setUpdateData(true);
+        const q = query(employeeCollectionRef, where('empid', '==', id));
+        const userCredentials = await getDocs(q);
+        const data = [];
+        userCredentials.forEach((doc) => {
+          data.push(doc.data());
+        });
+        setEmpDetails({
+          name: data[0].name,
+          gender: data[0].gender,
+          age:data[0].age,
+          number:data[0].phoneNumber,
+          salary:data[0].salary,
+          bonus:data[0].bonus  
+        });
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    useEffect(() => {
+      console.log(empDetails);
+    }, [empDetails]); 
+    
 
     const handleUpdateButton=async()=>{
         setForm(false);
@@ -100,31 +125,34 @@ export default function EmpDetails() {
             if (querySnapshot.docs.length > 0) {
                 const docRef = querySnapshot.docs[0].ref;
                 await updateDoc(docRef,{
-                    name:'likhita',
-                    gender:'female'
+                name:state.empname,
+                age:state.age,
+                gender:state.gender,
+                phoneNumber:state.phonenumber,
+                salary:state.salary,
+                bonus:state.bonus
                 });
                 employeeDetails();
             } else {
                 console.error(`Document with empid ${id} not found.`);
             }
         } catch (err) {
-            console.log('message',err);
+            console.log(err);
         }
     }
-    
 
     if(updateData){
         return(
-            <> 
-            <input type="text" name="empid" placeholder='employeeid' readOnly/>
-            <input type="text" name="empname" placeholder='enter name' value={name} onChange={(e)=>setName(e.target.value)} />
-            <input type="number" name="age" placeholder='enter age'onChange={handleChange}/>
-            <input type="text" name="gender" placeholder='enter gender' onChange={handleChange}/>
-            <input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
-            <input type="text" name="salary" placeholder='salary' onChange={handleChange}/>
-            <input type="text" name="bonus" placeholder='bonus' onChange={handleChange}/>
+        <> 
+            <input type="text" name="empid" placeholder='employeeid'  value = {tempId} readOnly  />
+            <input type="text" name="empname" placeholder='enter name' value={empDetails.name} onChange={handleChange} />
+            <input type="number" name="age" placeholder='enter age'value={empDetails.age} onChange={handleChange}/>
+            <input type="text" name="gender" placeholder='enter gender' value={empDetails.gender} onChange={handleChange}/>
+            <input type="number" name="phonenumber" placeholder='enter ph.number' value={empDetails.number} onChange={handleChange}/>
+            <input type="text" name="salary" placeholder='salary' value={empDetails.salary} onChange={handleChange}/>
+            <input type="text" name="bonus" placeholder='bonus' value={empDetails.bonus} onChange={handleChange}/>
             <button onClick={handleUpdateButton}>changeDetails</button> 
-            </>
+        </>
         )
     }
     else if(form==true){

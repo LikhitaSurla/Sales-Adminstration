@@ -8,6 +8,7 @@ const employeeData = async () => {
     const data = [];
     userCredentials.forEach((doc) => {
       data.push(doc.data());
+      // console.log(data)
     });
     return data;
   } catch (error) {
