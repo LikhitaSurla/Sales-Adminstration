@@ -7,6 +7,7 @@ export default function Display() {
   const [state,setState] = useState(true);
   const[billState,setBillState] = useState(false);
   const [matchFound,setMatchFound] = useState(false)
+  const [empId,setEmpId]=useState('');
 
   const newBill = ()=>{
     setState(false);
@@ -18,6 +19,7 @@ export default function Display() {
   const ownerLogin=async()=>{
     setMatchFound(true);
   }
+
 
   if(matchFound){
     return(
@@ -38,16 +40,17 @@ export default function Display() {
   else if(state===false && billState==false){
       return(
        <>
-          <input type="text" placeholder='service id'/>
+          <input type="text" placeholder='service id' onChange={(e)=>setEmpId(e.target.value)}/>
           <button onClick={idSubmit}>submit</button>
-          <Billing/>
+          <Billing />
+
        </>
       )
   }
   else if(state===false && billState==true){
     return(
           <>
-          <Billing/>
+          <Billing empId={empId}/>
           </>
     )
   }

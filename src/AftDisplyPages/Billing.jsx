@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs,addDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs,addDoc,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 
-export default function Billing() {
+export default function Billing(props) {
 
   const productCollectionRef = collection(db, 'productdetails');
   const customerCollectionRef = collection(db, 'customers');
+  const employeeCollectionRef =collection(db,'employeedata')
+
 
   const [items, setItems] = useState([]);
   const [code, setCode] = useState('');
@@ -76,6 +78,7 @@ const paymentSuccess=()=>{
     setCustomerNumber('');
     setItems([]);
     setFinalPrice(0);
+    handleUpdateButton();
 
 try{
   addDoc(customerCollectionRef,{
@@ -98,8 +101,40 @@ try{
   }
 
 
+  const handleUpdateButton=async()=>{
+    
+    try {
+        const querySnapshot = await getDocs(
+            query(collection(db, 'employeedata'), where('empid', '==',props.empId ))
+        );
+        const data = [];
+        if (querySnapshot.docs.length > 0) {
+          const q = query(employeeCollectionRef, where('empid', '==',props.empId ));
+          const userCredentials = await getDocs(q);
+          userCredentials.forEach((doc) => {
+            data.push(doc.data());
+          });
+          let Bonus=finalPrice*0.05
+
+            const docRef = querySnapshot.docs[0].ref;
+            await updateDoc(docRef,{
+            bonus:data[0].bonus + Bonus
+            });
+            
+            
+        } else {
+            console.error(`Document with empid ${id} not found.`);
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+
+
   return (
     <div>
+      <p>EmployeeId:{props.empId}</p>
       <section>
         <p>Customer details</p>
         <input type="text" placeholder="Customer Name" value={customerName} onChange={(e)=>setCustomerName(e.target.value)} required/>
