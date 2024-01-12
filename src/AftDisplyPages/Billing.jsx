@@ -7,6 +7,7 @@ export default function Billing(props) {
   const productCollectionRef = collection(db, 'productdetails');
   const customerCollectionRef = collection(db, 'customers');
   const employeeCollectionRef =collection(db,'employeedata')
+  const salesCollectionRef = collection(db, 'salesdata');
 
 
   const [items, setItems] = useState([]);
@@ -16,7 +17,9 @@ export default function Billing(props) {
   const[customerName,setCustomerName]=useState('');
   const[customerNumber,setCustomerNumber]=useState();
   const[payment,setPayment]=useState(false);
-  
+  const[billNo,setBillNo]=useState(12300000)
+  const [totalSales,setTotalSales]=useState(0);
+
   const [obj, setObj] = useState({
     productname: 'None',
     price: 0,
@@ -42,8 +45,6 @@ export default function Billing(props) {
   };
 
   const doneBtn = () => {
-  
-  
     const totalPrice = quantity * obj.price;
     setFinalPrice((prevFinalPrice) => prevFinalPrice + totalPrice);
     const newItem = { ...obj, quantity, totalPrice, id: Date.now() };
@@ -72,18 +73,25 @@ export default function Billing(props) {
   useEffect(() => {
   }, [obj]);
 
+
 const paymentSuccess=()=>{
     setPayment(false);
     setCustomerName('');
     setCustomerNumber('');
+ console.log(finalPrice)
+ setTotalSales(0);
     setItems([]);
     setFinalPrice(0);
     handleUpdateButton();
-
+    setBillNo(billNo+1)
+console.log(totalSales)
 try{
   addDoc(customerCollectionRef,{
-    name:customerName,
-    phonenumber:customerNumber
+    name:customerName, phonenumber:customerNumber
+  })
+
+  addDoc(salesCollectionRef,{
+    name:customerName,purchase:finalPrice,billid:billNo,totalsales:totalSales
   })
 
 }catch(err){
@@ -129,8 +137,6 @@ try{
         console.log(err);
     }
 }
-
-
 
   return (
     <div>
