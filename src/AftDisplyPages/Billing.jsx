@@ -92,7 +92,7 @@ try{
   })
 
   addDoc(salesCollectionRef,{
-    name:customerName,purchase:finalPrice,billid:billNo,totalsales:totalSales+finalPrice
+    name:customerName,purchase:finalPrice,billid:billNo+1,totalsales:totalSales+finalPrice
   })
 
 }catch(err){
