@@ -15,7 +15,7 @@ export default function Billing(props) {
   const [quantity, setQuantity] = useState(1);
   const [finalPrice, setFinalPrice] = useState(0);
   const[customerName,setCustomerName]=useState('');
-  const[customerNumber,setCustomerNumber]=useState();
+  const[customerNumber,setCustomerNumber]=useState('');
   const[payment,setPayment]=useState(false);
   const[billNo,setBillNo]=useState(12300000)
   const [totalSales,setTotalSales]=useState(0);
@@ -78,20 +78,21 @@ const paymentSuccess=()=>{
     setPayment(false);
     setCustomerName('');
     setCustomerNumber('');
- console.log(finalPrice)
- setTotalSales(0);
+
+ setTotalSales(totalSales+finalPrice); 
     setItems([]);
     setFinalPrice(0);
     handleUpdateButton();
     setBillNo(billNo+1)
-console.log(totalSales)
+
+
 try{
   addDoc(customerCollectionRef,{
     name:customerName, phonenumber:customerNumber
   })
 
   addDoc(salesCollectionRef,{
-    name:customerName,purchase:finalPrice,billid:billNo,totalsales:totalSales
+    name:customerName,purchase:finalPrice,billid:billNo,totalsales:totalSales+finalPrice
   })
 
 }catch(err){
