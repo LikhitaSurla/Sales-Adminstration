@@ -2,6 +2,10 @@ import React from 'react'
 import { useState } from 'react';
 import Billing from './AftDisplyPages/Billing';
 import Admin from './AftDisplyPages/Admin';
+import './Styling/index.css'
+import { Button } from "@tremor/react";
+
+
 export default function Display() {
 
   const [state,setState] = useState(true);
@@ -31,10 +35,11 @@ export default function Display() {
   else if(state){
     return (
     <>
-    <div>
-      <button onClick={newBill}>New Bill</button> 
-      <button onClick={ownerLogin}>owner login</button>
+  
+    <div className="body">
+             <Button size="lg" onClick={newBill}> + New Bill</Button>
     </div>
+      <Button size="xs" className='adminlogin' onClick={ownerLogin}>Admin</Button>
     </>
   )}
   else if(state===false && billState==false){

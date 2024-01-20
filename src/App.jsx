@@ -22,8 +22,6 @@ export default function App() {
             <Route path='/empdetails' element={<EmpDetails />}/>
             <Route path="/customerreviews" element={<CustomerReviews />}/>
             <Route path="/newcustomers" element={<NewCustomers />}/>
-
-
         </Routes>
     </Router>
     </>

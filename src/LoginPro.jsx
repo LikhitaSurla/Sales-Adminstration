@@ -1,24 +1,31 @@
 import React from 'react'
 import Display from './Display'
 import fetchData from './FetchingData/Data'
-import { useEffect, useState } from 'react'
+import {useState } from 'react'
+import './Styling/index.css'
+import { Button } from "@tremor/react";
+import { useNavigate } from 'react-router-dom';
+
 
 
 export default function LoginPro() {
     const [userName,setUserName]=useState('');
     const [password,setPassword]=useState('');
     const [state,setState] = useState(false);
-    const submitBtn =async()=>{
-        let matchfound = false;
+    const navigate = useNavigate();
+
+    const submitBtn =async(e)=>{
+      e.preventDefault();
+      console.log("Button clicked!");
         try{
             const usersData = await fetchData();
             usersData.forEach((doc)=>{
               if(doc.name===userName && doc.password ===password){
-                matchfound = true;
+                setState(true);
               }
             });
-            if(matchfound){
-              setState(true);
+              if(state==true){
+              navigate('/display');
             }
         }
         catch(err){
@@ -27,11 +34,19 @@ export default function LoginPro() {
     }
   
     if( state==false){
+      
     return (
       <>
-      <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
-      <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} />
-      <button onClick={submitBtn}> submit</button>
+     <div className="body">
+       <div className='intiallogin'>
+       <form className="login-form">
+        <h1>SalesEase</h1>
+      <input type="text" placeholder='Enter your name' onChange={(e)=>setUserName(e.target.value)} />
+      <input type="password"  placeholder='Enter your password' onChange={(e)=>setPassword(e.target.value)} />
+      <Button size="md" onClick={submitBtn}>Submit </Button>
+      </form>
+      </div>
+      </div>
       </>
     )
     }
