@@ -2,6 +2,8 @@ import React,{useState} from 'react'
 import fetchData from '../FetchingData/Data';
 import EmpDetails from '../AdminFeaturesPages/EmpDetails';
 import { useNavigate} from 'react-router-dom';
+import { Button ,Card, Metric, Text } from "@tremor/react";
+import '../Styling/index.css'
 
 export default function Admin(props) {
   const [state,setState] =useState(false);
@@ -10,7 +12,9 @@ export default function Admin(props) {
   const navigate=useNavigate();
 
    
-    const ownerClicked =async()=>{
+    const ownerClicked =async(e)=>{
+      e.preventDefault();
+
       let matchfound = false;
       try{
           const usersData = await fetchData();
@@ -31,23 +35,45 @@ export default function Admin(props) {
     if(state==false){
       return (
         <>
+        <div className="body">
+       <div className='intiallogin'>
+       <form className="login-form">
         <input type="text" placeholder='name' onChange={(e)=>setOwnerName(e.target.value)} />
         <input type="password" placeholder='password' onChange={(e)=>setOwnerPassword(e.target.value)} />
-        <button
-        >Update my Password</button>
-        <button onClick={ownerClicked}>submit</button>
+        {/* <button
+        >Update my Password</button> */}
+        <Button className="Btn" size="md" >Update Password </Button>
+
+        {/* <button onClick={ownerClicked}>submit</button> */}
+        <Button size="md" className="Btn" onClick={ownerClicked} >Submit </Button>
+
+        </form>
+      </div>
+      </div>
         </>
       )
     }
     else{
       return(
         <>
-      <button onClick={()=> navigate ("/empdetails")
-      }>Emp details</button>
-        <button onClick={() =>navigate("/salesdata")}>Sales Data</button>
-        <button onClick={() =>navigate("/newcustomers")}>New Customers </button>
-        <button onClick={() =>navigate("/customerreviews")}>Customer Reviews</button>
-        
+        <div className="grid-container">
+
+          <Card  className="max-w-xs mx-auto" onClick={()=> navigate ("/empdetails")} decoration="top" decorationColor="indigo">
+    <Metric>Employee Details</Metric>
+  </Card>
+  <Card  className="max-w-xs mx-auto" onClick={() =>navigate("/salesdata")} decoration="top" decorationColor="indigo">
+    <Metric> Sales Data</Metric>
+  </Card>
+
+  <Card  className="max-w-xs mx-auto" onClick={() =>navigate("/newcustomers")} decoration="top" decorationColor="indigo">
+    <Metric>Customer Family</Metric>
+  </Card>
+
+  <Card  className="max-w-xs mx-auto" onClick={() =>navigate("/customerreviews")} decoration="top" decorationColor="indigo">
+    <Metric>Customer Reviews </Metric>
+  </Card>
+
+</div>
         </>
       )
     }
