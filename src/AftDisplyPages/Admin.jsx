@@ -40,11 +40,9 @@ export default function Admin(props) {
        <form className="login-form">
         <input type="text" placeholder='name' onChange={(e)=>setOwnerName(e.target.value)} />
         <input type="password" placeholder='password' onChange={(e)=>setOwnerPassword(e.target.value)} />
-        {/* <button
-        >Update my Password</button> */}
+        
         <Button className="Btn" size="md" >Update Password </Button>
 
-        {/* <button onClick={ownerClicked}>submit</button> */}
         <Button size="md" className="Btn" onClick={ownerClicked} >Submit </Button>
 
         </form>

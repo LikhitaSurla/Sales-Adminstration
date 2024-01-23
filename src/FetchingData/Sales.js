@@ -16,4 +16,19 @@ const fetchSales = async () => {
   }
 };
 
-export default fetchSales;
+const indexValues = async () => {
+  try {
+      const indexCollectionRef = collection(db, 'indexes');
+      const indexDetails = await getDocs(indexCollectionRef);
+      const data = [];
+      indexDetails.forEach((doc) => {
+    data.push(doc.data());
+  });
+  return data;
+} catch (error) {
+  console.error('Error fetching user data from Firestore:', error);
+  throw error;
+}
+};
+
+export {fetchSales ,indexValues};

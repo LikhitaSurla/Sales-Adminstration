@@ -1,10 +1,11 @@
 import React,{useState,useEffect} from 'react'
 import { db } from '../config/firebase';
-import fetchSales from '../FetchingData/Sales'
+import {fetchSales,indexValues} from '../FetchingData/Sales'
   
 
 export default function SalesData() {
   const[salesCollection,setSalesCollection]=useState([]);
+  
 
   const salesDetails=async()=>{
     try{
@@ -14,9 +15,20 @@ export default function SalesData() {
       console.error(err)
     }
   }
+  const indexDetails=async()=>{
+    try{
+      const indexDb=await indexValues();
+      
+  }catch(err){
+      console.error(err)
+    }
+  }
+
+
 
   useEffect(()=>{
     salesDetails();
+    indexDetails();
   },[]) 
   return (
     <>
@@ -30,7 +42,7 @@ export default function SalesData() {
                 <h3>{data.totalsales}</h3>
                 
                 
-            </div>
+          </div>
         ))}   
     </>
   )
