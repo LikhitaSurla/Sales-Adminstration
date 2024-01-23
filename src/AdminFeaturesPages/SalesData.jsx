@@ -15,20 +15,9 @@ export default function SalesData() {
       console.error(err)
     }
   }
-  // const indexDetails=async()=>{
-  //   try{
-  //     const indexDb=await indexValues();
-      
-  // }catch(err){
-  //     console.error(err)
-  //   }
-  // }
-
-
 
   useEffect(()=>{
     salesDetails();
-    // indexDetails();
   },[]) 
   return (
     <>
@@ -39,9 +28,7 @@ export default function SalesData() {
                 <h1>{data.billid}</h1>
                 <h3>{data.name}</h3>
                 <h3>{data.purchase}</h3>
-                <h3>{data.totalsales}</h3>
-                
-                
+                <h3>{data.totalsales}</h3>   
           </div>
         ))}   
     </>
