@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { collection, query, where, getDocs,addDoc,updateDoc } from 'firebase/firestore';
+import { collection, query, where, getDocs,doc,addDoc,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import {indexValues} from '../FetchingData/Sales'
 
-export default function Billing(props) {
+export default function Billing(props){
 
   const productCollectionRef = collection(db, 'productdetails');
   const customerCollectionRef = collection(db, 'customers');
   const employeeCollectionRef =collection(db,'employeedata')
   const salesCollectionRef = collection(db, 'salesdata');
+  const indexCollectionRef = collection(db,'indexes')
+  const documentId = 'WH23CKiI1e0rKiGaKz4R'; 
+  const indexDocumentRef = doc(indexCollectionRef, documentId);
 
 
   const [items, setItems] = useState([]);
@@ -17,8 +21,28 @@ export default function Billing(props) {
   const[customerName,setCustomerName]=useState('');
   const[customerNumber,setCustomerNumber]=useState('');
   const[payment,setPayment]=useState(false);
-  const[billNo,setBillNo]=useState(12300000)
+
+
+  const[billNo,setBillNo]=useState(0)
   const [totalSales,setTotalSales]=useState(0);
+
+
+const indexDetails=async()=>{
+   try{
+     const indexDb=await indexValues();
+     indexDb.map((data)=>{
+      setBillNo(data.billid);
+      setTotalSales(data.totalsales);
+     })
+ }catch(err){
+     console.error(err)
+   }
+ }
+
+ useEffect(()=>{
+      indexDetails();
+ },[])
+
 
   const [obj, setObj] = useState({
     productname: 'None',
@@ -85,7 +109,6 @@ const paymentSuccess=()=>{
     handleUpdateButton();
     setBillNo(billNo+1)
 
-
 try{
   addDoc(customerCollectionRef,{
     name:customerName, phonenumber:customerNumber
@@ -93,6 +116,11 @@ try{
 
   addDoc(salesCollectionRef,{
     name:customerName,purchase:finalPrice,billid:billNo+1,totalsales:totalSales+finalPrice
+  })
+
+  updateDoc(indexDocumentRef,{
+    billid:billNo+1,
+    totalsales:totalSales+finalPrice
   })
 
 }catch(err){
