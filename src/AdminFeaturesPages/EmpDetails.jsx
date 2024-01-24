@@ -3,6 +3,8 @@ import employeeData from '../FetchingData/Employee'
 import { empReducer, firststate } from '../FetchingData/empReducer'
 import { addDoc,query,where, collection, deleteDoc, getDocs,doc,getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,} from "@tremor/react";
+
 
 export default function EmpDetails() {
     const[state,dispatch]=useReducer(empReducer,firststate)
@@ -171,7 +173,59 @@ export default function EmpDetails() {
 else{
     return(
         <> 
-        <button onClick={viewDetails}>Add new</button>
+
+<Card>
+    <Title>EMPLOYEE DETAILS</Title>
+    <Button size="xs" onClick={viewDetails}> +Add new</Button>
+    <Table className="mt-5">
+
+      <TableHead>
+        <TableRow>
+          <TableHeaderCell>EMPLOYEE ID</TableHeaderCell>
+          <TableHeaderCell>EMPLOYEE NAME</TableHeaderCell>
+          <TableHeaderCell>AGE</TableHeaderCell>
+          <TableHeaderCell>GENDER</TableHeaderCell>
+          <TableHeaderCell>PHONE NUMBER</TableHeaderCell>
+          <TableHeaderCell>SALARY</TableHeaderCell>
+          <TableHeaderCell>BONUS</TableHeaderCell>
+
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {empData.map((data) => (
+          <TableRow key={data.empid}>
+            <TableCell>{data.empid}</TableCell>
+            <TableCell>
+              <Text>{data.name}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{data.age}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{data.gender}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{data.phoneNumber}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{data.salary}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{data.bonus}</Text>
+            </TableCell>
+            <TableCell>
+            <Button size="xs"  onClick={() => deleteEmployee(data.empid)}>Update</Button>
+              </TableCell>
+              <TableCell>
+            <Button size="xs" onClick={() => deleteEmployee(data.empid)}>Delete</Button>
+              </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+  </Card>
+
+        {/* <button onClick={viewDetails}>Add new</button>
         {empData.map((data) => (
             <div key={data.empid}>
                 <h1>{data.empid}</h1>
@@ -184,7 +238,7 @@ else{
                 <button onClick={() => deleteEmployee(data.empid)}>Delete</button>
                 <button onClick={() => updateEmployeeBtn(data.empid)}>Update</button>
             </div>
-        ))}        
+        ))}         */}
         </>
     )
 }
