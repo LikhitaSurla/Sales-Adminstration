@@ -19,8 +19,8 @@ export default function EmpDetails() {
         age: 0,
         gender: '',
         number: 0,
-        salary: '',
-        bonus: ''
+        salary: 0,
+        bonus: 0,
     });
 
 
@@ -151,8 +151,8 @@ export default function EmpDetails() {
             <input type="number" name="age" placeholder='enter age'value={empDetails.age} onChange={handleChange}/>
             <input type="text" name="gender" placeholder='enter gender' value={empDetails.gender} onChange={handleChange}/>
             <input type="number" name="phonenumber" placeholder='enter ph.number' value={empDetails.number} onChange={handleChange}/>
-            <input type="text" name="salary" placeholder='salary' value={empDetails.salary} onChange={handleChange}/>
-            <input type="text" name="bonus" placeholder='bonus' value={empDetails.bonus} onChange={handleChange}/>
+            <input type="number" name="salary" placeholder='salary' value={empDetails.salary} onChange={handleChange}/>
+            <input type="number" name="bonus" placeholder='bonus' value={empDetails.bonus} onChange={handleChange}/>
             <button onClick={handleUpdateButton}>changeDetails</button> 
         </>
         )
@@ -165,8 +165,8 @@ export default function EmpDetails() {
             <input type="number" name="age" placeholder='enter age'onChange={handleChange}/>
             <input type="text" name="gender" placeholder='enter gender' onChange={handleChange}/>
             <input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
-            <input type="text" name="salary" placeholder='salary' onChange={handleChange}/>
-            <input type="text" name="bonus" placeholder='bonus' onChange={handleChange}/>
+            <input type="number" name="salary" placeholder='salary' onChange={handleChange}/>
+            <input type="number" name="bonus" placeholder='bonus' onChange={handleChange}/>
             <button onClick={addEmployee}>Submit</button>
         </> 
     )}

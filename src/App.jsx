@@ -8,6 +8,7 @@ import LoginPro from "./LoginPro";
 import CustomerReviews from "./AdminFeaturesPages/CustomerReviews";
 import NewCustomers from "./AdminFeaturesPages/NewCustomers";
 import Billing from "./AftDisplyPages/Billing";
+import Review from "./AdminFeaturesPages/Review";
 
 export default function App() {
   return (
@@ -22,6 +23,7 @@ export default function App() {
             <Route path='/empdetails' element={<EmpDetails />}/>
             <Route path="/customerreviews" element={<CustomerReviews />}/>
             <Route path="/newcustomers" element={<NewCustomers />}/>
+            <Route path="/review" element={<Review />}/>
         </Routes>
     </Router>
     </>
