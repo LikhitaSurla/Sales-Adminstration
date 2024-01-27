@@ -3,7 +3,7 @@ import { useState } from 'react';
 import Billing from './AftDisplyPages/Billing';
 import Admin from './AftDisplyPages/Admin';
 import './Styling/index.css'
-import { Button } from "@tremor/react";
+import { Button, Card, Flex, Text, Title } from "@tremor/react";
 
 
 export default function Display() {
@@ -45,9 +45,18 @@ export default function Display() {
   else if(state===false && billState==false){
       return(
        <>
-          <input type="text" placeholder='service id' onChange={(e)=>setEmpId(e.target.value)}/>
-          <button onClick={idSubmit}>submit</button>
-          <Billing />
+       <div className='employesubmit'>
+       <Card className="max-w-sm mx-auto">
+     <p> Employee Id :<span>  </span>
+          <input type="text" placeholder='service id' onChange={(e)=>setEmpId(e.target.value)}/></p>
+      
+      <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+        <Button size="xs" onClick={idSubmit} variant="primary">
+Submit </Button>
+      </Flex>
+    </Card>
+    </div>
+          
 
        </>
       )

@@ -2,6 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { collection, query, where, getDocs,doc,addDoc,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import {indexValues} from '../FetchingData/Sales'
+import { SearchIcon } from "@heroicons/react/solid";
+import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Grid,Col, Flex} from "@tremor/react";
+import '../Styling/index.css'
 
 export default function Billing(props){
 
@@ -168,62 +171,127 @@ try{
 }
 
   return (
-    <div>
-      <p>EmployeeId:{props.empId}</p>
-      <section>
-        <p>Customer details</p>
-        <input type="text" placeholder="Customer Name" value={customerName} onChange={(e)=>setCustomerName(e.target.value)} required/>
-        <input type="text" placeholder="Customer Number" value={customerNumber} onChange={(e)=>setCustomerNumber(e.target.value)} required/>
-      </section>
-      <section>
-        <p>Items:</p>
-        <input
+    <div className='billing'>
+      <Grid numItemsLg={6} className="gap-6 mt-6">
+        <Col numColSpanLg={2} className='billing-side-a'>
+          <div className="space-y-6">
+            <Card>
+              <div   >EmployeeId:{props.empId}</div>
+              <br/>
+           <div >Date:</div>
+           <br/>
+           <div >Bill No:</div>
+            </Card>
+</div>
+              <div className="space-y-6" >
+            <Card>
+            
+{/* <p>Customer details</p> */}
+<p>Customer Name:  <input type="text" placeholder="Customer Name" value={customerName} onChange={(e)=>setCustomerName(e.target.value)} required/></p>
+<br/>
+<p>Customer Number: <input type="text" placeholder="Customer Number" value={customerNumber} onChange={(e)=>setCustomerNumber(e.target.value)} required/></p>
+            </Card>
+</div>
+
+              <div className="space-y-6" >
+            <Card>
+              <h1>To Pay:{finalPrice}</h1>    
+<Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+ {
+        finalPrice>0?<Button justifyContent="center" size="xs" onClick={generateBill}>Generate Bill</Button>
+        :<p>No products to bill on list</p>
+      }
+      </Flex>
+      <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+
+      {payment && <Button size="xs" onClick={paymentSuccess}>Payment Succesful</Button>  }
+      </Flex>
+
+            </Card>
+      </div>
+            
+
+        </Col>
+
+
+
+        
+      <Col numColSpanLg={4}>
+            <div className="space-y-6" >
+          <Card className="h-full">
+        <p>Search Product Code :<span> </span>
+      <input  icon={SearchIcon} placeholder="Search for Product Code..."
           type="text"
-          placeholder="code"
           value={code}
-          onChange={(e) => setCode(e.target.value)}
-        />
-        <button onClick={searchCode}>Submit</button>
+          onChange={(e) => setCode(e.target.value)}/><span>  </span>
+        <Button size="xs"onClick={searchCode}>Submit</Button></p>
+        
         <p>Product name: {obj.productname}</p>
         <p>Price: {obj.price}</p>
-        <p>Final Price: {quantity * obj.price}</p>
-        <div>
-          <button onClick={DecrementQuantity}>-</button>
+        <p>Quantity:
+        <span>  </span>
+          <Button size="xs" onClick={DecrementQuantity}>-</Button><span>  </span>
           <input
             type="number"
             placeholder="quantity"
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
-          />
-          <button onClick={IncrementQuantity}>+</button>
-        </div>
-        <br />
-        <br />
-      </section>
-      <div>
-        <button onClick={doneBtn}>
+            /><span>  </span>
+          <Button size="xs" onClick={IncrementQuantity}>+</Button>
+          </p>
+            <p>Final Price: {quantity * obj.price}</p>
+          <br/>
+         
+          <Button size="xs" onClick={doneBtn}>
           Done
-        </button>
-      </div>
-      <br />
+        </Button>
+        
       <section>
-        <p>Selected Items:</p>
-          {items.map((item, index) => (
-            <li key={item.id}>
-              {item.productname} - {item.price*item.quantity} - Quantity: {item.quantity}
-              <button onClick={() => deleteItem(item.id,item.price,item.quantity)}>Delete</button>
+       
+    
+    <Table className="mt-5">
+      <TableHead>
+        <TableRow>
+        <TableHeaderCell>PRODUCT ID</TableHeaderCell>
+          <TableHeaderCell>PRODUCT NAME</TableHeaderCell>
+          <TableHeaderCell>PRICE</TableHeaderCell>
+          <TableHeaderCell>QUANTITY</TableHeaderCell>
+          <TableHeaderCell>TOTAL PRICE</TableHeaderCell>
 
-            </li>
+        </TableRow>
+      </TableHead>
+      <TableBody>
+        {items.map((item,index) => (
+          <TableRow key={item.id}>
+            <TableCell>{item.id}</TableCell>
+            <TableCell>
+              <Text>{item.productname}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{item.price}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{item.quantity}</Text>
+            </TableCell>
+            <TableCell>
+              <Text>{item.price*item.quantity}</Text>
+            </TableCell>
+            <TableCell>
+            <Button size="xs" onClick={() => deleteItem(item.id,item.price,item.quantity)}>Delete</Button>
 
-          ))}
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
+ 
+     
       </section>
-      <p>To Pay:{finalPrice}</p>
-      {
-        finalPrice>0?<button onClick={generateBill}>Generate Bill</button>
-        :<p>No products to bill on list</p>
-      }
-      
-      {payment && <button onClick={paymentSuccess}>Payment Succesful</button>  }
-    </div>
-  );
+      </Card>
+      </div>
+        </Col>
+      </Grid>
+
+       </div>
+       );
 }

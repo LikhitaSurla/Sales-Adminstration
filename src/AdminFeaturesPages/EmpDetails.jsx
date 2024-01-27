@@ -3,7 +3,8 @@ import employeeData from '../FetchingData/Employee'
 import { empReducer, firststate } from '../FetchingData/empReducer'
 import { addDoc,query,where, collection, deleteDoc, getDocs,doc,getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,} from "@tremor/react";
+import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Flex,} from "@tremor/react";
+import '../Styling/index.css'
 
 
 export default function EmpDetails() {
@@ -146,28 +147,39 @@ export default function EmpDetails() {
     if(updateData){
         return(
         <> 
-            <input type="text" name="empid" placeholder='employeeid'  value = {tempId} readOnly  />
-            <input type="text" name="empname" placeholder='enter name' value={empDetails.name} onChange={handleChange} />
-            <input type="number" name="age" placeholder='enter age'value={empDetails.age} onChange={handleChange}/>
-            <input type="text" name="gender" placeholder='enter gender' value={empDetails.gender} onChange={handleChange}/>
-            <input type="number" name="phonenumber" placeholder='enter ph.number' value={empDetails.number} onChange={handleChange}/>
-            <input type="number" name="salary" placeholder='salary' value={empDetails.salary} onChange={handleChange}/>
-            <input type="number" name="bonus" placeholder='bonus' value={empDetails.bonus} onChange={handleChange}/>
-            <button onClick={handleUpdateButton}>changeDetails</button> 
+        <div className='employesubmit'>
+        <Title>Updating Employee Details</Title>
+          <Card>
+          <p>Employee ID : <input type="text" name="empid" placeholder='Employee id'  value = {tempId} readOnly  /></p> 
+          <p>Employee Name : <input type="text" name="empname" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} /></p> 
+          <p>Age : <input type="number" name="age" placeholder='Enter Age'value={empDetails.age} onChange={handleChange}/></p> 
+          <p>Gender : <input type="text" name="gender" placeholder='Enter Gender' value={empDetails.gender} onChange={handleChange}/></p> 
+          <p>Phone Number :<input type="number" name="phonenumber" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange}/></p> 
+          <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange}/></p> 
+          <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} onChange={handleChange}/></p> 
+            <Button onClick={handleUpdateButton}>ChangeDetails</Button> 
+            </Card>
+            </div>
         </>
         )
     }
     else if(form==true){
     return (
         <>  
-            <input type="text" name="empid" placeholder='employeeid' onChange={handleChange}/>
-            <input type="text" name="empname" placeholder='enter name'onChange={handleChange} />
-            <input type="number" name="age" placeholder='enter age'onChange={handleChange}/>
-            <input type="text" name="gender" placeholder='enter gender' onChange={handleChange}/>
-            <input type="number" name="phonenumber" placeholder='enter ph.number' onChange={handleChange}/>
-            <input type="number" name="salary" placeholder='salary' onChange={handleChange}/>
-            <input type="number" name="bonus" placeholder='bonus' onChange={handleChange}/>
-            <button onClick={addEmployee}>Submit</button>
+        <div className='employesubmit'>
+        
+        <Card>
+          <Title justifyContent='center'>Adding Employee</Title>
+<p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange}/></p> 
+<p> Employee Name : <input type="text" name="Employee Name" placeholder='enter name'onChange={handleChange} /></p> 
+<p> Age :  <input type="number" name="age" placeholder='Enter Age'onChange={handleChange}/></p> 
+<p>Gender :   <input type="text" name="gender" placeholder='Enter Gender' onChange={handleChange}/></p> 
+<p> Phone Number :<input type="number" name="phonenumber" placeholder='Enter Phonenumber' onChange={handleChange}/></p> 
+<p>Salary: <input type="number" name="salary" placeholder='Salary' onChange={handleChange}/></p> 
+<p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange}/></p> 
+            <Button onClick={addEmployee}>Submit</Button>
+            </Card>
+            </div>
         </> 
     )}
 else{
@@ -176,7 +188,9 @@ else{
 
 <Card>
     <Title>EMPLOYEE DETAILS</Title>
-    <Button size="xs" onClick={viewDetails}> +Add new</Button>
+    <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+
+   <Button size="xs" onClick={viewDetails}> +Add new</Button></Flex>
     <Table className="mt-5">
 
       <TableHead>
@@ -214,7 +228,7 @@ else{
               <Text>{data.bonus}</Text>
             </TableCell>
             <TableCell>
-            <Button size="xs"  onClick={() => deleteEmployee(data.empid)}>Update</Button>
+            <Button size="xs"  onClick={() => updateEmployeeBtn(data.empid)}>Update</Button>
               </TableCell>
               <TableCell>
             <Button size="xs" onClick={() => deleteEmployee(data.empid)}>Delete</Button>
@@ -225,20 +239,7 @@ else{
     </Table>
   </Card>
 
-        {/* <button onClick={viewDetails}>Add new</button>
-        {empData.map((data) => (
-            <div key={data.empid}>
-                <h1>{data.empid}</h1>
-                <h1>{data.name}</h1>
-                <h1>{data.age}</h1>
-                <h1>{data.gender}</h1>
-                <h1>{data.phoneNumber}</h1>
-                <h1>{data.salary}</h1>
-                <h1>{data.bonus}</h1>
-                <button onClick={() => deleteEmployee(data.empid)}>Delete</button>
-                <button onClick={() => updateEmployeeBtn(data.empid)}>Update</button>
-            </div>
-        ))}         */}
+        
         </>
     )
 }

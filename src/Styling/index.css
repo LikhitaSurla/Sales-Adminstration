@@ -65,9 +65,18 @@ h1{
   }
   
   .card {
-    max-width: 500px; /* Adjust as needed */
+    max-width: 500px;
     margin: auto;
   }
+  .space-y-6{
+    margin-top:20px;
   
+  }
+  .employesubmit
+  {
+    position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
-  
+  }
