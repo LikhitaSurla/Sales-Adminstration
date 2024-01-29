@@ -1,82 +1,106 @@
 
-import React,{useState,useEffect} from 'react'
-import { Card, SparkAreaChart, SparkBarChart, SparkLineChart, Text, Title } from "@tremor/react";
+import React, { useState, useEffect } from 'react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import reviewData from '../FetchingData/Review';
+import { Title } from '@tremor/react';
 
 export default function CustomerReviews() {
+  const [reviewCollection, setReviewCollection] = useState([]);
 
- 
-  const[reviewCollection,setReviewCollection]=useState([
-    { month: "Jan 21", q1: 4, q2: 3, q3: 5 },
-  { month: "Feb 21", q1: 3, q2: 4, q3: 2 },
-  ])
-  const reviewDataset=async()=>{
-    try{
-      const reviewDb=await reviewData();
-      setReviewCollection(reviewDb)
-      console.log(reviewDb)
-    }catch(err){
-      console.error(err)
+  const reviewDataset = async () => {
+    try {
+      const reviews = await reviewData();
+      setReviewCollection(reviews);
+    } catch (err) {
+      console.error(err);
     }
-  }
-  useEffect(()=>{
+  };
+
+  useEffect(() => {
     reviewDataset();
-},[])
+  }, []);
+
+  const aggregateData = (questionNumber) => {
+    const counts = {};
+
+    for (let i = 1; i <= 5; i++) {
+      counts[`${questionNumber}-${i}`] = 0;
+    }
+
+    reviewCollection.forEach((review) => {
+      const option = review[`q${questionNumber}`];
+      counts[`${questionNumber}-${option}`] += 1;
+    });
+
+    const aggregatedData = Object.keys(counts).map((key) => ({
+      questionOption: key,
+      count: counts[key],
+    }));
+
+    return aggregatedData;
+  };
 
   return (
-    // <div>CustomerReviews</div>
     <>
-    <p>hii</p>
-    
-    <Card className="mx-auto w-fit">
-    <SparkAreaChart
-      data={reviewCollection}
-      categories={["q2"]}
-      index={"month"}
-      colors={["indigo-200", "#ffcc33"]}
-      className="h-10 w-36"
-    />
-  </Card>
+      <p>Customer Reviews</p>
+
+    <div> <Title>1. How was your shopping experience with us today?</Title> {[1].map((questionNumber) => (
+        <div key={questionNumber}>
+          <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
+            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+            <XAxis dataKey="questionOption" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="count" fill="#8884d8" />
+          </BarChart>
+        </div>
+      ))}
+      </div>
+
+
+<br/>
+<br/>
+<br/>
+
+      <div><Title>2.How would you rate the service you received from our staff?</Title>
+      <br/>
+<br/>
+{[2].map((questionNumber) => (
+        <div key={questionNumber}>
+          <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
+            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+            <XAxis dataKey="questionOption" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="count" fill="#82ca9d" />
+          </BarChart>
+        </div>
+      ))}
+      </div>
+
+      <br/>
+
+<br/>
+<br/>
+
+      <div><Title>3.Would you recommend our store to your friends or family?</Title>
+      <br/>
+<br/>
+{[3].map((questionNumber) => (
+        <div key={questionNumber}>
+          <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
+            {/* <CartesianGrid strokeDasharray="3 3" /> */}
+            <XAxis dataKey="questionOption" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="count" fill="#d0ed57" />
+          </BarChart>
+        </div>
+      ))}
+      </div>
     </>
-  )
+  );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import { Card, SparkAreaChart, SparkBarChart, SparkLineChart, Text, Title } from "@tremor/react";
-
-// export const chartdata = [
-//   { month: "Jan 21", q1: 4, q2: 3, q3: 5 },
-//   { month: "Feb 21", q1: 3, q2: 4, q3: 2 },
-// ];
-
-// export default function SparkAreaExample() {
-//   return (
-    // <Card className="mx-auto w-fit">
-    // <SparkAreaChart
-    //   data={chartdata}
-    //   categories={["q1"]}
-    //   index={"month"}
-    //   colors={["indigo-200", "#ffcc33"]}
-    //   className="h-10 w-36"
-  //   />
-  // </Card>
-//   );
-// }
