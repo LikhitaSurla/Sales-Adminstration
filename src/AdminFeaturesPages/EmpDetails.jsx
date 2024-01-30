@@ -39,6 +39,7 @@ export default function EmpDetails() {
 
 
     const handleChange=(e)=>{
+      console.log('before state',state);
         dispatch(
             {
                 type:'changeInput',
@@ -47,6 +48,8 @@ export default function EmpDetails() {
             }
         )
         console.log(state)
+        console.log('after state',state);
+
     }
 
 
@@ -134,6 +137,7 @@ export default function EmpDetails() {
                 phoneNumber:state.phonenumber,
                 salary:state.salary,
                 bonus:state.bonus
+      
                 });
                 employeeDetails();
             } else {
@@ -150,13 +154,15 @@ export default function EmpDetails() {
         <div className='employesubmit'>
         <Title>Updating Employee Details</Title>
           <Card>
-          <p>Employee ID : <input type="text" name="empid" placeholder='Employee id'  value = {tempId} readOnly  /></p> 
-          <p>Employee Name : <input type="text" name="empname" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} /></p> 
-          <p>Age : <input type="number" name="age" placeholder='Enter Age'value={empDetails.age} onChange={handleChange}/></p> 
-          <p>Gender : <input type="text" name="gender" placeholder='Enter Gender' value={empDetails.gender} onChange={handleChange}/></p> 
-          <p>Phone Number :<input type="number" name="phonenumber" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange}/></p> 
-          <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange}/></p> 
-          <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} onChange={handleChange}/></p> 
+        
+          <p>Employee ID: <input type="text" name="empid" placeholder='Employee ID' value={tempId} readOnly /></p>
+<p>Employee Name: <input type="text" name="empname" placeholder='Employee Name' value={state.empname} onChange={handleChange} /></p>
+<p>Age: <input type="number" name="age" placeholder='Age' value={state.age} onChange={handleChange} /></p>
+<p>Gender: <input type="text" name="gender" placeholder='Gender' value={state.gender} onChange={handleChange} /></p>
+<p>Phone Number: <input type="number" name="phonenumber" placeholder='Phone Number' value={state.phonenumber} onChange={handleChange} /></p>
+<p>Salary: <input type="number" name="salary" placeholder='Salary' value={state.salary} onChange={handleChange} /></p>
+<p>Bonus: <input type="number" name="bonus" placeholder='Bonus' value={state.bonus} onChange={handleChange} /></p>
+
             <Button onClick={handleUpdateButton}>ChangeDetails</Button> 
             </Card>
             </div>
