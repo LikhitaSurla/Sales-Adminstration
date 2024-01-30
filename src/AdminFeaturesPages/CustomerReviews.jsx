@@ -48,7 +48,7 @@ export default function CustomerReviews() {
         <div key={questionNumber}>
           <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
             {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <XAxis dataKey="questionOption" />
+            <XAxis dataKey="questionOption"  />
             <YAxis />
             <Tooltip />
             <Legend />
