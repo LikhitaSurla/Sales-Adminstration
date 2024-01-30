@@ -1,53 +1,31 @@
-import { useState } from 'react'
-import './App.css'
-import { db } from './config/firebase'
-import {collection ,getDocs } from 'firebase/firestore'
-import Billing from './Billing'
-import Display from './Display'
+import { BrowserRouter as Router,Routes,Route,useNavigate} from "react-router-dom";
+import EmpDetails from "./AdminFeaturesPages/EmpDetails";
+import SalesData from "./AdminFeaturesPages/SalesData";
+import React from 'react'
+import Admin from "./AftDisplyPages/Admin";
+import Display from "./Display";
+import LoginPro from "./LoginPro";
+import CustomerReviews from "./AdminFeaturesPages/CustomerReviews";
+import NewCustomers from "./AdminFeaturesPages/NewCustomers";
+import Billing from "./AftDisplyPages/Billing";
+import Review from "./AdminFeaturesPages/Review";
 
-function App() {
-  const [userName,setUserName]=useState('');
-  const [password,setPassword]=useState('');
-  const [state,setState] = useState(false);
-
-  const submitBtn = async () => {
-    const userCollectionRef = collection(db, 'userdata');
-    let matchFound = false;
-  
-    try {
-      const userCredentials = await getDocs(userCollectionRef);
-      userCredentials.forEach((doc) => {
-        const data = doc.data();
-  
-        if (data.name === userName && data.password === password) {
-          matchFound = true;
-        }
-      });
-  
-      if (matchFound){
-        setState(true);
-      } else {
-        console.log('Unmatched');
-      }
-    } catch (error) {
-      console.error('Error fetching user data from Firestore:', error);
-    }
-  };
-  if(state==false){
+export default function App() {
   return (
     <>
-    <input type="text" placeholder='enter your name' onChange={(e)=>setUserName(e.target.value)} />
-    <input type="password" placeholder='enter your password' onChange={(e)=>setPassword(e.target.value)} />
-    <button onClick={submitBtn}> submit</button>
+    <Router>
+        <Routes>
+            <Route path="/" element={<LoginPro />} />
+            <Route path='/display' element={<Display/>}/>
+            <Route path='/admin' element={<Admin/>}/>
+            <Route path='/billing' element={<Billing/>}/>
+            <Route path="/salesdata" element={<SalesData />}/>
+            <Route path='/empdetails' element={<EmpDetails />}/>
+            <Route path="/customerreviews" element={<CustomerReviews />}/>
+            <Route path="/newcustomers" element={<NewCustomers />}/>
+            <Route path="/review" element={<Review />}/>
+        </Routes>
+    </Router>
     </>
   )
-  }
-  else{
-    return (
-      <>
-      <Display/>
-      </>
-    )
-  }
 }
-export default App
