@@ -80,3 +80,22 @@ h1{
   transform: translate(-50%, -50%);
 
   }
+  .reviewcharts {
+    display: flex;
+    justify-content: space-between;
+  }
+  /* .reviewbarchart-column,
+.reviewlinegraph-column {
+  flex: 1;
+} */
+
+.reviewbarchart,
+.reviewlinegraph {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+.mt-8{
+    justify-content: center;
+}

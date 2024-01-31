@@ -1,8 +1,10 @@
-
 import React, { useState, useEffect } from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { BarChart,RadialBarChart,RadialBar, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import reviewData from '../FetchingData/Review';
 import { Title } from '@tremor/react';
+import '../Styling/index.css';
+import {Card,Flex,Text,TabGroup,TabList,Tab,TabPanels,TabPanel,} from "@tremor/react";
+
 
 export default function CustomerReviews() {
   const [reviewCollection, setReviewCollection] = useState([]);
@@ -40,67 +42,103 @@ export default function CustomerReviews() {
     return aggregatedData;
   };
 
+  const renderBarCharts = () => {
+    const questionNumbers = [1, 2, 3];
+    return (
+      <div className='reviewbarchart-column'>
+        {questionNumbers.map((questionNumber) => (
+          <div key={questionNumber} className='reviewbarchart'>
+            <Title>{`${questionNumber}. How was your shopping experience with us today?`}</Title>
+            <ResponsiveContainer padding={50} width={700} height={400}>
+              <BarChart data={aggregateData(questionNumber)}>
+                <XAxis dataKey="questionOption" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="count" width={100} fill="#8884d8" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  const renderLineCharts = () => {
+    const questionNumbers = [1, 2, 3];
+    return (
+      <div className='reviewlinegraph-column' justifyContent='center'>
+        {questionNumbers.map((questionNumber) => (
+          <div key={questionNumber} className='reviewlinegraph'>
+            <Title>{`${questionNumber}. How was your shopping experience with us today?`}</Title>
+            <br/>
+            <ResponsiveContainer padding={50} width={700} height={400}>
+              <LineChart
+                data={aggregateData(questionNumber)}
+                margin={{ top: 5, right: 30, left: 20, bottom: 5 }}
+              >
+                <XAxis dataKey="questionOption" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Line type="monotone" dataKey="count" stroke="#8884d8" activeDot={{ r: 8 }} />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
-      <p>Customer Reviews</p>
+ 
 
-    <div> <Title>1. How was your shopping experience with us today?</Title> {[1].map((questionNumber) => (
-        <div key={questionNumber}>
-          <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <XAxis dataKey="questionOption"  />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="count" fill="#8884d8" />
-          </BarChart>
-        </div>
-      ))}
-      </div>
+      <Card justifyContent='center' height={400} width={900}>
+      <Title>  Customer Reviews </Title>
+      
+      <TabGroup  justifyContent='center'>
+        <TabList className="mt-8">
+          <Tab ><Title>BarChart</Title></Tab>
+          <Tab ><Title>LineChart</Title></Tab>
+          <Tab ><Title>RadialBarChart</Title></Tab>
 
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                {renderBarCharts()}
 
-<br/>
-<br/>
-<br/>
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                {renderLineCharts()}
 
-      <div><Title>2.How would you rate the service you received from our staff?</Title>
-      <br/>
-<br/>
-{[2].map((questionNumber) => (
-        <div key={questionNumber}>
-          <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <XAxis dataKey="questionOption" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="count" fill="#82ca9d" />
-          </BarChart>
-        </div>
-      ))}
-      </div>
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                {renderLineCharts()}
 
-      <br/>
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+        </TabPanels>
+      </TabGroup>
+    </Card>
 
-<br/>
-<br/>
-
-      <div><Title>3.Would you recommend our store to your friends or family?</Title>
-      <br/>
-<br/>
-{[3].map((questionNumber) => (
-        <div key={questionNumber}>
-          <BarChart width={800} height={400} data={aggregateData(questionNumber)}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
-            <XAxis dataKey="questionOption" />
-            <YAxis />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="count" fill="#d0ed57" />
-          </BarChart>
-        </div>
-      ))}
-      </div>
     </>
   );
 }
