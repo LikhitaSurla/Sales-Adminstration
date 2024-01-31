@@ -1,13 +1,11 @@
 import React,{useState,useEffect} from 'react'
-import { db } from '../config/firebase';
 import {fetchSales} from '../FetchingData/Sales'
-import { StatusOnlineIcon } from "@heroicons/react/outline";
-import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,} from "@tremor/react";
+import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric} from "@tremor/react";
 import '../Styling/index.css'
 
 export default function SalesData() {
   const[salesCollection,setSalesCollection]=useState([]);
-  
+  const[viewSalesData,setViewSalesData]=useState(false);
 
   const salesDetails=async()=>{
     try{
@@ -21,6 +19,11 @@ export default function SalesData() {
   useEffect(()=>{
     salesDetails();
   },[]) 
+
+  const viewData=()=>{
+    setViewSalesData(true)
+  }
+  if(viewSalesData){
   return (
     <>
     <Card>
@@ -54,18 +57,27 @@ export default function SalesData() {
     </Table>
   </Card>
 
-
-
-{/* 
-    <div>SalesData</div>
-    {salesCollection.map((data) => (
-            <div key={data.billid}>
-                <h1>{data.billid}</h1>
-                <h3>{data.name}</h3>
-                <h3>{data.purchase}</h3>
-                <h3>{data.totalsales}</h3>   
-          </div> */}
-       
     </>
   )
+}else{
+  return(
+    <>
+    <Title>Sales data</Title>
+    <Button onClick={viewData}>View Data</Button>
+   
+
+  <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo" >
+    <Title>Total Sales</Title>
+  </Card>
+
+  <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo" >
+    <Title>Sales today</Title>
+  </Card>
+  <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo" >
+    <Title>Monthly Sales</Title>
+  </Card>
+
+    </>
+  )
+}
 }

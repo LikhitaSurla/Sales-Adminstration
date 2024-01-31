@@ -1,8 +1,7 @@
 import React,{useState} from 'react'
 import fetchData from '../FetchingData/Data';
-import EmpDetails from '../AdminFeaturesPages/EmpDetails';
 import { useNavigate} from 'react-router-dom';
-import { Button ,Card, Metric, Text } from "@tremor/react";
+import { Button ,Card, Metric } from "@tremor/react";
 import '../Styling/index.css'
 
 export default function Admin(props) {

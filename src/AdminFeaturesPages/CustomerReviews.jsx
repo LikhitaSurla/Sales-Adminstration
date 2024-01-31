@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { BarChart,RadialBarChart,RadialBar, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import reviewData from '../FetchingData/Review';
 import { Title } from '@tremor/react';
 import '../Styling/index.css';
@@ -49,6 +49,8 @@ export default function CustomerReviews() {
         {questionNumbers.map((questionNumber) => (
           <div key={questionNumber} className='reviewbarchart'>
             <Title>{`${questionNumber}. How was your shopping experience with us today?`}</Title>
+            <br/>
+            <br/>
             <ResponsiveContainer padding={50} width={700} height={400}>
               <BarChart data={aggregateData(questionNumber)}>
                 <XAxis dataKey="questionOption" />
@@ -71,6 +73,7 @@ export default function CustomerReviews() {
         {questionNumbers.map((questionNumber) => (
           <div key={questionNumber} className='reviewlinegraph'>
             <Title>{`${questionNumber}. How was your shopping experience with us today?`}</Title>
+            <br/>
             <br/>
             <ResponsiveContainer padding={50} width={700} height={400}>
               <LineChart
@@ -101,7 +104,6 @@ export default function CustomerReviews() {
         <TabList className="mt-8">
           <Tab ><Title>BarChart</Title></Tab>
           <Tab ><Title>LineChart</Title></Tab>
-          <Tab ><Title>RadialBarChart</Title></Tab>
 
         </TabList>
         <TabPanels>
@@ -125,16 +127,7 @@ export default function CustomerReviews() {
               </Flex>
             </div>
           </TabPanel>
-          <TabPanel>
-            <div className="mt-10">
-              <Flex className="mt-4">
-                <Flex className="space-x-2" justifyContent="center">
-                {renderLineCharts()}
-
-                </Flex>
-              </Flex>
-            </div>
-          </TabPanel>
+          
         </TabPanels>
       </TabGroup>
     </Card>
