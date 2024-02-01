@@ -152,7 +152,13 @@ export default function Billing(props) {
   };
 
   const generateBill = () => {
-    if (customerName != '') {
+    if(customerNumber.length!=10){
+      alert("Re-Verify Phone Numnber")
+    }
+    else if(customerName == '' ){
+      alert("Customer Name Can't Be Empty")
+    }
+    else {
       setPayment(true);
     }
   }
