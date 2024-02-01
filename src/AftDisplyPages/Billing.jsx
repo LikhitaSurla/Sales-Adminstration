@@ -101,7 +101,11 @@ export default function Billing(props) {
   useEffect(() => {
   }, [obj]);
 
-
+  const date = new Date();
+  let day = date.getDate();
+  let month = date.getMonth() + 1;
+  let year = date.getFullYear();
+  let currentDate = `${day}-${month}-${year}`;
   const paymentSuccess = async () => {
     setPayment(false);
     setCustomerName('');
@@ -127,7 +131,7 @@ export default function Billing(props) {
         })
       }
       addDoc(salesCollectionRef, {
-        name: customerName, purchase: finalPrice, billid: billNo + 1, totalsales: totalSales + finalPrice
+        name: customerName, purchase: finalPrice, billid: billNo + 1, totalsales: totalSales + finalPrice,date:day,month:month
       })
 
       updateDoc(indexDocumentRef, {
@@ -180,11 +184,7 @@ export default function Billing(props) {
       console.log(err);
     }
   }
-  const date = new Date();
-  let day = date.getDate();
-  let month = date.getMonth() + 1;
-  let year = date.getFullYear();
-  let currentDate = `${day}-${month}-${year}`;
+
   const [changePage, setChangePage] = useState(false);
   const [billPage, setBillPage] = useState(false);
 
@@ -193,8 +193,6 @@ export default function Billing(props) {
     let dummy = false;
     e.preventDefault();
     const empData = await getDocs(employeeCollectionRef);
-
-
     empData.forEach((doc) => {
       if (empId != doc.data().empid)
         setIsValid(false)
@@ -272,9 +270,6 @@ export default function Billing(props) {
 
 
           </Col>
-
-
-
 
           <Col numColSpanLg={4}>
             <div className="space-y-6" >
