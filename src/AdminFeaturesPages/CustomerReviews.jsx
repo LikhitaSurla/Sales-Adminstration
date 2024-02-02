@@ -98,7 +98,7 @@ export default function CustomerReviews() {
  
 
       <Card justifyContent='center' height={400} width={900}>
-      <Title>  Customer Reviews </Title>
+      <Title style={{textAlign:'center'}}>  CUSTOMER REVIEWS </Title>
       
       <TabGroup  justifyContent='center'>
         <TabList className="mt-8">

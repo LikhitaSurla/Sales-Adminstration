@@ -5,12 +5,19 @@ import { fetchSales } from '../FetchingData/Sales';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,BarChart, Bar, AreaChart, Area,} from 'recharts';
 import '../Styling/index.css';
 import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric,Flex,TabGroup,TabList,Tab,TabPanels,TabPanel,} from '@tremor/react';
-
+import { indexValues } from '../FetchingData/Sales'
+import { collection,doc } from 'firebase/firestore';
+import { db } from '../config/firebase';
 import { PieChart, Pie, Cell, Legend as RechartsLegend } from 'recharts';
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
+  const [indexCollection, setIndexCollection] = useState([]);
   const [viewSalesData, setViewSalesData] = useState(false);
+  
+  const indexCollectionRef = collection(db, 'indexes')
+  const documentId = 'WH23CKiI1e0rKiGaKz4R';
+  const indexDocumentRef = doc(indexCollectionRef, documentId);
 
   const salesDetails = async () => {
     try {
@@ -22,9 +29,19 @@ export default function SalesData() {
       console.error(err);
     }
   };
-
+ 
+  const indexDetails=async()=>{
+    try{
+     const indexDb = await indexValues();
+     setIndexCollection(indexDb)
+    }
+    catch{
+      console.error(error);
+    }
+  }
   useEffect(() => {
     salesDetails();
+    indexDetails();
   }, []);
 
 
@@ -67,7 +84,7 @@ const aggregateSales = (salesDb) => {
     return (
       <>
         <Card>
-    <Title>Sales Data</Title>
+    <Title style={{textAlign:'center'}}>Sales Data</Title>
      <Table className="mt-4">
        <TableHead>
          <TableRow>
@@ -108,25 +125,37 @@ const aggregateSales = (salesDb) => {
   } else {
     return (
       <>
-        <Title style={{textAlign:'center'}}>Sales data</Title>
+        <Title style={{textAlign:'center',marginTop:'15px',marginBottom:'-15px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
-
           <Button size="xs" onClick={viewData}> View Data</Button></Flex>
-      <div className='salescards'>
-
-        <Card className="cards-container" decoration="top" decorationColor="indigo">
-          <Title>Today Sales</Title>
-        </Card>
-
-        <Card className="cards-container" decoration="top" decorationColor="indigo">
-          <Title>Monthly Sales</Title>
-        </Card>
-        <Card className="cards-container" decoration="top" decorationColor="indigo">
-          <Title >Total Sales</Title>
-        </Card>
-
+          <div className='salescards'>
+  {indexCollection.map((data, index) => (
+    <React.Fragment key={index}>
+      <Card className="cards-container" decoration="top" decorationColor="indigo">
+        <Title>Today Sales</Title>
+        <div style={{marginTop:'60px',marginRight:'90px'}}>
+        <Metric>{'\u20B9'}{data.dailysales}</Metric>
         </div>
+      </Card>
+
+      <Card className="cards-container" decoration="top" decorationColor="indigo">
+        <Title >Month Sales</Title>
+        <div style={{marginTop:'60px',marginRight:'90px'}}> 
+        <Metric>{'\u20B9'}{data.monthlysales }</Metric>
+        </div>
+      </Card>
+
+      <Card className="cards-container" decoration="top" decorationColor="indigo">
+        <Title>Total Sales</Title>
+        <div style={{marginTop:'60px',marginRight:'90px'}}> 
+        <Metric>{'\u20B9'}{data.totalsales }</Metric>
+        </div>
+      </Card>
+    </React.Fragment>
+  ))}
+</div>
+
         <div>
        <TabGroup  justifyContent='center'>
         <TabList className="mt-8">

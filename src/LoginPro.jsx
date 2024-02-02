@@ -46,8 +46,8 @@ export default function LoginPro() {
        <div className='intiallogin'>
        <form className="login-form" onSubmit={submitBtn}>
         <h1>SalesEase</h1>
-      <input type="text" placeholder='Enter your name' onChange={(e)=>setUserName(e.target.value)} />
-      <input type="password"  placeholder='Enter your password' onChange={(e)=>setPassword(e.target.value)} />
+      <input type="text" placeholder='Enter Username' onChange={(e)=>setUserName(e.target.value)} />
+      <input type="password"  placeholder='Enter Password' onChange={(e)=>setPassword(e.target.value)} />
       <Button size="md" type='submit'>Submit </Button>
       {isValid && 
         <p style={{textAlign:'center'}}>Worng Credentials</p>

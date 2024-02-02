@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../config/firebase';
 import fetchData from '../FetchingData/Data';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Metric,Flex } from "@tremor/react";
+import { Button, Card, Metric,Flex,Title } from "@tremor/react";
 import '../Styling/index.css';
 import { collection, getDoc, getDocs,doc, query,updateDoc,where } from 'firebase/firestore';
 
@@ -39,7 +39,8 @@ export default function Admin() {
     e.preventDefault();
     setIsValid(false)
     try {
-      let username = e.target.username.value;
+      let username = e.target.userId.value;
+      console.log(username)
       let newPassword = e.target.newPassword.value;
       let tempPassword = e.target.tempPassword.value;
       const q = query(collection(db, "userdata"), where("name", "==", username));
@@ -71,15 +72,16 @@ export default function Admin() {
   if (passState) {
     return (
       <div className="body">
-        <Card className='update-form'>
+        <Card className='update-form '>
+        <Title style={{textAlign:'center',marginBottom:'15px'}}>UPDATE PASSWORD</Title>
       <form onSubmit={formSubmitted}>
         
         <p>
-        Username : <span>  </span><input type="text" name="userId" id="userId" /></p>
-        <p>Temporary Password :<span>  </span><input type="text" name="tempPassword" id="tempPassword" /></p>
+       <input style={{width:'300px'}} type="text" name="userId" id="userId" placeholder='Enter Username'/></p>
+        <p><input style={{width:'300px'}} type="text" name="tempPassword" id="tempPassword" placeholder='Enter Previous Password' /></p>
 
-       <p> New Password: <span>  </span>
-        <input type="text" name="newPassword" id="newPassword" /></p>
+       <p>
+        <input style={{width:'300px',marginBottom:'-20px'}} type="text" name="newPassword" id="newPassword" placeholder='Enter New Password' /></p>
 
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
