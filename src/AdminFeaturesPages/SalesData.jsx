@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import { fetchSales } from '../FetchingData/Sales';
-import {
-  Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric,} from '@tremor/react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,BarChart, Bar, AreaChart, Area,} from 'recharts';
 import '../Styling/index.css';
+import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric,Flex,TabGroup,TabList,Tab,TabPanels,TabPanel,} from '@tremor/react';
+
+import { PieChart, Pie, Cell, Legend as RechartsLegend } from 'recharts';
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
@@ -14,9 +15,8 @@ export default function SalesData() {
   const salesDetails = async () => {
     try {
       const salesDb = await fetchSales();
-      const sortedSales = salesDb.sort((a, b) => {
-        return new Date(a.year, a.month - 1, a.date) - new Date(b.year, b.month - 1, b.date);
-      });
+      const sortedSales = salesDb.sort((a, b) => a.billid - b.billid);
+
       setSalesCollection(sortedSales);
     } catch (err) {
       console.error(err);
@@ -45,6 +45,9 @@ export default function SalesData() {
   
     return Object.values(aggregatedData);
   };
+
+
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF6666'];
 
 
   if (viewSalesData) {
@@ -92,31 +95,125 @@ export default function SalesData() {
   } else {
     return (
       <>
-        <Title>Sales data</Title>
-        <Button onClick={viewData}>View Data</Button>
+        <Title style={{textAlign:'center'}}>Sales data</Title>
 
-        <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
-          <Title>Total Sales</Title>
-        </Card>
+        <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
-        <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
+          <Button size="xs" onClick={viewData}> View Data</Button></Flex>
+      <div className='salescards'>
+
+        <Card className="cards-container" decoration="top" decorationColor="indigo">
           <Title>Sales today</Title>
         </Card>
-        <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
+
+        <Card className="cards-container" decoration="top" decorationColor="indigo">
           <Title>Monthly Sales</Title>
         </Card>
+        <Card className="cards-container" decoration="top" decorationColor="indigo">
+          <Title >Total Sales</Title>
+        </Card>
 
-        
-        <Card>
+        </div>
+        <div>
+        <TabGroup  justifyContent='center'>
+        <TabList className="mt-8">
+          <Tab ><Title>Daily Sales</Title></Tab>
+          <Tab ><Title>Monthly Sales</Title></Tab>
+          <Tab ><Title>Customer Distribution</Title></Tab>
+          <Tab ><Title>Cumulative Sales</Title></Tab>
+
+        </TabList>
+        <TabPanels>
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                <Card>
+  <BarChart width={500} height={300} data={salesCollection}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="date" />
+    <YAxis />
+    <Tooltip />
+    <Legend />
+    <Bar dataKey="totalsales" fill="#8884d8" />
+  </BarChart>
+</Card>
+
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                <Card>
+  <LineChart width={500} height={300} data={salesCollection}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="date" />
+    <YAxis />
+    <Tooltip />
+    <Legend />
+    <Line type="monotone" dataKey="purchase" stroke="#8884d8" name="Daily Purchases" />
+    <Line type="monotone" dataKey="totalsales" stroke="#82ca9d" name="Total Sales" />
+  </LineChart>
+</Card>
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+          
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                <Card>
+  <PieChart width={400} height={400}>
+    <Pie data={salesCollection} dataKey="purchase" nameKey="name" cx="50%" cy="50%" outerRadius={100} fill="#8884d8">
+      {salesCollection.map((entry, index) => (
+        <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+      ))}
+    </Pie>
+    <RechartsLegend />
+  </PieChart>
+</Card>
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+
+          <TabPanel>
+            <div className="mt-10">
+              <Flex className="mt-4">
+                <Flex className="space-x-2" justifyContent="center">
+                <Card>
+  <AreaChart width={500} height={300} data={salesCollection}>
+    <CartesianGrid strokeDasharray="3 3" />
+    <XAxis dataKey="billid" />
+    <YAxis />
+    <Tooltip />
+    <Area type="monotone" dataKey="purchase" fill="#8884d8" stroke="#8884d8" />
+  </AreaChart>
+</Card>
+                </Flex>
+              </Flex>
+            </div>
+          </TabPanel>
+
+      
+        </TabPanels>
+      </TabGroup>
+
+        {/* <Card>
           <LineChart width={500} height={300} data={salesCollection}>
-            {/* <CartesianGrid strokeDasharray="3 3" /> */}
             <XAxis dataKey="date" />
             <YAxis />
             <Tooltip />
             <Legend />
             <Line type="monotone" dataKey="purchase" stroke="#8884d8" />
           </LineChart>
-        </Card>
+        </Card> */}
+        </div>
       </>
     );
   }

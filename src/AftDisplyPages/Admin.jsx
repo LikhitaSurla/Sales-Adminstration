@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { db } from '../config/firebase';
 import fetchData from '../FetchingData/Data';
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Metric } from "@tremor/react";
+import { Button, Card, Metric,Flex } from "@tremor/react";
 import '../Styling/index.css';
 import { collection, getDoc, getDocs,doc, query,updateDoc,where } from 'firebase/firestore';
 
@@ -73,17 +73,22 @@ export default function Admin() {
 
   if (passState) {
     return (
+      <div className="body">
+        <Card className='update-form'>
       <form onSubmit={formSubmitted}>
-        <label htmlFor="userId">User Id:</label>
-        <input type="text" name="userId" id="userId" />
-        <label htmlFor="tempPassword">Temporary Password:</label>
-        <input type="text" name="tempPassword" id="tempPassword" />
+        <p>
+        Username : <span>  </span><input type="text" name="userId" id="userId" /></p>
+        <p>Temporary Password :<span>  </span><input type="text" name="tempPassword" id="tempPassword" /></p>
 
-        <label htmlFor="newPassword">New Password:</label>
-        <input type="text" name="newPassword" id="newPassword" />
+       <p> New Password: <span>  </span>
+        <input type="text" name="newPassword" id="newPassword" /></p>
 
-        <button type='submit'>Submit</button>
+
+        <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+        <Button type='submit'>Submit</Button></Flex>
       </form>
+      </Card>
+        </div>
     )
   } else if (state === false) {
     return (
@@ -107,23 +112,25 @@ export default function Admin() {
     else{
       return(
         <>
+        <div className='center-container'>
         <div className="grid-container">
 
-          <Card  className="max-w-xs mx-auto" onClick={()=> navigate ("/empdetails")} decoration="top" decorationColor="indigo">
+          <Card  className="cardcontainer" onClick={()=> navigate ("/empdetails")} decoration="top" decorationColor="indigo">
     <Metric>Employee Details</Metric>
   </Card>
-  <Card  className="max-w-xs mx-auto" onClick={() =>navigate("/salesdata")} decoration="top" decorationColor="indigo">
+  <Card  className="cardcontainer" onClick={() =>navigate("/salesdata")} decoration="top" decorationColor="indigo">
     <Metric> Sales Data</Metric>
   </Card>
 
-  <Card  className="max-w-xs mx-auto" onClick={() =>navigate("/newcustomers")} decoration="top" decorationColor="indigo">
+  <Card  className="cardcontainer" onClick={() =>navigate("/newcustomers")} decoration="top" decorationColor="indigo">
     <Metric>Customer Family</Metric>
   </Card>
 
-  <Card  className="max-w-xs mx-auto" onClick={() =>navigate("/customerreviews")} decoration="top" decorationColor="indigo">
+  <Card  className="cardcontainer" onClick={() =>navigate("/customerreviews")} decoration="top" decorationColor="indigo">
     <Metric>Customer Reviews </Metric>
   </Card>
 
+</div>
 </div>
         </>
       )

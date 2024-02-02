@@ -31,6 +31,9 @@ export default function Billing(props) {
   const [totalSales, setTotalSales] = useState(0);
   const [isValid, setIsValid] = useState(true);
 
+
+
+
   const indexDetails = async () => {
     try {
       const indexDb = await indexValues();
@@ -106,6 +109,7 @@ export default function Billing(props) {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
+
   const paymentSuccess = async () => {
     setPayment(false);
     setCustomerName('');
@@ -138,6 +142,9 @@ export default function Billing(props) {
         billid: billNo + 1,
         totalsales: totalSales + finalPrice
       })
+
+
+      
 
     } catch (err) {
       console.error(err)
