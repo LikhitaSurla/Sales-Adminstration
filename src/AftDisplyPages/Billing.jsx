@@ -30,7 +30,10 @@ export default function Billing(props) {
   const [billNo, setBillNo] = useState(0)
   const [totalSales, setTotalSales] = useState(0);
   const [isValid, setIsValid] = useState(true);
-
+ const[monthlySales,setMonthlySales]=useState(0);
+  const[dailySales,setDailySales]=useState(0);
+  const [currDate, setCurrDate] = useState('');
+const[currMonth,setCurrMonth]=useState('');
 
 
 
@@ -40,6 +43,9 @@ export default function Billing(props) {
       indexDb.map((data) => {
         setBillNo(data.billid);
         setTotalSales(data.totalsales);
+        setDailySales(data.dailysales);
+        setCurrDate(data.currentDate); 
+         setMonthlySales(data.monthlysales);
       })
     } catch (err) {
       console.error(err)
@@ -109,14 +115,25 @@ export default function Billing(props) {
   let month = date.getMonth() + 1;
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
-
+  let currentMonth=`${month}-${year}`;
   const paymentSuccess = async () => {
     setPayment(false);
     setCustomerName('');
     setCustomerNumber('');
-
     setTotalSales(totalSales + finalPrice);
-    setItems([]);
+    if (currentDate === `${day}-${month}-${year}`) {
+      setDailySales(dailySales + finalPrice);
+    } else {
+      setDailySales(finalPrice);
+      setCurrDate(`${day}-${month}-${year}`);
+    }
+if(currentMonth=== `${month}-${year}`)  {
+  setMonthlySales(monthlySales+finalPrice);
+} else{
+setMonthlySales(finalPrice);
+setCurrMonth(`${month}-${year}`)
+}
+ setItems([]);
     setFinalPrice(0);
     handleUpdateButton();
     setBillNo(billNo + 1)
@@ -136,11 +153,16 @@ export default function Billing(props) {
       }
       addDoc(salesCollectionRef, {
         name: customerName, purchase: finalPrice, billid: billNo + 1, totalsales: totalSales + finalPrice,date:day,month:month,year:year,
+        dailysales:dailySales+finalPrice,monthlysales:monthlySales+finalPrice
       })
 
       updateDoc(indexDocumentRef, {
         billid: billNo + 1,
-        totalsales: totalSales + finalPrice
+        totalsales: totalSales + finalPrice,
+        dailysales:dailySales+finalPrice,
+        currDate: `${day}-${month}-${year}`,
+        monthlysales:monthlySales+finalPrice,
+        currMonth:`${month}-${year}`
       })
 
 
