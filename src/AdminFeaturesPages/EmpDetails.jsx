@@ -39,7 +39,6 @@ export default function EmpDetails() {
   }, [])
 
   const handleChange = (e) => {
-
     setEmpDetails(
       {
         ...empDetails, [e.target.name]: e.target.value
@@ -48,8 +47,10 @@ export default function EmpDetails() {
   }
 
 
-  const addEmployee = () => {
-    setForm(false);
+  const addEmployee = (e) => {
+    e.preventDefault();
+    let len = empDetails.number.toString().length;
+    if(len==10){
     try {
       addDoc(employeeCollectionRef, {
         empid: empDetails.empid,
@@ -64,6 +65,11 @@ export default function EmpDetails() {
     } catch (err) {
       console.error(err)
     }
+    setForm(false);
+  }
+  else{
+    alert("check Phone Number")
+  }
   }
 
 
@@ -116,9 +122,11 @@ export default function EmpDetails() {
   }, [empDetails]);
 
 
-  const handleUpdateButton = async () => {
-    setForm(false);
-    setUpdateData(false);
+  const handleUpdateButton = async (e) => {
+
+    e.preventDefault();
+    let len = empDetails.number.toString().length;
+    if(len==10){
     try {
       const querySnapshot = await getDocs(
         query(collection(db, 'employeedata'), where('empid', '==', tempId))
@@ -133,6 +141,12 @@ export default function EmpDetails() {
     } catch (err) {
       console.log(err);
     }
+    setForm(false);
+    setUpdateData(false);
+  }
+  else{
+    alert("Check Phone Number")
+  }
   }
 
   if (updateData) {
@@ -141,16 +155,16 @@ export default function EmpDetails() {
         <div className='employesubmit'>
           <Title>Updating Employee Details</Title>
           <Card>
+            <form onSubmit={handleUpdateButton}>
             <p>Employee ID : <input type="text" name="empid" placeholder='Employee id' value={tempId} readOnly /></p>
-            <p>Employee Name : <input type="text" name="name" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} /></p>
-            <p>Age : <input type="number" name="age" placeholder='Enter Age' value={empDetails.age} onChange={handleChange} /></p>
-            <p>Gender : <input type="text" name="gender" placeholder='Enter Gender' value={empDetails.gender} onChange={handleChange} /></p>
-            <p>Phone Number :<input type="number" name="number" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange} /></p>
-            <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange} /></p>
-            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} onChange={handleChange} /></p>
-
-
-            <Button onClick={handleUpdateButton}>ChangeDetails</Button>
+            <p>Employee Name : <input type="text" name="name" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} required /></p>
+            <p>Age : <input type="number" name="age" placeholder='Enter Age' value={empDetails.age} onChange={handleChange} required/></p>
+            <p>Gender : <input type="text" name="gender" placeholder='Enter Gender' value={empDetails.gender} onChange={handleChange} required/></p>
+            <p>Phone Number :<input type="number" name="number" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange} required/></p>
+            <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange} required /></p>
+            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} onChange={handleChange} required/></p>
+            <Button type='submit'>ChangeDetails</Button>
+            </form>
           </Card>
         </div>
       </>
@@ -162,15 +176,17 @@ export default function EmpDetails() {
         <div className='employesubmit'>
 
           <Card>
+            <form onSubmit={addEmployee}>
             <Title justifyContent='center'>Adding Employee</Title>
-            <p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange} /></p>
-            <p> Employee Name : <input type="text" name="name" placeholder='enter name' onChange={handleChange} /></p>
-            <p> Age :  <input type="number" name="age" placeholder='Enter Age' onChange={handleChange} /></p>
-            <p>Gender :   <input type="text" name="gender" placeholder='Enter Gender' onChange={handleChange} /></p>
-            <p> Phone Number :<input type="number" name="number" placeholder='Enter Phonenumber' onChange={handleChange} /></p>
-            <p>Salary: <input type="number" name="salary" placeholder='Salary' onChange={handleChange} /></p>
-            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange} /></p>
-            <Button onClick={addEmployee}>Submit</Button>
+            <p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange} required /></p>
+            <p> Employee Name : <input type="text" name="name" placeholder='enter name' onChange={handleChange} required/></p>
+            <p> Age :  <input type="number" name="age" placeholder='Enter Age' onChange={handleChange} required/></p>
+            <p>Gender :   <input type="text" name="gender" placeholder='Enter Gender' onChange={handleChange} required/></p>
+            <p> Phone Number :<input type="number" name="number" placeholder='Enter Phonenumber' onChange={handleChange} required/></p>
+            <p>Salary: <input type="number" name="salary" placeholder='Salary' onChange={handleChange} required/></p>
+            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange} required/></p>
+            <Button type='submit'>Submit</Button>
+            </form>
           </Card>
         </div>
       </>
@@ -180,7 +196,7 @@ export default function EmpDetails() {
     return (
       <>
         <Card>
-          <Title>EMPLOYEE DETAILS</Title>
+          <Title style={{textAlign:'center'}}>EMPLOYEE DETAILS</Title>
           <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
             <Button size="xs" onClick={viewDetails}> +Add new</Button></Flex>

@@ -6,14 +6,12 @@ import { Button, Card, Metric } from "@tremor/react";
 import '../Styling/index.css';
 import { collection, getDoc, getDocs,doc, query,updateDoc,where } from 'firebase/firestore';
 
-export default function Admin(props) {
+export default function Admin() {
   const [state, setState] = useState(false);
   const [passState, setPassState] = useState(false);
   const [ownerName, setOwnerName] = useState('');
   const [ownerPassword, setOwnerPassword] = useState('');
-  const userCollectionRef = collection(db,'userdata');
-  const [userId,setUserId] = useState('');
-  const [tempPassword,setTempPassword] = useState('');
+  const [isValid,setIsValid] = useState(false);
   const navigate = useNavigate();
 
   const updatePasswordBtn = () => {
@@ -37,45 +35,49 @@ export default function Admin(props) {
       console.error(err);
     }
   }
-  const formSubmitted = async(e) => {
+
+  const formSubmitted = async (e) => {
     e.preventDefault();
-    const newPassword = e.target.newPassword.value;
+    setIsValid(false)
     try {
-      const querySnapshot = query(collection(db, 'userdata'), where('id', '==', userId));
-      const q = getDocs(querySnapshot);
-      console.log(q)
-      q.forEach(async(doc)=>{
-        if(doc.data().id==userId){
-          await updateDoc(doc,{
-            id:15,
-            password:"iuahsdhak"
-          })
+      let userId = e.target.userId.value;
+      let newPassword = e.target.newPassword.value;
+      let tempPassword = e.target.tempPassword.value;
+      console.log(newPassword)
+      const q = query(collection(db, "userdata"), where("id", "==", Number(userId)));
+      const getData = await getDocs(q);
+      getData.forEach(async (val) => {
+        if (val.data().id === Number(userId) && val.data().password === tempPassword) {
+          const userDocRef = doc(db, "userdata", val.id);
+          try {
+            await updateDoc(userDocRef,{
+              password: newPassword,
+            });
+            setIsValid(true)
+            setTimeout(()=>{
+              setIsValid(false);  
+            },2000)
+          } catch (error) {
+            console.error(error);
+          }
         }
-      })
-      // const userDocs = await fetchData();
-      // userDocs.forEach(async (userDoc) => {
-      //   if (userDoc.id === 2) {
-      //     console.log(userDoc.id,userDoc.name,userDoc.password)
-      //     const userDocRef = doc(userCollectionRef,userDoc.id);
-      //     await updateDoc(userDocRef, {
-      //       id: 10,
-      //       password: 'hello',
-      //     });
-      //   }
-      // });
+      });
     } catch (error) {
-      console.error('Error fetching data:', error);
+      console.error(error);
     }
-  }
+    setPassState(false)
+    setState(false)
+
+  };
+  
 
   if (passState) {
     return (
       <form onSubmit={formSubmitted}>
         <label htmlFor="userId">User Id:</label>
-        <input type="text" name="userId" id="userId" onChange={(e)=>{setUserId(e.target.value)}} />
-
+        <input type="text" name="userId" id="userId" />
         <label htmlFor="tempPassword">Temporary Password:</label>
-        <input type="text" name="tempPassword" id="tempPassword" onChange = {(e)=>{setTempPassword(e.target.value)}}/>
+        <input type="text" name="tempPassword" id="tempPassword" />
 
         <label htmlFor="newPassword">New Password:</label>
         <input type="text" name="newPassword" id="newPassword" />
@@ -91,11 +93,11 @@ export default function Admin(props) {
             <form className="login-form">
               <input type="text" placeholder='name' onChange={(e) => setOwnerName(e.target.value)} />
               <input type="password" placeholder='password' onChange={(e) => setOwnerPassword(e.target.value)} />
-
               <Button className="Btn" size="md" onClick={updatePasswordBtn} >Update Password </Button>
-
               <Button size="md" className="Btn" onClick={ownerClicked} >Submit </Button>
-
+              {isValid && 
+                <p> Password Updated Successfully</p>
+              }
             </form>
           </div>
         </div>
