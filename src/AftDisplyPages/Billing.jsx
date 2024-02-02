@@ -51,6 +51,7 @@ const[currMonth,setCurrMonth]=useState('');
         setDailySales(data.dailysales);
         setCurrDate(data.currentDate); 
          setMonthlySales(data.monthlysales);
+         setCurrMonth(data.currMonth);
         setNewCustomersCount(data.newcustomers);
       })
     } catch (err) {

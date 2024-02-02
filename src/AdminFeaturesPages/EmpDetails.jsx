@@ -5,7 +5,6 @@ import { db } from '../config/firebase';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Flex, } from "@tremor/react";
 import '../Styling/index.css'
 
-
 export default function EmpDetails() {
   const employeeCollectionRef = collection(db, 'employeedata')
   const [form, setForm] = useState(false);
@@ -123,7 +122,6 @@ export default function EmpDetails() {
 
 
   const handleUpdateButton = async (e) => {
-
     e.preventDefault();
     let len = empDetails.number.toString().length;
     if(len==10){

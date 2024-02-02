@@ -2,12 +2,24 @@ import React,{useState,useEffect} from 'react'
 import { db } from '../config/firebase';
 import custDetails from '../FetchingData/Customers'
 import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,} from "@tremor/react";
-
+import { indexValues } from '../FetchingData/Sales'
 
 export default function NewCustomers() {
 
   const[customerCollection,setCustomerCollection]=useState([]);
   const[customerList,setCustomerList]=useState(false);
+  const[newCust,setNewCust] = useState(0);
+
+  const indexDetails = async () => {
+    try {
+      const indexDb = await indexValues();
+      indexDb.map((data)=>{
+        setNewCust(data.newcustomers)
+      })
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const customerDetails=async()=>{
     try{
@@ -19,6 +31,7 @@ export default function NewCustomers() {
   }
 
   useEffect(()=>{
+    indexDetails();
     customerDetails();
   },[])
 
@@ -31,12 +44,11 @@ export default function NewCustomers() {
     <>
     <div>NewCustomers</div>
     <div>
-          new customer count:
-          existing customers:
+          new customer count:{newCust}
+          <br />
+          existing customers:{customerCollection.length}
         </div>
         <Button onClick={viewCustomersList} size="xs">View Customer List</Button>
-
-        {/* <button onClick={viewCustomersList}>View customer list</button> */}
     </>
   )}
   else{
