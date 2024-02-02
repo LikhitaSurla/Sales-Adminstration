@@ -31,6 +31,9 @@ export default function EmpDetails() {
       console.error(err);
     }
   }
+
+  const sortedEmpData = empData.sort((a, b) => a.empid.localeCompare(b.empid));
+
   useEffect(() => {
     employeeDetails();
   }, [])
@@ -195,7 +198,7 @@ export default function EmpDetails() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {empData.map((data) => (
+              {sortedEmpData.map((data) => (
                 <TableRow key={data.empid}>
                   <TableCell>{data.empid}</TableCell>
                   <TableCell>

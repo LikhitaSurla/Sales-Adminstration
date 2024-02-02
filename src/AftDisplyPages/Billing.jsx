@@ -131,7 +131,7 @@ export default function Billing(props) {
         })
       }
       addDoc(salesCollectionRef, {
-        name: customerName, purchase: finalPrice, billid: billNo + 1, totalsales: totalSales + finalPrice,date:day,month:month
+        name: customerName, purchase: finalPrice, billid: billNo + 1, totalsales: totalSales + finalPrice,date:day,month:month,year:year,
       })
 
       updateDoc(indexDocumentRef, {
@@ -188,7 +188,6 @@ export default function Billing(props) {
   const [changePage, setChangePage] = useState(false);
   const [billPage, setBillPage] = useState(false);
 
-  //Reverify This
   const idSubmit = async (e) => {
     let dummy = false;
     e.preventDefault();
