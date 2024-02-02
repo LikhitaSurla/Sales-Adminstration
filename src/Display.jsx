@@ -22,7 +22,7 @@ export default function Display() {
   if(matchFound){
     return(
       <>
-      <Admin/>
+      <Admin />
       </>
     )
   }

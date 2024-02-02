@@ -35,19 +35,17 @@ export default function Admin() {
       console.error(err);
     }
   }
-
   const formSubmitted = async (e) => {
     e.preventDefault();
     setIsValid(false)
     try {
-      let userId = e.target.userId.value;
+      let username = e.target.username.value;
       let newPassword = e.target.newPassword.value;
       let tempPassword = e.target.tempPassword.value;
-      console.log(newPassword)
-      const q = query(collection(db, "userdata"), where("id", "==", Number(userId)));
+      const q = query(collection(db, "userdata"), where("name", "==", username));
       const getData = await getDocs(q);
       getData.forEach(async (val) => {
-        if (val.data().id === Number(userId) && val.data().password === tempPassword) {
+        if (val.data().name === username && val.data().password === tempPassword) {
           const userDocRef = doc(db, "userdata", val.id);
           try {
             await updateDoc(userDocRef,{
@@ -56,7 +54,7 @@ export default function Admin() {
             setIsValid(true)
             setTimeout(()=>{
               setIsValid(false);  
-            },2000)
+            },1000)
           } catch (error) {
             console.error(error);
           }
@@ -70,18 +68,15 @@ export default function Admin() {
 
   };
   
-
   if (passState) {
     return (
       <form onSubmit={formSubmitted}>
-        <label htmlFor="userId">User Id:</label>
-        <input type="text" name="userId" id="userId" />
-        <label htmlFor="tempPassword">Temporary Password:</label>
-        <input type="text" name="tempPassword" id="tempPassword" />
-
-        <label htmlFor="newPassword">New Password:</label>
-        <input type="text" name="newPassword" id="newPassword" />
-
+        <label htmlFor="username">Username: </label>
+        <input type="text" name="username" id="username" required />
+        <label htmlFor="tempPassword">Previous Password: </label>
+        <input type="text" name="tempPassword" id="tempPassword" required/>
+        <label htmlFor="newPassword">New Password: </label>
+        <input type="text" name="newPassword" id="newPassword" required/>
         <button type='submit'>Submit</button>
       </form>
     )
@@ -93,10 +88,10 @@ export default function Admin() {
             <form className="login-form">
               <input type="text" placeholder='name' onChange={(e) => setOwnerName(e.target.value)} />
               <input type="password" placeholder='password' onChange={(e) => setOwnerPassword(e.target.value)} />
-              <Button className="Btn" size="md" onClick={updatePasswordBtn} >Update Password </Button>
               <Button size="md" className="Btn" onClick={ownerClicked} >Submit </Button>
+              <Button className="Btn" size="md" onClick={updatePasswordBtn} >Update Password </Button>
               {isValid && 
-                <p> Password Updated Successfully</p>
+                <p style={{textAlign:'center'}}>Password Updated Successfully</p>
               }
             </form>
           </div>

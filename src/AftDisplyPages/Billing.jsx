@@ -6,6 +6,8 @@ import { SearchIcon } from "@heroicons/react/solid";
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Grid, Col, Flex } from "@tremor/react";
 import '../Styling/index.css'
 import Display from '../Display';
+import custDetails from '../FetchingData/Customers'
+
 
 export default function Billing(props) {
 
@@ -17,7 +19,7 @@ export default function Billing(props) {
   const documentId = 'WH23CKiI1e0rKiGaKz4R';
   const indexDocumentRef = doc(indexCollectionRef, documentId);
 
-
+  const[customerCollection,setCustomerCollection]=useState([]);
   const [items, setItems] = useState([]);
   const [code, setCode] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -30,13 +32,17 @@ export default function Billing(props) {
   const [billNo, setBillNo] = useState(0)
   const [totalSales, setTotalSales] = useState(0);
   const [isValid, setIsValid] = useState(true);
+  const [newCustomersCount,setNewCustomersCount] = useState(0);
 
   const indexDetails = async () => {
     try {
       const indexDb = await indexValues();
+      const customerDB = await custDetails();
+      setCustomerCollection(customerDB);
       indexDb.map((data) => {
         setBillNo(data.billid);
         setTotalSales(data.totalsales);
+        setNewCustomersCount(data.newcustomers);
       })
     } catch (err) {
       console.error(err)
@@ -107,16 +113,31 @@ export default function Billing(props) {
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
   const paymentSuccess = async () => {
+    let count = 0;
+    customerCollection.map((data)=>{
+      if(data.phonenumber==customerNumber){
+        count = count+1;
+      }
+    })
+    if(count==0){
+      try{
+      await updateDoc(indexDocumentRef,{
+        newcustomers:newCustomersCount+1
+      })
+      console.log('Data updated')
+    }
+    catch{
+      console.log('error')
+    }
+    }
     setPayment(false);
     setCustomerName('');
     setCustomerNumber('');
-
     setTotalSales(totalSales + finalPrice);
     setItems([]);
     setFinalPrice(0);
     handleUpdateButton();
     setBillNo(billNo + 1)
-
     try {
       let val = true;
       const details = await getDocs(customerCollectionRef);
@@ -200,17 +221,18 @@ export default function Billing(props) {
     e.preventDefault();
     const empData = await getDocs(employeeCollectionRef);
     empData.forEach((doc) => {
-      if (empId != doc.data().empid)
+      if (empId != doc.data().empid){
         setIsValid(false)
+        setTimeout(()=>{
+          setIsValid(true);
+        },1000)
+      }
       else {
         setBillPage(true)
         setState(false)
       }
     })
-
   }
-
-
   if (state) {
     return (
       <div className='employesubmit'>
@@ -218,11 +240,11 @@ export default function Billing(props) {
           <Card className="max-w-sm mx-auto">
             <p> Employee Id :<span>  </span>
               <input type="text" placeholder='service id' onChange={(e) => setEmpId(e.target.value)} required /></p>
-            <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+            <Flex justifycontent="center" className="space-x-2 border-t pt-4 mt-8">
               <Button size="xs" type='submit' variant="primary">
                 Submit </Button>
-              {!isValid && <p>Wrong Details</p>}
             </Flex>
+              {!isValid && <div style={{textAlign:'center'}}>Wrong Details</div>}
           </Card>
         </form>
       </div>
@@ -260,13 +282,13 @@ export default function Billing(props) {
             <div className="space-y-6" >
               <Card>
                 <h1>To Pay:{finalPrice}</h1>
-                <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+                <Flex justifycontent="center" className="space-x-2 border-t pt-4 mt-8">
                   {
-                    finalPrice > 0 ? <Button justifyContent="center" size="xs" onClick={generateBill}>Generate Bill</Button>
+                    finalPrice > 0 ? <Button justifycontent="center" size="xs" onClick={generateBill}>Generate Bill</Button>
                       : <p>No products to bill on list</p>
                   }
                 </Flex>
-                <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+                <Flex justifycontent="center" className="space-x-2 border-t pt-4 mt-8">
 
                   {payment && <Button size="xs" onClick={paymentSuccess}>Payment Succesful</Button>}
                 </Flex>
