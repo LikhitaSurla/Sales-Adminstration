@@ -73,13 +73,7 @@ export default function Admin() {
       <div className="body">
         <Card className='update-form'>
       <form onSubmit={formSubmitted}>
-        <label htmlFor="username">Username: </label>
-        <input type="text" name="username" id="username" required />
-        <label htmlFor="tempPassword">Previous Password: </label>
-        <input type="text" name="tempPassword" id="tempPassword" required/>
-        <label htmlFor="newPassword">New Password: </label>
-        <input type="text" name="newPassword" id="newPassword" required/>
-        <button type='submit'>Submit</button>
+        
         <p>
         Username : <span>  </span><input type="text" name="userId" id="userId" /></p>
         <p>Temporary Password :<span>  </span><input type="text" name="tempPassword" id="tempPassword" /></p>
