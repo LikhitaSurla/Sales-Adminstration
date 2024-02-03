@@ -4,7 +4,7 @@ import Rating from './Rating';
 import { db } from '../config/firebase';
 import { addDoc, collection } from '@firebase/firestore';
 const reviewCollectionRef = collection(db,'review');
-import { Button,Card } from "@tremor/react";
+import { Button,Card,Title } from "@tremor/react";
 
 const FormComponent = () => {
     const [question1,setQuestion1] = useState(0)
@@ -33,21 +33,23 @@ const FormComponent = () => {
 
   return (
     <>
-    <Card>
+    <div className='reviewques'>
+    <Card className='reviewquescard'>
     <form onSubmit={handleSubmit}>
-      <div>
-        <p>1. How was your shopping experience with us today?</p>
+      <Title style={{textAlign:'center'}}>Review Form</Title>
+      <div style={{padding:'20px'}}>
+        <h3 style={{fontSize:'15px'}}>1. How was your shopping experience with us today?</h3>
         <label htmlFor="rating">Rating:</label>
         <Rating onChange={handleRatingChange1} />
       </div>
       <div>
-        <p>2.How would you rate the service you received from our staff?
-</p>
+        <h3>2.How would you rate the service you received from our staff?
+</h3>
         <label htmlFor="rating">Rating:</label>
         <Rating onChange={handleRatingChange2} />   
       </div>
       <div>
-        <p>3.Would you recommend our store to your friends or family?</p>
+        <h3>3.Would you recommend our store to your friends or family?</h3>
         <label htmlFor="rating">Rating:</label>
         <Rating onChange={handleRatingChange3} />
       </div>
@@ -55,6 +57,7 @@ const FormComponent = () => {
       <Button type="submit">Submit</Button>
     </form>
    </Card>
+   </div>
    </>
   );
 };

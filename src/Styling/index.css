@@ -140,3 +140,21 @@ h1{
   .graph-card{
     margin:0px 150px;
   }
+  .newcutomers{
+    display: flex;
+    margin:  100px 200px;
+  }
+  .reviewques{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    cursor: pointer;
+    margin-top: 100px;
+    margin-left: 50px;
+
+  }
+  .reviewquescard{
+    height:600px;
+    width:800px;
+  }

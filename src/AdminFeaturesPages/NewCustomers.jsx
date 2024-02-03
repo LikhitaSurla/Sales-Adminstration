@@ -1,8 +1,9 @@
 import React,{useState,useEffect} from 'react'
-import { db } from '../config/firebase';
 import custDetails from '../FetchingData/Customers'
-import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,} from "@tremor/react";
+import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Metric,Flex} from "@tremor/react";
 import { indexValues } from '../FetchingData/Sales'
+import '../Styling/index.css'
+
 
 export default function NewCustomers() {
 
@@ -42,13 +43,25 @@ export default function NewCustomers() {
 
   return (
     <>
-    <div>NewCustomers</div>
-    <div>
-          new customer count:{newCust}
-          <br />
-          existing customers:{customerCollection.length}
-        </div>
-        <Button onClick={viewCustomersList} size="xs">View Customer List</Button>
+    <Title style={{textAlign:'center',marginTop:'20px'}}>OUR CUSTOMER FAMILY</Title>
+    <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
+
+<Button onClick={viewCustomersList} size="xs">View Customer List</Button></Flex>
+    <div className='newcutomers'>
+  <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
+    <Title style={{textAlign:'center',marginBottom:'5px'}}>New Customers</Title>
+    <Metric style={{textAlign:'center',padding:'5px'}}>{newCust}</Metric>
+  </Card>
+<br/>
+  
+          <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo">
+    <Title style={{textAlign:'center',marginBottom:'5px'}}>  Existing Customers</Title>
+    <Metric style={{textAlign:'center',padding:'5px'}}>{customerCollection.length}</Metric>
+  </Card>
+  
+  </div>
+ 
+ 
     </>
   )}
   else{
