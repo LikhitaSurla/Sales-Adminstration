@@ -49,7 +49,7 @@ const[currMonth,setCurrMonth]=useState('');
         setBillNo(data.billid);
         setTotalSales(data.totalsales);
         setDailySales(data.dailysales);
-        setCurrDate(data.currentDate); 
+        setCurrDate(data.currDate); 
          setMonthlySales(data.monthlysales);
          setCurrMonth(data.currMonth);
         setNewCustomersCount(data.newcustomers);
@@ -145,13 +145,13 @@ const[currMonth,setCurrMonth]=useState('');
     setCustomerName('');
     setCustomerNumber('');
     setTotalSales(totalSales + finalPrice);
-    if (currentDate === `${day}-${month}-${year}`) {
+    if (currentDate === currDate) {
       setDailySales(dailySales + finalPrice);
     } else {
       setDailySales(finalPrice);
       setCurrDate(`${day}-${month}-${year}`);
     }
-if(currentMonth=== `${month}-${year}`)  {
+if(currentMonth === currMonth)  {
   setMonthlySales(monthlySales+finalPrice);
 } else{
 setMonthlySales(finalPrice);
