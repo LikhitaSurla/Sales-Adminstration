@@ -111,28 +111,9 @@ export default function Admin() {
   } 
     else{
       return(
-        <>
-        <div className='center-container'>
-        <div className="grid-container">
-
-          <Card  className="cardcontainer" onClick={()=> navigate ("/empdetails")} decoration="top" decorationColor="indigo">
-    <Metric>Employee Details</Metric>
-  </Card>
-  <Card  className="cardcontainer" onClick={() =>navigate("/salesdata")} decoration="top" decorationColor="indigo">
-    <Metric> Sales Data</Metric>
-  </Card>
-
-  <Card  className="cardcontainer" onClick={() =>navigate("/newcustomers")} decoration="top" decorationColor="indigo">
-    <Metric>Customer Family</Metric>
-  </Card>
-
-  <Card  className="cardcontainer" onClick={() =>navigate("/customerreviews")} decoration="top" decorationColor="indigo">
-    <Metric>Customer Reviews </Metric>
-  </Card>
-
-</div>
-</div>
-        </>
+       
+      navigate('/display/admin/featurespage')
+      
       )
     }
 

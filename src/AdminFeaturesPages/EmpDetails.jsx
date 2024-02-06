@@ -4,6 +4,8 @@ import { addDoc, query, where, collection, deleteDoc, getDocs, doc, getDoc, upda
 import { db } from '../config/firebase';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Flex, } from "@tremor/react";
 import '../Styling/index.css'
+import { useNavigate } from 'react-router-dom';
+
 
 export default function EmpDetails() {
   const employeeCollectionRef = collection(db, 'employeedata')
@@ -20,6 +22,8 @@ export default function EmpDetails() {
     salary: 0,
     bonus: 0,
   });
+  const navigate = useNavigate();
+
 
 
   const employeeDetails = async () => {
@@ -193,6 +197,8 @@ export default function EmpDetails() {
   else {
     return (
       <>
+            <Button onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>
+
         <Card>
           <Title style={{textAlign:'center'}}>EMPLOYEE DETAILS</Title>
           <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">

@@ -3,11 +3,13 @@ import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, Line
 import reviewData from '../FetchingData/Review';
 import { Title } from '@tremor/react';
 import '../Styling/index.css';
-import {Card,Flex,Text,TabGroup,TabList,Tab,TabPanels,TabPanel,} from "@tremor/react";
+import {Card,Flex,Text,TabGroup,TabList,Tab,TabPanels,TabPanel,Button} from "@tremor/react";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CustomerReviews() {
   const [reviewCollection, setReviewCollection] = useState([]);
+  const navigate = useNavigate();
 
   const reviewDataset = async () => {
     try {
@@ -84,7 +86,7 @@ export default function CustomerReviews() {
                 <YAxis />
                 <Tooltip />
                 <Legend />
-                <Line type="monotone" dataKey="count" stroke="#8884d8" activeDot={{ r: 8 }} />
+                <Line type="monotone" dataKey="count" strokeWidth={2} stroke="#8884d8" activeDot={{ r: 8 }} />
               </LineChart>
             </ResponsiveContainer>
           </div>
@@ -96,7 +98,7 @@ export default function CustomerReviews() {
   return (
     <>
  
-
+<Button onClick={()=>navigate('/display/admin//featurespage')}>Back</Button>
       <Card justifyContent='center' height={400} width={900}>
       <Title style={{textAlign:'center'}}>  CUSTOMER REVIEWS </Title>
       

@@ -61,10 +61,7 @@ export default function LoginPro() {
     }
     else{
       return (
-        <>
-        <Display/>
-        
-        </>
+        navigate('/display')
       )
     }
   

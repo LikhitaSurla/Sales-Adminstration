@@ -3,6 +3,7 @@ import custDetails from '../FetchingData/Customers'
 import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Metric,Flex} from "@tremor/react";
 import { indexValues } from '../FetchingData/Sales'
 import '../Styling/index.css'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function NewCustomers() {
@@ -10,6 +11,7 @@ export default function NewCustomers() {
   const[customerCollection,setCustomerCollection]=useState([]);
   const[customerList,setCustomerList]=useState(false);
   const[newCust,setNewCust] = useState(0);
+  const navigate = useNavigate();
 
   const indexDetails = async () => {
     try {
@@ -39,11 +41,17 @@ export default function NewCustomers() {
   const viewCustomersList=()=>{
     setCustomerList(true);
   }
+
+  const checkNewCustPage=()=>{
+    setCustomerList(false);
+  }
   if(customerList==false){
 
   return (
     <>
-    <Title style={{textAlign:'center',marginTop:'20px'}}>OUR CUSTOMER FAMILY</Title>
+          <Button style={{marginTop:'30px',marginLeft:'30px'}} onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>
+
+    <Title style={{textAlign:'center',marginTop:'20px'}}> OUR CUSTOMER FAMILY</Title>
     <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
 <Button onClick={viewCustomersList} size="xs">View Customer List</Button></Flex>
@@ -68,6 +76,7 @@ export default function NewCustomers() {
     return(
       <>
       <Card>
+        <Button onClick={checkNewCustPage}>Back</Button>
     <Title>OUR CUSTOMERS</Title>
     <Table className="mt-5">
       <TableHead>

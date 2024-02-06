@@ -4,13 +4,16 @@ import Billing from './AftDisplyPages/Billing';
 import Admin from './AftDisplyPages/Admin';
 import './Styling/index.css'
 import { Button} from "@tremor/react";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Display() {
 
   const [state,setState] = useState(true);
   const [matchFound,setMatchFound] = useState(false)
-  
+  const navigate = useNavigate();
+
+
   const newBill = ()=>{
     console.log('hii')
     setState(false);
@@ -21,9 +24,7 @@ export default function Display() {
 
   if(matchFound){
     return(
-      <>
-      <Admin />
-      </>
+     navigate('/display/admin')
     )
   }
   else if(state){
@@ -37,7 +38,9 @@ export default function Display() {
   )}
     
   else{ 
-    return( <Billing/>);
+    return( 
+      navigate('/display/billing')
+    );
   }
 }
 

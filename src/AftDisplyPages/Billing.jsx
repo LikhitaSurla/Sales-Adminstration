@@ -5,8 +5,8 @@ import { indexValues } from '../FetchingData/Sales'
 import { SearchIcon } from "@heroicons/react/solid";
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Grid, Col, Flex } from "@tremor/react";
 import '../Styling/index.css'
-import Display from '../Display';
 import custDetails from '../FetchingData/Customers'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Billing(props) {
@@ -18,7 +18,7 @@ export default function Billing(props) {
   const indexCollectionRef = collection(db, 'indexes')
   const documentId = 'WH23CKiI1e0rKiGaKz4R';
   const indexDocumentRef = doc(indexCollectionRef, documentId);
-
+  const navigate = useNavigate();
   const[customerCollection,setCustomerCollection]=useState([]);
   const [items, setItems] = useState([]);
   const [code, setCode] = useState('');
@@ -412,7 +412,6 @@ setCurrMonth(`${month}-${year}`)
   }
   else if (changePage == true && billPage == false) {
     return (
-      <Display />
-    )
+navigate('/display')    )
   }
 }

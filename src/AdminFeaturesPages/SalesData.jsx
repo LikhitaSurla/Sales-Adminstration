@@ -8,7 +8,8 @@ import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,T
 import { indexValues } from '../FetchingData/Sales'
 import { collection,doc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { PieChart, Pie, Cell, Legend as RechartsLegend } from 'recharts';
+import { useNavigate } from 'react-router-dom';
+
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
@@ -18,6 +19,7 @@ export default function SalesData() {
   const indexCollectionRef = collection(db, 'indexes')
   const documentId = 'WH23CKiI1e0rKiGaKz4R';
   const indexDocumentRef = doc(indexCollectionRef, documentId);
+  const navigate = useNavigate();
 
   const salesDetails = async () => {
     try {
@@ -48,8 +50,9 @@ export default function SalesData() {
   const viewData = () => {
     setViewSalesData(true);
   };
-  // Update aggregateSales function
-const aggregateSales = (salesDb) => {
+
+
+  const aggregateSales = (salesDb) => {
   const dailyAggregatedData = salesDb.reduce((acc, data) => {
     const key = `${data.date}-${data.month}-${data.year}`;
 
@@ -77,12 +80,18 @@ const aggregateSales = (salesDb) => {
   return { dailySales: Object.values(dailyAggregatedData), monthlySales: Object.values(monthlyAggregatedData) };
 };
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF6666'];
+const viewSalesStat=()=>{
+  setViewSalesData(false);
+}
+
 
 
   if (viewSalesData) {
     return (
       <>
+      <Button onClick={viewSalesStat}>
+        Back
+      </Button>
         <Card>
     <Title style={{textAlign:'center'}}>Sales Data</Title>
      <Table className="mt-4">
@@ -125,6 +134,7 @@ const aggregateSales = (salesDb) => {
   } else {
     return (
       <>
+      <Button onClick={()=>navigate("/display/admin/featurespage")}>Back</Button>
         <Title style={{textAlign:'center',marginTop:'15px',marginBottom:'-15px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
@@ -188,7 +198,7 @@ const aggregateSales = (salesDb) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="dailysales" stroke="#8884d8" name="Daily Purchases" />
+    <Line type="monotone" dataKey="dailysales" stroke="#8884d8" strokeWidth={2} name="Daily Purchases" />
   </LineChart>
 
 </TabPanel>
@@ -231,7 +241,7 @@ const aggregateSales = (salesDb) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="monthlysales" stroke="#8884d8" name="Montly Sales" />
+    <Line type="monotone" dataKey="monthlysales" stroke="#8884d8" strokeWidth={2} name="Montly Sales" />
   </LineChart>
 
 </TabPanel>
@@ -282,7 +292,7 @@ const aggregateSales = (salesDb) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="purchase" stroke="#8884d8" name="Bill-Purchase" />
+    <Line type="monotone" dataKey="purchase" stroke="#8884d8" strokeWidth={2} name="Bill-Purchase" />
   </LineChart>
 
 </TabPanel>
