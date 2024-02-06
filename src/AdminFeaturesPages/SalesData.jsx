@@ -6,15 +6,13 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,BarChart,
 import '../Styling/index.css';
 import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric,Flex,TabGroup,TabList,Tab,TabPanels,TabPanel,} from '@tremor/react';
 import { indexValues } from '../FetchingData/Sales'
-import { collection,doc } from 'firebase/firestore';
+import { collection,doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
-import { PieChart, Pie, Cell, Legend as RechartsLegend } from 'recharts';
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
   const [indexCollection, setIndexCollection] = useState([]);
   const [viewSalesData, setViewSalesData] = useState(false);
-  
   const indexCollectionRef = collection(db, 'indexes')
   const documentId = 'WH23CKiI1e0rKiGaKz4R';
   const indexDocumentRef = doc(indexCollectionRef, documentId);
@@ -31,14 +29,20 @@ export default function SalesData() {
   };
  
   const indexDetails=async()=>{
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let currentDate = `${day}-${month}-${year}`;
     try{
      const indexDb = await indexValues();
-     setIndexCollection(indexDb)
+     setIndexCollection(indexDb);
     }
     catch{
       console.error(error);
     }
   }
+  
   useEffect(() => {
     salesDetails();
     indexDetails();
@@ -48,7 +52,6 @@ export default function SalesData() {
   const viewData = () => {
     setViewSalesData(true);
   };
-  // Update aggregateSales function
 const aggregateSales = (salesDb) => {
   const dailyAggregatedData = salesDb.reduce((acc, data) => {
     const key = `${data.date}-${data.month}-${data.year}`;
@@ -56,7 +59,6 @@ const aggregateSales = (salesDb) => {
     if (!acc[key]) {
       acc[key] = { date: key, dailysales: 0, totalsales: data.purchase };
     }
-
     acc[key].dailysales += data.purchase;
 
     return acc;
