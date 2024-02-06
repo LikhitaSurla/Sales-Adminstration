@@ -12,6 +12,7 @@ export default function Admin() {
   const [ownerName, setOwnerName] = useState('');
   const [ownerPassword, setOwnerPassword] = useState('');
   const [isValid,setIsValid] = useState(false);
+  const [hasSessionData, setHasSessionData] = useState(false);
   const navigate = useNavigate();
 
   const updatePasswordBtn = () => {
@@ -26,6 +27,7 @@ export default function Admin() {
       usersData.forEach((doc) => {
         if (doc.name === ownerName && doc.password === ownerPassword) {
           matchfound = true;
+          sessionStorage.setItem('admin','adminLoggedIn');
         }
       });
       if (matchfound) {
@@ -66,10 +68,23 @@ export default function Admin() {
     }
     setPassState(false)
     setState(false)
-
   };
+
+  useEffect(()=>{
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      if (!dataInSession) {
+        navigate('/');
+      } else {
+        setHasSessionData(true);
+      }
+    };
+    checkSessionData();
+    
+  },[])
   
-  if (passState) {
+  
+  if (passState && hasSessionData) {
     return (
       <div className="body">
         <Card className='update-form '>
@@ -90,7 +105,7 @@ export default function Admin() {
       </Card>
         </div>
     )
-  } else if (state === false) {
+  } else if (state === false && hasSessionData) {
     return (
       <>
         <div className="body">

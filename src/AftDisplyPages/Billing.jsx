@@ -32,11 +32,11 @@ export default function Billing(props) {
   const [billNo, setBillNo] = useState(0)
   const [totalSales, setTotalSales] = useState(0);
   const [isValid, setIsValid] = useState(true);
- const[monthlySales,setMonthlySales]=useState(0);
+  const[monthlySales,setMonthlySales]=useState(0);
   const[dailySales,setDailySales]=useState(0);
   const [currDate, setCurrDate] = useState('');
-const[currMonth,setCurrMonth]=useState('');
-
+  const[currMonth,setCurrMonth]=useState('');
+  const [hasSessionData, setHasSessionData] = useState(false);
 
   const [newCustomersCount,setNewCustomersCount] = useState(0);
 
@@ -60,9 +60,23 @@ const[currMonth,setCurrMonth]=useState('');
   }
 
   useEffect(() => {
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      if (!dataInSession) {
+        navigate('/');
+      } else {
+        setHasSessionData(true);
+      }
+    };
+    checkSessionData();
     indexDetails();
   }, [])
 
+// useEffect(()=>{
+//   if(hasSessionData){
+//     indexDetails();
+//   }
+// },[])
 
   const [obj, setObj] = useState({
     productname: 'None',
@@ -263,7 +277,7 @@ setCurrMonth(`${month}-${year}`)
       }
     })
   }
-  if (state) {
+  if (state && hasSessionData) {
     return (
       <div className='employesubmit'>
         <form onSubmit={idSubmit}>
@@ -280,7 +294,7 @@ setCurrMonth(`${month}-${year}`)
       </div>
     )
   }
-  else if (billPage) {
+  else if (billPage && hasSessionData) {
     return (<>
       <h1 style={{ textAlign: 'center', marginBottom: '-48px', marginTop: '8px' }}>Billing Page</h1>
       <div className='billing'>
@@ -410,7 +424,7 @@ setCurrMonth(`${month}-${year}`)
     </>
     );
   }
-  else if (changePage == true && billPage == false) {
+  else if (changePage == true && billPage == false &&hasSessionData==true) {
     return (
 navigate('/display')    )
   }

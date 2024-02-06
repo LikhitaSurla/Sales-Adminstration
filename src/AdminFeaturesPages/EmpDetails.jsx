@@ -13,6 +13,8 @@ export default function EmpDetails() {
   const [empData, setEmpData] = useState([]);
   const [updateData, setUpdateData] = useState(false);
   const [tempId, setTempId] = useState('');
+  const [hasSessionData, setHasSessionData] = useState(false);
+  const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const [empDetails, setEmpDetails] = useState({
     empid: '',
     name: '',
@@ -23,8 +25,6 @@ export default function EmpDetails() {
     bonus: 0,
   });
   const navigate = useNavigate();
-
-
 
   const employeeDetails = async () => {
     try {
@@ -38,6 +38,23 @@ export default function EmpDetails() {
   const sortedEmpData = empData.sort((a, b) => a.empid.localeCompare(b.empid));
 
   useEffect(() => {
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      const dataInAdminSession = sessionStorage.getItem('admin');
+      if(dataInAdminSession && dataInSession){
+        setHasSessionData(true);
+        setHasAdminSessionData(true);
+      }
+      else if (dataInSession){ 
+        if(!dataInAdminSession){
+          navigate('/display')
+        }
+      }
+      else if(!dataInSession){
+        navigate('/')
+      }
+    };
+    checkSessionData();
     employeeDetails();
   }, [])
 
@@ -55,14 +72,15 @@ export default function EmpDetails() {
     let len = empDetails.number.toString().length;
     if(len==10){
     try {
+      
       addDoc(employeeCollectionRef, {
         empid: empDetails.empid,
         name: empDetails.name,
-        age: empDetails.age,
+        age: Number(empDetails.age),
         gender: empDetails.gender,
-        phoneNumber: empDetails.number,
-        salary: empDetails.salary,
-        bonus: empDetails.bonus
+        phoneNumber:Number(empDetails.number),
+        salary: Number(empDetails.salary),
+        bonus: Number(empDetails.bonus)
       })
       employeeDetails();
     } catch (err) {
@@ -135,7 +153,13 @@ export default function EmpDetails() {
       );
       if (querySnapshot.docs.length > 0) {
         const docRef = querySnapshot.docs[0].ref;
-        await updateDoc(docRef, { ...empDetails, phoneNumber: empDetails.number });
+        await updateDoc(docRef, {
+          name: empDetails.name,
+          age: Number(empDetails.age),
+          gender: empDetails.gender,
+          phoneNumber:Number(empDetails.number),
+          salary: Number(empDetails.salary),
+        });
         employeeDetails();
       } else {
         console.error(`Document with empid ${id} not found.`);
@@ -151,7 +175,7 @@ export default function EmpDetails() {
   }
   }
 
-  if (updateData) {
+  if (updateData &&hasSessionData && hasAdminSessionData) {
     return (
       <>
         <div className='employesubmit'>
@@ -172,7 +196,7 @@ export default function EmpDetails() {
       </>
     )
   }
-  else if (form == true) {
+  else if (form == true &&hasSessionData &&hasAdminSessionData) {
     return (
       <>
         <div className='employesubmit'>
@@ -194,7 +218,7 @@ export default function EmpDetails() {
       </>
     )
   }
-  else {
+  else if(hasSessionData){
     return (
       <>
             <Button onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>

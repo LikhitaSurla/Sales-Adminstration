@@ -14,15 +14,15 @@ export default function LoginPro() {
     const [state,setState] = useState(false);
     const[isValid,setIsValid] = useState(false);
     const navigate = useNavigate();
-
     const submitBtn =async(e)=>{
       e.preventDefault();
       console.log("Button clicked!");
         try{
             const usersData = await fetchData();
             usersData.forEach((doc)=>{
-              if(doc.name===userName && doc.password ===password){
+              if(doc.name===userName && doc.password === password){
                 setState(true);
+                sessionStorage.setItem('User', "LoggedIn");
               }else{
                 setIsValid(true);
                 setTimeout(()=>{

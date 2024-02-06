@@ -8,7 +8,9 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function CustomerReviews() {
+  const [hasSessionData, setHasSessionData] = useState(false);
   const [reviewCollection, setReviewCollection] = useState([]);
+  const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const navigate = useNavigate();
 
   const reviewDataset = async () => {
@@ -21,7 +23,24 @@ export default function CustomerReviews() {
   };
 
   useEffect(() => {
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      const dataInAdminSession = sessionStorage.getItem('admin');
+      if(dataInAdminSession && dataInSession){
+        setHasSessionData(true);
+        setHasAdminSessionData(true);
+      }
+      else if (dataInSession){ 
+        if(!dataInAdminSession){
+          navigate('/display')
+        }
+      }
+      else if(!dataInSession){
+        navigate('/')
+      }
+    };
     reviewDataset();
+    checkSessionData();
   }, []);
 
   const aggregateData = (questionNumber) => {
@@ -95,10 +114,11 @@ export default function CustomerReviews() {
     );
   };
 
+  if(hasSessionData && hasAdminSessionData){
   return (
     <>
  
-<Button onClick={()=>navigate('/display/admin//featurespage')}>Back</Button>
+<Button onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>
       <Card justifyContent='center' height={400} width={900}>
       <Title style={{textAlign:'center'}}>  CUSTOMER REVIEWS </Title>
       
@@ -136,4 +156,5 @@ export default function CustomerReviews() {
 
     </>
   );
+}
 }

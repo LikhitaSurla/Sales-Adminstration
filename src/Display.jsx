@@ -1,23 +1,21 @@
-import React, { useEffect } from 'react'
-import { useState } from 'react';
-import Billing from './AftDisplyPages/Billing';
-import Admin from './AftDisplyPages/Admin';
-import './Styling/index.css'
-import { Button} from "@tremor/react";
+import React, { useEffect, useState } from 'react';
+import { Button } from "@tremor/react";
 import { indexValues } from './FetchingData/Sales';
-import { collection,doc, updateDoc } from 'firebase/firestore';
+import { collection, doc, updateDoc } from 'firebase/firestore';
 import { db } from './config/firebase';
 import { useNavigate } from 'react-router-dom';
 
-const indexCollectionRef = collection(db, 'indexes')
+const indexCollectionRef = collection(db, 'indexes');
 const documentId = 'WH23CKiI1e0rKiGaKz4R';
 const indexDocumentRef = doc(indexCollectionRef, documentId);
 
-export default function Display() {
+const Display = () => {
+  const navigate = useNavigate();
+  const [state, setState] = useState(true);
+  const [matchFound, setMatchFound] = useState(false);
+  const [hasSessionData, setHasSessionData] = useState(false);
 
-  const [state,setState] = useState(true);
-  const [matchFound,setMatchFound] = useState(false)
-  const updateDailySales=async()=>{
+  const updateDailySales = async () => {
     const date = new Date();
     let day = date.getDate();
     let month = date.getMonth() + 1;
@@ -42,40 +40,53 @@ export default function Display() {
     catch{
       console.error(error);
     }
-  }
-  useEffect(()=>{
-    updateDailySales();
-  })
-  const navigate = useNavigate();
+  };
 
+  useEffect(() => {
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      if (!dataInSession) {
+        navigate('/');
+      } else {
+        setHasSessionData(true);
+      }
+    };
+    checkSessionData();
+  }, []);
 
-  const newBill = ()=>{
-    console.log('hii')
+  useEffect(() => {
+    if (hasSessionData) {
+      updateDailySales();
+    }
+  }, [hasSessionData]);
+
+  const newBill = () => {
+    console.log('hii');
     setState(false);
-  }
-  const ownerLogin=async()=>{
+  };
+
+  const ownerLogin = async () => {
     setMatchFound(true);
-  }
+  };
 
-  if(matchFound){
-    return(
-     navigate('/display/admin')
-    )
-  }
-  else if(state){
+  if (matchFound) {
+    return navigate('/display/admin');
+  } else if (state && hasSessionData) {
     return (
-    <>
-    <div className="body">
-             <Button size="lg" onClick={newBill}> + New Bill</Button>
-    </div>
-      <Button size="xs" className='adminlogin' onClick={ownerLogin}>Admin</Button>
-    </>
-  )}
-    
-  else{ 
-    return( 
-      navigate('/display/billing')
+      <>
+        <div className="body">
+          <Button size="lg" onClick={newBill}>
+            + New Bill
+          </Button>
+        </div>
+        <Button size="xs" className='adminlogin' onClick={ownerLogin}>
+          Admin
+        </Button>
+      </>
     );
+  } else {
+    return navigate('/display/billing');
   }
-}
+};
 
+export default Display;

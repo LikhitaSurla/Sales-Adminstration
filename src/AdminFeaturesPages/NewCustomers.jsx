@@ -9,6 +9,8 @@ import { useNavigate } from 'react-router-dom';
 export default function NewCustomers() {
 
   const[customerCollection,setCustomerCollection]=useState([]);
+  const [hasSessionData, setHasSessionData] = useState(false);
+  const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const[customerList,setCustomerList]=useState(false);
   const[newCust,setNewCust] = useState(0);
   const navigate = useNavigate();
@@ -34,8 +36,25 @@ export default function NewCustomers() {
   }
 
   useEffect(()=>{
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      const dataInAdminSession = sessionStorage.getItem('admin');
+      if(dataInAdminSession && dataInSession){
+        setHasSessionData(true);
+        setHasAdminSessionData(true);
+      }
+      else if (dataInSession){ 
+        if(!dataInAdminSession){
+          navigate('/display')
+        }
+      }
+      else if(!dataInSession){
+        navigate('/')
+      }
+    };
     indexDetails();
     customerDetails();
+    checkSessionData();
   },[])
 
   const viewCustomersList=()=>{
@@ -45,7 +64,7 @@ export default function NewCustomers() {
   const checkNewCustPage=()=>{
     setCustomerList(false);
   }
-  if(customerList==false){
+  if(customerList==false && hasSessionData && hasAdminSessionData){
 
   return (
     <>
@@ -72,7 +91,7 @@ export default function NewCustomers() {
  
     </>
   )}
-  else{
+  else if(hasSessionData &&hasAdminSessionData){
     return(
       <>
       <Card>
@@ -99,14 +118,7 @@ export default function NewCustomers() {
       </TableBody>
     </Table>
   </Card>
-        {/* <section>
-    {customerCollection.map((data) => (
-            <div key={data.phonenumber}>
-                <h1>{data.name}</h1>
-                <h3>{data.phonenumber}</h3> 
-            </div>
-        ))}  
-        </section> */}
+     
          </>
     )
   }

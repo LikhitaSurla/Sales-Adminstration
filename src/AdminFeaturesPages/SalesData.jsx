@@ -18,6 +18,8 @@ export default function SalesData() {
   const indexCollectionRef = collection(db, 'indexes')
   const documentId = 'WH23CKiI1e0rKiGaKz4R';
   const indexDocumentRef = doc(indexCollectionRef, documentId);
+  const [hasSessionData, setHasSessionData] = useState(false);
+  const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const navigate = useNavigate();
 
   const salesDetails = async () => {
@@ -47,8 +49,25 @@ export default function SalesData() {
   }
   
   useEffect(() => {
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      const dataInAdminSession = sessionStorage.getItem('admin'); 
+      console.log(dataInAdminSession)
+      console.log(dataInSession)
+      if(dataInSession && dataInAdminSession){
+        setHasSessionData(true);
+        setHasAdminSessionData(true);
+      }
+      else if (dataInSession && !dataInAdminSession) {
+          navigate('/display')
+      }
+      else if(!dataInSession){
+        navigate('/')
+      }
+    };
     salesDetails();
     indexDetails();
+    checkSessionData();
   }, []);
 
 
@@ -90,7 +109,7 @@ const viewSalesStat=()=>{
 
 
 
-  if (viewSalesData) {
+  if (viewSalesData && hasSessionData && hasAdminSessionData) {
     return (
       <>
       <Button onClick={viewSalesStat}>
@@ -135,7 +154,7 @@ const viewSalesStat=()=>{
       
       </>
     );
-  } else {
+  } else if(hasSessionData && hasAdminSessionData){
     return (
       <>
       <Button onClick={()=>navigate("/display/admin/featurespage")}>Back</Button>
