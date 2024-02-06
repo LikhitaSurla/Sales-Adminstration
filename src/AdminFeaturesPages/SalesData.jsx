@@ -55,7 +55,6 @@ export default function SalesData() {
   const viewData = () => {
     setViewSalesData(true);
   };
-const aggregateSales = (salesDb) => {
 
 
   const aggregateSales = (salesDb) => {
@@ -338,5 +337,6 @@ const viewSalesStat=()=>{
       </>
     );
   }
+
 }
 
