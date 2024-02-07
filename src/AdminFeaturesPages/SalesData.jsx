@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { fetchSales } from '../FetchingData/Sales';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,BarChart, Bar, AreaChart, Area,} from 'recharts';
@@ -9,7 +7,7 @@ import { indexValues } from '../FetchingData/Sales'
 import { collection,doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
-
+import 'ldrs/bouncy'
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
@@ -20,6 +18,7 @@ export default function SalesData() {
   const indexDocumentRef = doc(indexCollectionRef, documentId);
   const [hasSessionData, setHasSessionData] = useState(false);
   const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
+  const[loading,setLoading] = useState(true);
   const navigate = useNavigate();
 
   const salesDetails = async () => {
@@ -47,7 +46,9 @@ export default function SalesData() {
       console.error(error);
     }
   }
-  
+  setTimeout(()=>{
+    setLoading(false)
+  },800)
   useEffect(() => {
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem('User');
@@ -108,8 +109,18 @@ const viewSalesStat=()=>{
 }
 
 
-
-  if (viewSalesData && hasSessionData && hasAdminSessionData) {
+if(loading && hasAdminSessionData && hasSessionData){
+  return(
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <l-bouncy
+      size="45"
+      speed="1.75"
+      color="#0A1052" 
+    ></l-bouncy>
+  </div>
+  )
+}
+  else if (viewSalesData && hasSessionData && hasAdminSessionData) {
     return (
       <>
       <Button onClick={viewSalesStat}>

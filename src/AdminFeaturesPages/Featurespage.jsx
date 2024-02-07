@@ -24,6 +24,8 @@ export default function Featurespage() {
       };
       checkSessionData();
     },[])
+    
+  if(hasSessionData && hasAdminSessionData){
 
     const logOutAdmin=()=>{
       setHasAdminSessionData(false)
