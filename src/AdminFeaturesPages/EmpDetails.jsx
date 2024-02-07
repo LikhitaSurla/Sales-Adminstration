@@ -7,7 +7,15 @@ import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { MdKeyboardBackspace } from "react-icons/md";
-import { Tooltip } from '@mui/material';  
+import { Tooltip,TextField } from '@mui/material';  
+import { FaIdCardClip } from "react-icons/fa6";
+import { FaUserAlt } from "react-icons/fa";
+import { FaPhoneVolume } from "react-icons/fa6";
+import { TbCoinRupeeFilled } from "react-icons/tb";
+import { GiTakeMyMoney } from "react-icons/gi";
+import { RiUserHeartFill } from "react-icons/ri";
+import { IoMaleFemale } from "react-icons/io5";
+
 
 export default function EmpDetails() {
   const employeeCollectionRef = collection(db, 'employeedata')
@@ -197,16 +205,57 @@ export default function EmpDetails() {
         <div className='employesubmit'>
           <Title>Updating Employee Details</Title>
           <Card>
+
             <form onSubmit={handleUpdateButton}>
-              
+             
+            <div className='formsordering'>
+
+<FaIdCardClip 
+ 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}  name="empid" value={tempId} id="outlined-disabled" label="Employee Id" variant="outlined"  onChange={handleChange} disabled
+ inputProps={{style: {height: 20}}}/>
+</div>
+
+<div className='formsordering'>
+<FaUserAlt 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}  name="name" value={empDetails.name} id="outlined-basic"  variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+
+<div className='formsordering'>
+<RiUserHeartFill 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' value={empDetails.age} name="age"  id="outlined-basic" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<IoMaleFemale 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}  name="gender" value={empDetails.gender} id="outlined-basic"  variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<FaPhoneVolume 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}   type='number'name="number"  value={empDetails.number} id="outlined-basic"  variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<TbCoinRupeeFilled 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="salary"  value={empDetails.salary} id="outlined-basic"  variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<GiTakeMyMoney 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number'  name="bonus" value={empDetails.bonus} id="outlined-disabled"  variant="outlined"  disabled
+ inputProps={{style: {height: 20}}}/>
+</div>
+{/* 
             <p>Employee ID : <input type="text" name="empid" placeholder='Employee id' value={tempId} readOnly /></p>
             <p>Employee Name : <input type="text" name="name" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} required /></p>
             <p>Age : <input type="number" name="age" placeholder='Enter Age' value={empDetails.age} onChange={handleChange} required/></p>
             <p>Gender : <input type="text" name="gender" placeholder='Enter Gender' value={empDetails.gender} onChange={handleChange} required/></p>
             <p>Phone Number :<input type="number" name="number" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange} required/></p>
             <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange} required /></p>
-            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} readOnly/></p>
-            <Button type='submit'>ChangeDetails</Button>
+            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} readOnly/></p> */}
+            <Button type='submit' style={{marginLeft:'150px'}}>ChangeDetails</Button>
             </form>
           </Card>
         </div>
@@ -219,15 +268,55 @@ export default function EmpDetails() {
         <div className='employesubmit'>
           <Card>
             <form onSubmit={addEmployee}>
-            <Title justifyContent='center'>Adding Employee</Title>
-            <p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange} required /></p>
-            <p> Employee Name : <input type="text" name="name" placeholder='enter name' onChange={handleChange} required/></p>
+            <Title style={{textAlign:'center',marginBottom:'15px'}}>Adding Employee</Title>
+            <div className='formsordering'>
+
+<FaIdCardClip 
+ 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}  name="empid"  id="outlined-basic" label="Enter Employee Id" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+
+<div className='formsordering'>
+<FaUserAlt 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}  name="name"  id="outlined-basic" label="Enter Employee Name" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+
+<div className='formsordering'>
+<RiUserHeartFill 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="age"  id="outlined-basic" label="Enter Age" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<IoMaleFemale 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}  name="gender"  id="outlined-basic" label="Enter Gender" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<FaPhoneVolume 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}}   type='number'name="number"  id="outlined-basic" label="Enter Phonenumber" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<TbCoinRupeeFilled 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="salary"  id="outlined-basic" label="Enter Salary" variant="outlined"  onChange={handleChange} required
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+<GiTakeMyMoney 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number'  name="bonus"  id="outlined-disabled" label="Bonus" variant="outlined"  disabled
+ inputProps={{style: {height: 20}}}/>
+</div>
+
+            {/* <p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange} required /></p> */}
+            {/* <p> Employee Name : <input type="text" name="name" placeholder='enter name' onChange={handleChange} required/></p>
             <p> Age :  <input type="number" name="age" placeholder='Enter Age' onChange={handleChange} required/></p>
             <p>Gender :   <input type="text" name="gender" placeholder='Enter Gender' onChange={handleChange} required/></p>
             <p> Phone Number :<input type="number" name="number" placeholder='Enter Phonenumber' onChange={handleChange} required/></p>
             <p>Salary: <input type="number" name="salary" placeholder='Salary' onChange={handleChange} required/></p>
-            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange} required/></p>
-            <Button type='submit'>Submit</Button>
+            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange} required/></p> */}
+            <Button type='submit' style={{marginLeft:'150px'}}>Submit</Button>
             </form>
           </Card>
         </div>
