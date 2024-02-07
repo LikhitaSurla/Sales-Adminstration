@@ -24,7 +24,8 @@ export default function Featurespage() {
       };
       checkSessionData();
     },[])
-    if(hasSessionData && hasAdminSessionData){
+    
+  if(hasSessionData && hasAdminSessionData){
   return (
    <>
    <div className='center-container'>

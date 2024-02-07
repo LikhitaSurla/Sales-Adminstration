@@ -42,7 +42,6 @@ export default function Admin() {
     setIsValid(false)
     try {
       let username = e.target.userId.value;
-      console.log(username)
       let newPassword = e.target.newPassword.value;
       let tempPassword = e.target.tempPassword.value;
       const q = query(collection(db, "userdata"), where("name", "==", username));

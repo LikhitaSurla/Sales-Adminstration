@@ -5,12 +5,13 @@ import { Title } from '@tremor/react';
 import '../Styling/index.css';
 import {Card,Flex,Text,TabGroup,TabList,Tab,TabPanels,TabPanel,Button} from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
-
+import 'ldrs/bouncy'
 
 export default function CustomerReviews() {
   const [hasSessionData, setHasSessionData] = useState(false);
   const [reviewCollection, setReviewCollection] = useState([]);
   const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
+  const[loading,setLoading] = useState(true);
   const navigate = useNavigate();
 
   const reviewDataset = async () => {
@@ -43,6 +44,9 @@ export default function CustomerReviews() {
     checkSessionData();
   }, []);
 
+  setTimeout(()=>{
+    setLoading(false)
+  },800)
   const aggregateData = (questionNumber) => {
     const counts = {};
 
@@ -114,7 +118,19 @@ export default function CustomerReviews() {
     );
   };
 
-  if(hasSessionData && hasAdminSessionData){
+  if(loading && hasAdminSessionData && hasSessionData){
+    return(
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <l-bouncy
+        size="45"
+        speed="1.75"
+        color="#0A1052" 
+      ></l-bouncy>
+    </div>
+    )
+  }
+
+  else if(hasSessionData && hasAdminSessionData){
   return (
     <>
  

@@ -4,6 +4,7 @@ import { indexValues } from './FetchingData/Sales';
 import { collection, doc, updateDoc } from 'firebase/firestore';
 import { db } from './config/firebase';
 import { useNavigate } from 'react-router-dom';
+import 'ldrs/bouncy'
 
 const indexCollectionRef = collection(db, 'indexes');
 const documentId = 'WH23CKiI1e0rKiGaKz4R';
@@ -14,6 +15,7 @@ const Display = () => {
   const [state, setState] = useState(true);
   const [matchFound, setMatchFound] = useState(false);
   const [hasSessionData, setHasSessionData] = useState(false);
+  const[loading,setLoading] = useState(true);
 
   const updateDailySales = async () => {
     const date = new Date();
@@ -68,10 +70,24 @@ const Display = () => {
   const ownerLogin = async () => {
     setMatchFound(true);
   };
-
-  if (matchFound) {
+   setTimeout(()=>{
+    setLoading(false)
+   },1200)
+   if(loading &&hasSessionData){
+    return(
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <l-bouncy
+        size="45"
+        speed="1.75"
+        color="#0A1052" 
+      ></l-bouncy>
+    </div>
+    )
+   }
+  else if (matchFound) {
     return navigate('/display/admin');
-  } else if (state && hasSessionData) {
+  } 
+  else if (state && hasSessionData) {
     return (
       <>
         <div className="body">

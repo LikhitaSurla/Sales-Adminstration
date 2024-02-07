@@ -5,6 +5,7 @@ import { db } from '../config/firebase';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Flex, } from "@tremor/react";
 import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
+import 'ldrs/bouncy'
 
 
 export default function EmpDetails() {
@@ -15,6 +16,7 @@ export default function EmpDetails() {
   const [tempId, setTempId] = useState('');
   const [hasSessionData, setHasSessionData] = useState(false);
   const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
+  const[loading,setLoading] = useState(true);
   const [empDetails, setEmpDetails] = useState({
     empid: '',
     name: '',
@@ -58,6 +60,10 @@ export default function EmpDetails() {
     employeeDetails();
   }, [])
 
+  setTimeout(()=>{
+    setLoading(false);
+  },800)
+
   const handleChange = (e) => {
     setEmpDetails(
       {
@@ -65,7 +71,6 @@ export default function EmpDetails() {
       }
     );
   }
-
 
   const addEmployee = (e) => {
     e.preventDefault();
@@ -174,8 +179,18 @@ export default function EmpDetails() {
     alert("Check Phone Number")
   }
   }
-
-  if (updateData &&hasSessionData && hasAdminSessionData) {
+  if(loading && hasAdminSessionData && hasSessionData){
+    return(
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <l-bouncy
+        size="45"
+        speed="1.75"
+        color="#0A1052" 
+      ></l-bouncy>
+    </div>
+    )
+  }
+  else if (updateData &&hasSessionData && hasAdminSessionData) {
     return (
       <>
         <div className='employesubmit'>
@@ -200,7 +215,6 @@ export default function EmpDetails() {
     return (
       <>
         <div className='employesubmit'>
-
           <Card>
             <form onSubmit={addEmployee}>
             <Title justifyContent='center'>Adding Employee</Title>

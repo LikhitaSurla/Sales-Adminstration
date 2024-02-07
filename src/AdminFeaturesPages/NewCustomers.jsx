@@ -4,6 +4,7 @@ import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow
 import { indexValues } from '../FetchingData/Sales'
 import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
+import 'ldrs/bouncy'
 
 
 export default function NewCustomers() {
@@ -13,6 +14,7 @@ export default function NewCustomers() {
   const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const[customerList,setCustomerList]=useState(false);
   const[newCust,setNewCust] = useState(0);
+  const[loading,setLoading] = useState(true);
   const navigate = useNavigate();
 
   const indexDetails = async () => {
@@ -34,7 +36,9 @@ export default function NewCustomers() {
       console.error(err)
     }
   }
-
+  setTimeout(()=>{
+    setLoading(false);
+  },800)
   useEffect(()=>{
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem('User');
@@ -64,7 +68,19 @@ export default function NewCustomers() {
   const checkNewCustPage=()=>{
     setCustomerList(false);
   }
-  if(customerList==false && hasSessionData && hasAdminSessionData){
+
+  if(loading && hasAdminSessionData && hasSessionData){
+    return(
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+      <l-bouncy
+        size="45"
+        speed="1.75"
+        color="#0A1052" 
+      ></l-bouncy>
+    </div>
+    )
+  }
+  else if(customerList==false && hasSessionData && hasAdminSessionData){
 
   return (
     <>
