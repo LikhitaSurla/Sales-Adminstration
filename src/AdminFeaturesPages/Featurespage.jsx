@@ -1,7 +1,10 @@
 import React, { useEffect,useState } from 'react'
 import { useNavigate } from 'react-router-dom';
-import { Button, Card, Metric,Flex,Title } from "@tremor/react";
+import { Button, Card, Metric,Flex,Title, } from "@tremor/react";
 import '../Styling/index.css';
+import { IoIosLogOut } from "react-icons/io";
+import { Tooltip } from '@mui/material';
+
 
 export default function Featurespage() {
     const navigate = useNavigate();
@@ -34,7 +37,8 @@ export default function Featurespage() {
     if(hasSessionData && hasAdminSessionData){
   return (
    <>
-   <Button onClick={logOutAdmin}>Logout</Button>
+   <Tooltip title="Logout"><button className='adminLoggingout' onClick={logOutAdmin} ><IoIosLogOut color='black' style={{marginLeft:'12px'}} size={30}/>
+</button></Tooltip>
    <div className='center-container'>
         <div className="grid-container">
 

@@ -5,6 +5,7 @@ import { indexValues } from '../FetchingData/Sales'
 import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
+import { MdKeyboardBackspace } from "react-icons/md";
 
 
 export default function NewCustomers() {
@@ -84,9 +85,11 @@ export default function NewCustomers() {
 
   return (
     <>
-          <Button style={{marginTop:'30px',marginLeft:'30px'}} onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>
 
-    <Title style={{textAlign:'center',marginTop:'20px'}}> OUR CUSTOMER FAMILY</Title>
+    <Title style={{textAlign:'center',marginTop:'35px',marginBottom:'-45px'}}><b> OUR CUSTOMER FAMILY</b></Title>
+          <button className='backToFeaturesPage'  onClick={()=>navigate('/display/admin/featurespage')}> 
+          <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+</button>
     <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
 <Button onClick={viewCustomersList} size="xs">View Customer List</Button></Flex>
@@ -111,8 +114,9 @@ export default function NewCustomers() {
     return(
       <>
       <Card>
-        <Button onClick={checkNewCustPage}>Back</Button>
-    <Title>OUR CUSTOMERS</Title>
+        <button className='backToFeaturesPage' onClick={checkNewCustPage}> <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+</button>
+    <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'8px'}} ><b>OUR CUSTOMERS</b></Title>
     <Table className="mt-5">
       <TableHead>
         <TableRow>

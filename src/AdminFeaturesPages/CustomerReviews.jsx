@@ -6,6 +6,8 @@ import '../Styling/index.css';
 import {Card,Flex,Text,TabGroup,TabList,Tab,TabPanels,TabPanel,Button} from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
+import { MdKeyboardBackspace } from "react-icons/md";
+
 
 export default function CustomerReviews() {
   const [hasSessionData, setHasSessionData] = useState(false);
@@ -134,9 +136,10 @@ export default function CustomerReviews() {
   return (
     <>
  
-<Button onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>
       <Card justifyContent='center' height={400} width={900}>
-      <Title style={{textAlign:'center'}}>  CUSTOMER REVIEWS </Title>
+<button className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>            <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+</button>
+      <Title style={{textAlign:'center',marginTop:'-35px'}}> <b>CUSTOMER REVIEWS </b> </Title>
       
       <TabGroup  justifyContent='center'>
         <TabList className="mt-8">

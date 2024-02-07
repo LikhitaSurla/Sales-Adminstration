@@ -6,7 +6,8 @@ import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, 
 import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
-
+import { MdKeyboardBackspace } from "react-icons/md";
+import { Tooltip } from '@mui/material';  
 
 export default function EmpDetails() {
   const employeeCollectionRef = collection(db, 'employeedata')
@@ -197,6 +198,7 @@ export default function EmpDetails() {
           <Title>Updating Employee Details</Title>
           <Card>
             <form onSubmit={handleUpdateButton}>
+              
             <p>Employee ID : <input type="text" name="empid" placeholder='Employee id' value={tempId} readOnly /></p>
             <p>Employee Name : <input type="text" name="name" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} required /></p>
             <p>Age : <input type="number" name="age" placeholder='Enter Age' value={empDetails.age} onChange={handleChange} required/></p>
@@ -235,10 +237,12 @@ export default function EmpDetails() {
   else if(hasSessionData){
     return (
       <>
-            <Button onClick={()=>navigate('/display/admin/featurespage')}>Back</Button>
-
+  
         <Card>
-          <Title style={{textAlign:'center'}}>EMPLOYEE DETAILS</Title>
+          <Tooltip title='Back to Features'><button className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>
+            <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+</button></Tooltip>
+          <Title style={{textAlign:'center',marginTop:'-35px'}}><b>EMPLOYEE DETAILS</b></Title>
           <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
             <Button size="xs" onClick={viewDetails}> +Add new</Button></Flex>

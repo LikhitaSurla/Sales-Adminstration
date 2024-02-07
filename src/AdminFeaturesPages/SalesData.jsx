@@ -8,6 +8,8 @@ import { collection,doc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
+import { MdKeyboardBackspace } from "react-icons/md";
+
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
@@ -123,11 +125,12 @@ if(loading && hasAdminSessionData && hasSessionData){
   else if (viewSalesData && hasSessionData && hasAdminSessionData) {
     return (
       <>
-      <Button onClick={viewSalesStat}>
-        Back
-      </Button>
+      <button className='backToFeaturesPage' onClick={viewSalesStat}>
+      <MdKeyboardBackspace color='black' style={{marginLeft:'10px',marginTop:'5px'}} size={30}/>
+
+      </button>
+    <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'15px'}}><b>SALES DATA</b></Title>
         <Card>
-    <Title style={{textAlign:'center'}}>Sales Data</Title>
      <Table className="mt-4">
        <TableHead>
          <TableRow>
@@ -168,8 +171,9 @@ if(loading && hasAdminSessionData && hasSessionData){
   } else if(hasSessionData && hasAdminSessionData){
     return (
       <>
-      <Button onClick={()=>navigate("/display/admin/featurespage")}>Back</Button>
-        <Title style={{textAlign:'center',marginTop:'15px',marginBottom:'-15px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
+        <Title style={{textAlign:'center',marginTop:'25px',marginBottom:'-55px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
+      <button className='backToFeaturesPage' onClick={()=>navigate("/display/admin/featurespage")}>      <MdKeyboardBackspace color='black' style={{marginLeft:'10px',marginTop:'7px'}} size={30}/>
+</button>
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
           <Button size="xs" onClick={viewData}> View Data</Button></Flex>

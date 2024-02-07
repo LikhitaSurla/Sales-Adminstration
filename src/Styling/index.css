@@ -184,3 +184,35 @@ background-color: maroon;
 color:white;
 border: none;
 }
+.adminLoggingout{
+  background-color: none;
+  float: right;
+  width: 55px;
+  height:40px;
+  cursor: pointer;
+  margin-top: 25px;
+  margin-right: 25px;
+color: black;}
+
+.adminLoggingout:hover{
+  background-color: rgb(230, 227, 227);
+  border-radius: 50%;
+  
+}
+.backToFeaturesPage{
+  background-color: white;
+  width: 55px;
+  height:40px;
+  cursor: pointer;
+color: black;
+border: none;
+margin-top: 12px;
+margin-left: 10px;
+}
+.backToFeaturesPage:hover{
+  background-color: rgb(230, 227, 227);
+  border-radius: 50%;
+}
+
+
+

@@ -150,7 +150,7 @@ export default function Admin() {
  inputProps={{style: {height: 20}}}/>
 </div>
  <div className='adjustingAdminBtn'>
-              <Button size="md" className="Btn" style={{width:'145px',marginTop:'10px',height:'40px',marginLeft:'50px' }} onClick={ownerClicked} >Submit </Button>
+              <Button size="md" className="Btn" style={{width:'145px',marginTop:'10px',height:'40px',marginLeft:'50px' }} onClick={ownerClicked} >Login </Button>
               <Button className="Btn" size="md" style={{width:'145px',marginTop:'10px',height:'40px',marginRight:'50px' }} onClick={updatePasswordBtn} >Update Password </Button></div>
               {isValid && 
                 <p style={{textAlign:'center'}}>Password Updated Successfully</p>
