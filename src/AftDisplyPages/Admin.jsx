@@ -5,6 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Metric,Flex,Title } from "@tremor/react";
 import '../Styling/index.css';
 import { collection, getDoc, getDocs,doc, query,updateDoc,where } from 'firebase/firestore';
+import { FaUser } from "react-icons/fa";
+import { TextField,} from '@mui/material'
+import { IoKeySharp } from "react-icons/io5";
+import { FaUserLock } from "react-icons/fa";
+import { FaXmark } from "react-icons/fa6";
+
+
 
 export default function Admin() {
   const [state, setState] = useState(false);
@@ -82,25 +89,44 @@ export default function Admin() {
     checkSessionData();
     
   },[])
+
+  const logoutAdmin=()=>{
+    setPassState(false)
+  }
   
   
   if (passState && hasSessionData) {
     return (
       <div className="body">
         <Card className='update-form '>
-        <Title style={{textAlign:'center',marginBottom:'15px'}}>UPDATE PASSWORD</Title>
+        <Title style={{textAlign:'center',marginBottom:'35px'}}>UPDATE PASSWORD 
+</Title>
+<button className='adminClickedBack' onClick={logoutAdmin} >X</button>
       <form onSubmit={formSubmitted}>
         
-        <p>
-       <input style={{width:'300px'}} type="text" name="userId" id="userId" placeholder='Enter Username'/></p>
-        <p><input style={{width:'300px'}} type="text" name="tempPassword" id="tempPassword" placeholder='Enter Previous Password' /></p>
+      <div className='formsordering'>
 
-       <p>
-        <input style={{width:'300px',marginBottom:'-20px'}} type="text" name="newPassword" id="newPassword" placeholder='Enter New Password' /></p>
+<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 
+ InputLabelProps={{style: {height: 25}}} inputProps={{style: {height: 20}}}/>
+</div>
 
+<div className='formsordering'>
+
+<IoKeySharp 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' name="tempPassword" id="outlined-basic" label="Enter Previous Password" variant="outlined" 
+ inputProps={{style: {height: 20}}}/>
+</div>
+<div className='formsordering'>
+
+<FaUserLock 
+
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' name="newPassword" id="outlined-basic" label="Enter New Password" variant="outlined" 
+ inputProps={{style: {height: 20}}}/>
+</div>
+    
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
-        <Button type='submit'>Submit</Button></Flex>
+        <Button type='submit' style={{width:'140px',marginTop:'2px',height:'40px' }}>Update</Button></Flex>
       </form>
       </Card>
         </div>
@@ -111,10 +137,22 @@ export default function Admin() {
         <div className="body">
           <div className='intiallogin'>
             <form className="login-form">
-              <input type="text" placeholder='name' onChange={(e) => setOwnerName(e.target.value)} />
-              <input type="password" placeholder='password' onChange={(e) => setOwnerPassword(e.target.value)} />
-              <Button size="md" className="Btn" onClick={ownerClicked} >Submit </Button>
-              <Button className="Btn" size="md" onClick={updatePasswordBtn} >Update Password </Button>
+             <Title style={{textAlign:'center',marginBottom:'15px'}}>ADMIN LOGIN</Title>
+              <div className='formsordering'>
+
+<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 
+  onChange={(e) => setOwnerName(e.target.value)} InputLabelProps={{style: {height: 25}}} inputProps={{style: {height: 20}}}/>
+</div>
+
+<div className='formsordering'>
+
+<IoKeySharp 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' name="tempPassword" id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e) => setOwnerPassword(e.target.value)} 
+ inputProps={{style: {height: 20}}}/>
+</div>
+ <div className='adjustingAdminBtn'>
+              <Button size="md" className="Btn" style={{width:'145px',marginTop:'10px',height:'40px',marginLeft:'50px' }} onClick={ownerClicked} >Submit </Button>
+              <Button className="Btn" size="md" style={{width:'145px',marginTop:'10px',height:'40px',marginRight:'50px' }} onClick={updatePasswordBtn} >Update Password </Button></div>
               {isValid && 
                 <p style={{textAlign:'center'}}>Password Updated Successfully</p>
               }

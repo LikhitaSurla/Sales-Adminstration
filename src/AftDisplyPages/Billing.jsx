@@ -314,11 +314,11 @@ setCurrMonth(`${month}-${year}`)
 
 
                 <p>Customer Name:
-                  <input type="text" placeholder="Customer Name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
+                  <input type="text" placeholder=" Enter Customer Name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required />
                 </p>
                 <br />
                 <p>
-                  Customer Number: <input type="text" placeholder="Customer Number" value={customerNumber} onChange={(e) => setCustomerNumber(e.target.value)} required />
+                  Customer Number: <input type="text" placeholder=" Enter Customer Number" value={customerNumber} onChange={(e) => setCustomerNumber(e.target.value)} required />
                 </p>
               </Card>
             </div>
@@ -329,7 +329,7 @@ setCurrMonth(`${month}-${year}`)
                 <Flex justifycontent="center" className="space-x-2 border-t pt-4 mt-8">
                   {
                     finalPrice > 0 ? <Button justifycontent="center" size="xs" onClick={generateBill}>Generate Bill</Button>
-                      : <p>No products to bill on list</p>
+                      : <p>No products added to your Bill</p>
                   }
                 </Flex>
                 <Flex justifycontent="center" className="space-x-2 border-t pt-4 mt-8">

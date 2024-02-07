@@ -5,6 +5,9 @@ import {useState } from 'react'
 import './Styling/index.css'
 import { Button } from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
+import { FaUser } from "react-icons/fa";
+import { TextField,} from '@mui/material'
+import { IoKeySharp } from "react-icons/io5";
 
 
 
@@ -46,11 +49,22 @@ export default function LoginPro() {
        <div className='intiallogin'>
        <form className="login-form" onSubmit={submitBtn}>
         <h1>SalesEase</h1>
-      <input type="text" placeholder='Enter Username' onChange={(e)=>setUserName(e.target.value)} />
-      <input type="password"  placeholder='Enter Password' onChange={(e)=>setPassword(e.target.value)} />
-      <Button size="md" type='submit'>Submit </Button>
+        
+<div className='formsordering'>
+
+<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic" label="Enter Username" variant="outlined" onChange={(e)=>setUserName(e.target.value)} 
+ InputLabelProps={{style: {height: 25}}} inputProps={{style: {height: 20}}}/>
+</div>
+
+<div className='formsordering'>
+
+<IoKeySharp 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}
+ inputProps={{style: {height: 20}}}/>
+</div>
+      <Button size="md" style={{width:'300px',marginLeft:'43px',marginTop:'10px'}} type='submit'>Submit </Button>
       {isValid && 
-        <p style={{textAlign:'center'}}>Worng Credentials</p>
+        <p style={{textAlign:'center'}}>Wrong Credentials</p>
           }
 
       </form>

@@ -24,9 +24,15 @@ export default function Featurespage() {
       };
       checkSessionData();
     },[])
+
+    const logOutAdmin=()=>{
+      setHasAdminSessionData(false)
+      navigate('/display')
+    }
     if(hasSessionData && hasAdminSessionData){
   return (
    <>
+   <Button onClick={logOutAdmin}>Logout</Button>
    <div className='center-container'>
         <div className="grid-container">
 

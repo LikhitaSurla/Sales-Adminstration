@@ -8,7 +8,8 @@
 }
 
 .intiallogin{
-    width: 300px;
+    width: 400px;
+    height: 300px;
     background-color: #fff;
     padding: 20px;
     border-radius: 8px;
@@ -134,8 +135,8 @@ h1{
   }
   
   .update-form{
-    width:350px;
-    height:350px;
+    width:400px;
+    height:400px;
   }
   .graph-card{
     margin:0px 150px;
@@ -158,3 +159,28 @@ h1{
     height:600px;
     width:800px;
   }
+  .formsordering{
+    display: flex;
+    margin-bottom: 18px;
+
+  }
+ .adjustingAdminBtn{
+display: flex;
+margin-left: -12px;
+ }  
+.adminClickedBack{
+  background-color:transparent;
+  color:black;
+  cursor: pointer;
+  border: 1px solid skyblue;
+  width:40px;
+  height:30px;
+  border-radius: 4px;
+  float:right;
+  margin-top: -64px;
+}
+.adminClickedBack:hover{
+background-color: maroon;
+color:white;
+border: none;
+}
