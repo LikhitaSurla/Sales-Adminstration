@@ -37,7 +37,7 @@ export default function Featurespage() {
     if(hasSessionData && hasAdminSessionData){
   return (
    <>
-   <Tooltip title="Logout"><button className='adminLoggingout' onClick={logOutAdmin} ><IoIosLogOut color='black' style={{marginLeft:'12px'}} size={30}/>
+   <Tooltip title="Logout"><button className='adminLoggingout' onClick={logOutAdmin} ><IoIosLogOut color='black' style={{marginLeft:'10px'}} size={30}/>
 </button></Tooltip>
    <div className='center-container'>
         <div className="grid-container">

@@ -125,8 +125,8 @@ if(loading && hasAdminSessionData && hasSessionData){
   else if (viewSalesData && hasSessionData && hasAdminSessionData) {
     return (
       <>
-      <button className='backToFeaturesPage' onClick={viewSalesStat}>
-      <MdKeyboardBackspace color='black' style={{marginLeft:'10px',marginTop:'5px'}} size={30}/>
+      <button className='backToFeaturesPage' style={{marginLeft:'40px'}} onClick={viewSalesStat}>
+      <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 
       </button>
     <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'15px'}}><b>SALES DATA</b></Title>
@@ -171,8 +171,8 @@ if(loading && hasAdminSessionData && hasSessionData){
   } else if(hasSessionData && hasAdminSessionData){
     return (
       <>
-        <Title style={{textAlign:'center',marginTop:'25px',marginBottom:'-55px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
-      <button className='backToFeaturesPage' onClick={()=>navigate("/display/admin/featurespage")}>      <MdKeyboardBackspace color='black' style={{marginLeft:'10px',marginTop:'7px'}} size={30}/>
+        <Title style={{textAlign:'center',marginTop:'36px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
+      <button className='backToFeaturesPage' style={{marginLeft:'40px',marginTop:'-38px',float:'left'}} onClick={()=>navigate("/display/admin/featurespage")}>      <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button>
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">

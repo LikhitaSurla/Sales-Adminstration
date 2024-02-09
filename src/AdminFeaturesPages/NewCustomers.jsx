@@ -85,10 +85,9 @@ export default function NewCustomers() {
 
   return (
     <>
-
     <Title style={{textAlign:'center',marginTop:'35px',marginBottom:'-45px'}}><b> OUR CUSTOMER FAMILY</b></Title>
-          <button className='backToFeaturesPage'  onClick={()=>navigate('/display/admin/featurespage')}> 
-          <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+          <button className='backToFeaturesPage' style={{marginLeft:'40px'}} onClick={()=>navigate('/display/admin/featurespage')}> 
+          <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button>
     <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 

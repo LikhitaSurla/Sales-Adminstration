@@ -185,10 +185,11 @@ color:white;
 border: none;
 }
 .adminLoggingout{
+  transition: ease 0.2s;
   background-color: none;
   float: right;
-  width: 55px;
-  height:40px;
+  width: 45px;
+  height:45px;
   cursor: pointer;
   margin-top: 25px;
   margin-right: 25px;
@@ -201,8 +202,8 @@ color: black;}
 }
 .backToFeaturesPage{
   background-color: white;
-  width: 55px;
-  height:40px;
+  width: 45px;
+  height:45px;
   cursor: pointer;
 color: black;
 border: none;
@@ -212,7 +213,23 @@ margin-left: 10px;
 .backToFeaturesPage:hover{
   background-color: rgb(230, 227, 227);
   border-radius: 50%;
+  transition: ease 0.2s;
+}
+.backToFeaturesEmp{
+  background-color: white;
+  width: 30px;
+  height:30px;
+  cursor: pointer;
+color: black;
+border: none;
+margin-top: 12px;
+margin-left: 10px;
 }
 
-
+.backToFeaturesEmp:hover{
+  background-color:maroon;
+  border-radius: 50%;
+  transition: ease 0.2s;
+  color:white;
+}
 

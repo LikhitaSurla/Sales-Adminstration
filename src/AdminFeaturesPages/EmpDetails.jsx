@@ -15,6 +15,8 @@ import { TbCoinRupeeFilled } from "react-icons/tb";
 import { GiTakeMyMoney } from "react-icons/gi";
 import { RiUserHeartFill } from "react-icons/ri";
 import { IoMaleFemale } from "react-icons/io5";
+import { IoMdClose } from "react-icons/io";
+import { IoClose } from "react-icons/io5"
 
 
 export default function EmpDetails() {
@@ -94,7 +96,7 @@ export default function EmpDetails() {
         gender: empDetails.gender,
         phoneNumber:Number(empDetails.number),
         salary: Number(empDetails.salary),
-        bonus: Number(empDetails.bonus)
+        bonus:0
       })
       employeeDetails();
     } catch (err) {
@@ -156,7 +158,10 @@ export default function EmpDetails() {
     console.log(empDetails);
   }, [empDetails]);
 
-
+  const removeForm=()=>{
+    setForm(false)
+    setUpdateData(false)
+  }
   const handleUpdateButton = async (e) => {
     e.preventDefault();
     let len = empDetails.number.toString().length;
@@ -203,10 +208,12 @@ export default function EmpDetails() {
     return (
       <>
         <div className='employesubmit'>
-          <Title>Updating Employee Details</Title>
-          <Card>
-
+          <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
+          <Tooltip title='Exit'><button style={{float:'right',marginTop:'1px',marginLeft:'-20px'}} className='backToFeaturesEmp' onClick={removeForm}>
+            <IoClose style={{marginLeft:'7px'}}/>
+</button></Tooltip>
             <form onSubmit={handleUpdateButton}>
+          <Title style={{textAlign:'center',marginBottom:'25px'}}>Updating Employee Details</Title>
              
             <div className='formsordering'>
 
@@ -242,11 +249,11 @@ export default function EmpDetails() {
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="salary"  value={empDetails.salary} id="outlined-basic"  variant="outlined"  onChange={handleChange} required
  inputProps={{style: {height: 20}}}/>
 </div>
-<div className='formsordering'>
+{/* <div className='formsordering'>
 <GiTakeMyMoney 
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number'  name="bonus" value={empDetails.bonus} id="outlined-disabled"  variant="outlined"  disabled
  inputProps={{style: {height: 20}}}/>
-</div>
+</div> */}
 {/* 
             <p>Employee ID : <input type="text" name="empid" placeholder='Employee id' value={tempId} readOnly /></p>
             <p>Employee Name : <input type="text" name="name" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} required /></p>
@@ -255,7 +262,7 @@ export default function EmpDetails() {
             <p>Phone Number :<input type="number" name="number" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange} required/></p>
             <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange} required /></p>
             <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} readOnly/></p> */}
-            <Button type='submit' style={{marginLeft:'150px'}}>ChangeDetails</Button>
+            <Button type='submit' style={{marginLeft:'138px'}}>ChangeDetails</Button>
             </form>
           </Card>
         </div>
@@ -266,8 +273,12 @@ export default function EmpDetails() {
     return (
       <>
         <div className='employesubmit'>
-          <Card>
+          <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
+            <Tooltip title='Exit'><button style={{float:'right',marginTop:'0px',marginLeft:'-20px'}} className='backToFeaturesEmp' onClick={removeForm}>
+            <IoClose style={{marginLeft:'7px'}}/>
+</button></Tooltip>
             <form onSubmit={addEmployee}>
+              
             <Title style={{textAlign:'center',marginBottom:'15px'}}>Adding Employee</Title>
             <div className='formsordering'>
 
@@ -303,11 +314,11 @@ export default function EmpDetails() {
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="salary"  id="outlined-basic" label="Enter Salary" variant="outlined"  onChange={handleChange} required
  inputProps={{style: {height: 20}}}/>
 </div>
-<div className='formsordering'>
+{/* <div className='formsordering'>
 <GiTakeMyMoney 
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number'  name="bonus"  id="outlined-disabled" label="Bonus" variant="outlined"  disabled
  inputProps={{style: {height: 20}}}/>
-</div>
+</div> */}
 
             {/* <p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange} required /></p> */}
             {/* <p> Employee Name : <input type="text" name="name" placeholder='enter name' onChange={handleChange} required/></p>
@@ -328,8 +339,8 @@ export default function EmpDetails() {
       <>
   
         <Card>
-          <Tooltip title='Back to Features'><button className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>
-            <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+          <Tooltip title='Back to Features'><button style={{marginTop:'0'}} className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>
+            <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button></Tooltip>
           <Title style={{textAlign:'center',marginTop:'-35px'}}><b>EMPLOYEE DETAILS</b></Title>
           <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
