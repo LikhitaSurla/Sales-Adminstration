@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import {Tooltip }from "@mui/material";
 import {
   collection,
   query,
@@ -33,6 +34,7 @@ import { FaUserFriends } from "react-icons/fa";
 import { TextField } from "@mui/material";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { MdOutlineReceiptLong } from "react-icons/md";
+import { IoClose } from "react-icons/io5"
 
 export default function Billing() {
   const productCollectionRef = collection(db, "productdetails");
@@ -128,10 +130,12 @@ export default function Billing() {
 
     newInput();
   };
-
-  const searchCode = async () => {
+  let itemCode;
+  const searchCode = async (e) => {
+    e.preventDefault();
+    itemCode = code.toUpperCase();
     try {
-      const q = query(productCollectionRef, where("code", "==", code));
+      const q = query(productCollectionRef, where("code", "==", itemCode));
       const product = await getDocs(q);
       const data = [];
       product.forEach((doc) => {
@@ -153,6 +157,8 @@ export default function Billing() {
   let year = date.getFullYear();
   let currentDate = `${day}-${month}-${year}`;
   let currentMonth = `${month}-${year}`;
+
+
   const paymentSuccess = async () => {
     let count = 0;
     customerCollection.map((data) => {
@@ -240,7 +246,14 @@ export default function Billing() {
   };
 
   const generateBill = () => {
-    if (customerNumber.length != 10) {
+
+    if(customerName=='' && customerNumber==''){
+      alert('Enter Customer Details')
+    }
+    else if(customerName=='' && customerNumber.length!=10){
+      alert("Enter Customer Details Properly")
+    }
+    else if (customerNumber.length != 10) {
       alert("Re-Verify Phone Numnber");
     } else if (customerName == "") {
       alert("Customer Name Can't Be Empty");
@@ -278,11 +291,12 @@ export default function Billing() {
   const [billPage, setBillPage] = useState(false);
 
   const idSubmit = async (e) => {
-    let dummy = false;
     e.preventDefault();
     const empData = await getDocs(employeeCollectionRef);
+    const empNumber = empId.toUpperCase();
+    setEmpId(empNumber)
     empData.forEach((doc) => {
-      if (empId != doc.data().empid) {
+      if (empNumber != doc.data().empid) {
         setIsValid(false);
         setTimeout(() => {
           setIsValid(true);
@@ -293,21 +307,35 @@ export default function Billing() {
       }
     });
   };
+  const goToDisplay= ()=>{
+    navigate('/display')
+  }
   if (state && hasSessionData) {
     return (
-      <div className="employesubmit">
+      <div className = "employesubmit">
         <form onSubmit={idSubmit}>
-          <Card className="max-w-sm mx-auto">
+          <Card className="max-w-sm mx-auto" style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
+            <div style={{textAlign:'center',marginBottom:'18px',fontFamily:'arial',fontWeight:500}}>EMPLOYEE DETAILS</div>
             <p>
               {" "}
-              Employee Id :<span> </span>
-              <input
+              {/* Employee Id :<span> </span> */}
+              {/* <input
                 type="text"
                 style={{ marginBottom: "-25px" }}
                 placeholder="Enter Employee Id"
                 onChange={(e) => setEmpId(e.target.value)}
                 required
-              />
+              /> */}
+               <TextField
+                      style={{ width: "300px",marginBottom:-15}}
+                      id="outlined-basic"
+                      label="Enter Employee ID"
+                      variant="outlined"
+                      onChange={(e) => setEmpId(e.target.value)}
+                      InputLabelProps={{ style: { height: 20} }}
+                      inputProps={{ style: { height:18} }}
+                      required
+                    />
             </p>
             <Flex
               justifycontent="center"
@@ -318,7 +346,7 @@ export default function Billing() {
               </Button>
             </Flex>
             {!isValid && (
-              <div style={{ textAlign: "center" }}>Wrong Details</div>
+              <div style={{ textAlign: "center",marginTop:5 }}> <p style={{color:'red',fontWeight:400}}>Invalid Employee Id</p></div>
             )}
           </Card>
         </form>
@@ -327,6 +355,7 @@ export default function Billing() {
   } else if (billPage && hasSessionData) {
     return (
       <>
+     
         <Title
           style={{
             textAlign: "center",
@@ -339,11 +368,12 @@ export default function Billing() {
           }}
         >
         
-          <p style={{ marginTop: "10px", color:'white ', fontFamily: "Poppins" }}>
+          <p style={{textAlign:'center', marginTop: "10px", color:'white ', fontFamily: "Poppins" }}>
             BILLING
             <MdOutlineReceiptLong
             size={24}
               style={{
+                textAlign:'center',
                 color: "white",
                 float: "right",
                 marginLeft: "4px",
@@ -352,7 +382,12 @@ export default function Billing() {
             />
           </p>
         </Title>
-
+          <Tooltip title='Exit' style={{float:'right'}}>
+            <button className='backToFeaturesEmp' onClick={goToDisplay}>
+              <IoClose style={{marginLeft:6}}/>
+            </button>
+          </Tooltip>
+      
         <div className="billing" style={{ marginRight: "10px" }}>
           <Grid numItemsLg={6} className="gap-6 mt-6">
             <Col numColSpanLg={2} className="billing-side-a">
@@ -365,7 +400,7 @@ export default function Billing() {
                   }}
                 >
                   <div style={{ textAlign: "center" }}>
-                    EmployeeId: <b> {empId}</b>
+                    EmployeeId: <b>{empId}</b>
                   </div>
                   <br />
                   <div style={{ textAlign: "center" }}>
@@ -398,7 +433,7 @@ export default function Billing() {
                     <TextField
                       style={{ width: "300px"}}
                       id="outlined-basic"
-                      label="Enter Customer Number"
+                      label="Enter Customer Name"
                       variant="outlined"
                       onChange={(e) => setCustomerName(e.target.value)}
                       required
@@ -488,8 +523,9 @@ export default function Billing() {
                   style={{ marginRight: "20px", backgroundColor: "#F0F0F0 " }}
                 >
                   <p style={{ fontWeight: "500" }}>
+                    <form onSubmit={searchCode} style={{display:'flex'}}>
                     Search Product Code :<span> </span>
-                    <input
+                    <input style={{marginTop:-7,marginLeft:8}}
                       icon={SearchIcon}
                       placeholder="Search for Product Code..."
                       type="text"
@@ -498,9 +534,10 @@ export default function Billing() {
                       required
                     />
                     <span> </span>
-                    <Button size="xs" onClick={searchCode}>
+                    <Button size="xs" type="submit" style={{marginLeft:8,height:35,marginTop:-4}} >
                       Submit
                     </Button>
+                    </form>
                   </p>
 
                   <div style={{display:'flex'}}>

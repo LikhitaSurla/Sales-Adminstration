@@ -4,7 +4,7 @@ import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow
 import { indexValues } from '../FetchingData/Sales'
 import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
-import 'ldrs/bouncy'
+import 'ldrs/bouncy';
 import { MdKeyboardBackspace } from "react-icons/md";
 
 
@@ -86,7 +86,7 @@ export default function NewCustomers() {
   return (
     <>
     <Title style={{textAlign:'center',marginTop:'35px',marginBottom:'-45px'}}><b> OUR CUSTOMER FAMILY</b></Title>
-          <button className='backToFeaturesPage' style={{marginLeft:'40px'}} onClick={()=>navigate('/display/admin/featurespage')}> 
+          <button className='backToFeaturesPage' style={{marginLeft:13}} onClick={()=>navigate('/display/admin/featurespage')}> 
           <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button>
     <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
@@ -113,20 +113,20 @@ export default function NewCustomers() {
     return(
       <>
       <Card>
-        <button className='backToFeaturesPage' onClick={checkNewCustPage}> <MdKeyboardBackspace color='black' style={{marginLeft:'12px'}} size={30}/>
+        <button style={{marginLeft:-8}} className='backToFeaturesPage' onClick={checkNewCustPage}> <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button>
     <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'8px'}} ><b>OUR CUSTOMERS</b></Title>
-    <Table className="mt-5">
+    <Table className="mt-4">
       <TableHead>
-        <TableRow>
+        <TableRow >
           <TableHeaderCell>NAME</TableHeaderCell>
           <TableHeaderCell>PHONE NUMBER</TableHeaderCell>
           
         </TableRow>
       </TableHead>
-      <TableBody>
+      <TableBody  >
         {customerCollection.map((data) => (
-          <TableRow key={data.phonenumber}>
+          <TableRow key={data.phonenumber} >
             <TableCell>{data.name}</TableCell>
             <TableCell>
               <Text>{data.phonenumber}</Text>

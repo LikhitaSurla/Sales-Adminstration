@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import employeeData from '../FetchingData/Employee'
 import { addDoc, query, where, collection, deleteDoc, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
@@ -6,8 +6,8 @@ import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, 
 import '../Styling/index.css'
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
-import { MdKeyboardBackspace } from "react-icons/md";
 import { Tooltip,TextField } from '@mui/material';  
+import { MdKeyboardBackspace } from "react-icons/md";
 import { FaIdCardClip } from "react-icons/fa6";
 import { FaUserAlt } from "react-icons/fa";
 import { FaPhoneVolume } from "react-icons/fa6";
@@ -28,6 +28,7 @@ export default function EmpDetails() {
   const [hasSessionData, setHasSessionData] = useState(false);
   const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const[loading,setLoading] = useState(true);
+  const [isPresent,setIsPresent] = useState(false);
   const [empDetails, setEmpDetails] = useState({
     empid: '',
     name: '',
@@ -83,32 +84,40 @@ export default function EmpDetails() {
     );
   }
 
-  const addEmployee = (e) => {
+  const addEmployee = async (e) => {
     e.preventDefault();
     let len = empDetails.number.toString().length;
-    if(len==10){
-    try {
-      
-      addDoc(employeeCollectionRef, {
-        empid: empDetails.empid,
-        name: empDetails.name,
-        age: Number(empDetails.age),
-        gender: empDetails.gender,
-        phoneNumber:Number(empDetails.number),
-        salary: Number(empDetails.salary),
-        bonus:0
-      })
-      employeeDetails();
-    } catch (err) {
-      console.error(err)
+    console.log(empDetails.empid);
+  
+    if (len === 10) {
+      try {
+        const q = await getDocs(query(employeeCollectionRef, where('empid', '==', empDetails.empid)));
+        if (q.size > 0) {
+          setIsPresent(true);
+          setTimeout(()=>{
+            setIsPresent(false);
+          },1500)
+        } else {
+          await addDoc(employeeCollectionRef, {
+            empid: empDetails.empid,
+            name: empDetails.name,
+            age: Number(empDetails.age),
+            gender: empDetails.gender,
+            phoneNumber: Number(empDetails.number),
+            salary: Number(empDetails.salary),
+            bonus: 0
+          });
+          employeeDetails();
+          setForm(false);
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      alert("Check Phone Number");
     }
-    setForm(false);
-  }
-  else{
-    alert("check Phone Number")
-  }
-  }
-
+  };
+  
 
   const viewDetails = () => {
     setForm(true);
@@ -262,7 +271,7 @@ export default function EmpDetails() {
             <p>Phone Number :<input type="number" name="number" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange} required/></p>
             <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange} required /></p>
             <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} readOnly/></p> */}
-            <Button type='submit' style={{marginLeft:'138px'}}>ChangeDetails</Button>
+            <Button type='submit' style={{ margin: '0 auto', display: 'block' ,backgroundColor:'green',border:'none'}}>ChangeDetails</Button>
             </form>
           </Card>
         </div>
@@ -327,7 +336,10 @@ export default function EmpDetails() {
             <p> Phone Number :<input type="number" name="number" placeholder='Enter Phonenumber' onChange={handleChange} required/></p>
             <p>Salary: <input type="number" name="salary" placeholder='Salary' onChange={handleChange} required/></p>
             <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange} required/></p> */}
-            <Button type='submit' style={{marginLeft:'150px'}}>Submit</Button>
+            {/* <Button type='submit' style={{marginLeft:'150px'}}>Submit</Button> */}
+            <Button type='submit' style={{ margin: '0 auto', display: 'block',border:'none',backgroundColor:'green'}}>SUBMIT</Button>
+
+            {isPresent && <p style={{color:'red',marginTop:8,textAlign:'center'}}>Employee Already Present</p> } 
             </form>
           </Card>
         </div>
@@ -337,9 +349,8 @@ export default function EmpDetails() {
   else if(hasSessionData){
     return (
       <>
-  
         <Card>
-          <Tooltip title='Back to Features'><button style={{marginTop:'0'}} className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>
+          <Tooltip ><button style={{marginTop:'0',marginLeft:-8}} className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>
             <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button></Tooltip>
           <Title style={{textAlign:'center',marginTop:'-35px'}}><b>EMPLOYEE DETAILS</b></Title>

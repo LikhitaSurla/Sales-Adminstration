@@ -138,7 +138,7 @@ export default function CustomerReviews() {
  
       <Card justifyContent='center' height={400} width={900}>
         
-<button className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>            <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
+<button className='backToFeaturesPage' style={{marginLeft:-8}} onClick={()=>navigate('/display/admin/featurespage')}>            <MdKeyboardBackspace color='black' style={{marginLeft:'7px'}} size={30}/>
 </button>
       <Title style={{textAlign:'center',marginTop:'-35px'}}> <b>CUSTOMER REVIEWS </b> </Title>
       

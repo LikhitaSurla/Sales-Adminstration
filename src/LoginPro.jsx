@@ -46,7 +46,7 @@ export default function LoginPro() {
     return (
       <>
      <div className="body">
-       <div className='intiallogin'>
+       <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
        <form className="login-form" onSubmit={submitBtn}>
         <h1>SalesEase</h1>
         
@@ -64,7 +64,7 @@ export default function LoginPro() {
 </div>
       <Button size="md" style={{width:'300px',marginLeft:'43px',marginTop:'10px'}} type='submit'>Submit </Button>
       {isValid && 
-        <p style={{textAlign:'center'}}>Wrong Credentials</p>
+        <p style={{textAlign:'center',color:'red',marginTop:10}}>Wrong Credentials</p>
           }
 
       </form>

@@ -125,9 +125,8 @@ if(loading && hasAdminSessionData && hasSessionData){
   else if (viewSalesData && hasSessionData && hasAdminSessionData) {
     return (
       <>
-      <button className='backToFeaturesPage' style={{marginLeft:'40px'}} onClick={viewSalesStat}>
+      <button className='backToFeaturesPage' style={{marginLeft:13}} onClick={viewSalesStat}>
       <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
-
       </button>
     <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'15px'}}><b>SALES DATA</b></Title>
         <Card>
@@ -172,7 +171,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     return (
       <>
         <Title style={{textAlign:'center',marginTop:'36px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
-      <button className='backToFeaturesPage' style={{marginLeft:'40px',marginTop:'-38px',float:'left'}} onClick={()=>navigate("/display/admin/featurespage")}>      <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
+      <button className='backToFeaturesPage' style={{marginLeft:13,marginTop:'-38px',float:'left'}} onClick={()=>navigate("/display/admin/featurespage")}>      <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button>
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
