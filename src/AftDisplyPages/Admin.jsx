@@ -107,9 +107,6 @@ export default function Admin() {
   const logoutAdmin=()=>{
     setPassState(false)
   }
-  const goToDisplay=()=>{
-    navigate('/display')
-  }
    const logoutAdminop=()=>{
     navigate('/display')
   }
@@ -157,11 +154,12 @@ export default function Admin() {
     return (
       <>
         <div className="body">
-          <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
+          <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)',height:'315px'}}>
             <form className="login-form" >
              <Title style={{textAlign:'center',marginBottom:15}}>ADMIN LOGIN</Title>
              <button className='adminloginback' onClick={logoutAdminop} >X</button>
-      <form onSubmit={formSubmitted}></form>
+   </form>
+   <form onSubmit={formSubmitted}>
               <div className='formsordering'>
 
 <FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 

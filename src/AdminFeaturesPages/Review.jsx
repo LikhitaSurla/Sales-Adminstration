@@ -23,7 +23,7 @@ const FormComponent = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault(); 
-    alert("form submitted")
+    alert("Thank you...!")
     addDoc(reviewCollectionRef,{
         q1:question1,
         q2:question2,
@@ -37,24 +37,24 @@ const FormComponent = () => {
     <Card className='reviewquescard'>
     <form onSubmit={handleSubmit}>
       <Title style={{textAlign:'center'}}>Review Form</Title>
-      <div style={{padding:'20px'}}>
+      <div style={{marginLeft:'20px',marginTop:15}}>
         <h3 style={{fontSize:'15px'}}>1. How was your shopping experience with us today?</h3>
-        <label htmlFor="rating">Rating:</label>
+        <label htmlFor="rating"><p style={{marginBottom:5}}>Rating:</p></label>
         <Rating onChange={handleRatingChange1} />
       </div>
-      <div>
+      <div style={{marginLeft:'20px',marginTop:15}}>
         <h3>2.How would you rate the service you received from our staff?
 </h3>
-        <label htmlFor="rating">Rating:</label>
+        <label htmlFor="rating"><p style={{marginBottom:5}}>Rating:</p></label>
         <Rating onChange={handleRatingChange2} />   
       </div>
-      <div>
+      <div style={{marginLeft:'20px',marginTop:15}}>
         <h3>3.Would you recommend our store to your friends or family?</h3>
-        <label htmlFor="rating">Rating:</label>
+        <label htmlFor="rating"><p style={{marginBottom:5}}>Rating:</p></label>
         <Rating onChange={handleRatingChange3} />
       </div>
 
-      <Button type="submit">Submit</Button>
+      <Button style={{marginLeft:15,marginTop:15}}type="submit">Submit</Button>
     </form>
    </Card>
    </div>
