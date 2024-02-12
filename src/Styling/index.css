@@ -60,10 +60,12 @@ h1{
  
   .card {
     max-width: 500px;
+
     margin: auto;
   }
   .space-y-6{
     margin-top:20px;
+    margin-bottom: 25px;
   
   }
   .employesubmit
@@ -78,10 +80,7 @@ h1{
     display: flex;
     justify-content: space-between;
   }
-  /* .reviewbarchart-column,
-.reviewlinegraph-column {
-  flex: 1;
-} */
+  
 
 .reviewbarchart,
 .reviewlinegraph {

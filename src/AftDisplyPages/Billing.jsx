@@ -390,6 +390,7 @@ export default function Billing() {
                     marginLeft: "10px",
                     backgroundColor: "#F0F0F0 ",
                     marginBottom: "-5px",
+                    height:"200px",
                   }}
                 >
                   <div style={{ textAlign: "center" }}>
