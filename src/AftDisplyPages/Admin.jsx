@@ -9,10 +9,7 @@ import { TextField,} from '@mui/material'
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
 import { FaUserLock } from "react-icons/fa";
-import {Tooltip} from '@mui/material';
-import { MdKeyboardBackspace } from "react-icons/md";
 
-import { IoClose } from "react-icons/io5"
 
 export default function Admin() {
   const [state, setState] = useState(false);
@@ -113,6 +110,9 @@ export default function Admin() {
   const goToDisplay=()=>{
     navigate('/display')
   }
+   const logoutAdminop=()=>{
+    navigate('/display')
+  }
   
   
   if (passState && hasSessionData) {
@@ -120,8 +120,8 @@ export default function Admin() {
       <div className="body">
         <Card className='update-form ' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
         <Title style={{textAlign:'center',marginBottom:'35px'}}>UPDATE PASSWORD 
-</Title>
-<button className='adminClickedBack' onClick={logoutAdmin} >X</button>
+
+<button className='adminClickedBack' onClick={logoutAdmin} >X</button></Title>
       <form onSubmit={formSubmitted}>
         
       <div className='formsordering'>
@@ -160,6 +160,8 @@ export default function Admin() {
           <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
             <form className="login-form" >
              <Title style={{textAlign:'center',marginBottom:15}}>ADMIN LOGIN</Title>
+             <button className='adminloginback' onClick={logoutAdminop} >X</button>
+      <form onSubmit={formSubmitted}></form>
               <div className='formsordering'>
 
 <FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 

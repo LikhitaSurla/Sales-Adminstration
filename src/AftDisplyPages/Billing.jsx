@@ -317,15 +317,7 @@ export default function Billing() {
           <Card className="max-w-sm mx-auto" style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
             <div style={{textAlign:'center',marginBottom:'18px',fontFamily:'arial',fontWeight:500}}>EMPLOYEE DETAILS</div>
             <p>
-              {" "}
-              {/* Employee Id :<span> </span> */}
-              {/* <input
-                type="text"
-                style={{ marginBottom: "-25px" }}
-                placeholder="Enter Employee Id"
-                onChange={(e) => setEmpId(e.target.value)}
-                required
-              /> */}
+              
                <TextField
                       style={{ width: "300px",marginBottom:-15}}
                       id="outlined-basic"
@@ -359,7 +351,7 @@ export default function Billing() {
         <Title
           style={{
             textAlign: "center",
-            height: "50px",
+            height: "64px",
             color: "#CBB306  ",
             display: "flex",
             justifyContent: "center",
@@ -368,7 +360,7 @@ export default function Billing() {
           }}
         >
         
-          <p style={{textAlign:'center', marginTop: "10px", color:'white ', fontFamily: "Poppins" }}>
+          <p style={{textAlign:'center', marginTop: "20px", color:'white ', fontFamily: "Poppins" }}>
             BILLING
             <MdOutlineReceiptLong
             size={24}
@@ -384,7 +376,8 @@ export default function Billing() {
         </Title>
           <Tooltip title='Exit' style={{float:'right'}}>
             <button className='backToFeaturesEmp' onClick={goToDisplay}>
-              <IoClose style={{marginLeft:6}}/>
+              <IoClose size={20} style={{marginLeft:"5",
+              marginTop:"-1px"}}/>
             </button>
           </Tooltip>
       
@@ -420,7 +413,6 @@ export default function Billing() {
                     marginBottom: "-5px",
                   }}
                 >
-                  {/* <input  style={{marginLeft:"24px"}} type="text" placeholder=" Enter Customer Name" value={customerName} onChange={(e) => setCustomerName(e.target.value)} required /> */}
                   <div className="formsordering">
                     <FaUserFriends
                       size={20}
@@ -450,7 +442,7 @@ export default function Billing() {
                         marginLeft: "10px",
                         marginRight: "10px",
                       }}
-                    />{" "}
+                    />
                     <TextField
                       style={{ width: "300px"}}
                       type="text"
@@ -462,8 +454,7 @@ export default function Billing() {
                       inputProps={{ style: { height: 20 } }}
                     />
                   </div>
-                  {/* <br />
-                    <input type="text" placeholder=" Enter Customer Number" value={customerNumber} onChange={(e) => setCustomerNumber(e.target.value)} required /> */}
+                  
                 </Card>
               </div>
 

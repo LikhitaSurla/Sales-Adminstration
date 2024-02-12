@@ -177,7 +177,7 @@ margin-left: -12px;
   height:30px;
   border-radius: 4px;
   float:right;
-  margin-top: -64px;
+  margin-top: 0px;
 }
 .adminClickedBack:hover{
 background-color: maroon;
@@ -216,14 +216,16 @@ margin-left: 10px;
   transition: ease 0.2s;
 }
 .backToFeaturesEmp{
-  background-color: white;
+  background-color: #02124D;
   width: 30px;
   height:30px;
+  border-radius: 50%;
   cursor: pointer;
-color: black;
+color:white;
 border: none;
-margin-top: 12px;
-margin-left: 10px;
+margin-top: -7px;
+margin-left: -20px;
+margin-right: 5px;
 }
 
 .backToFeaturesEmp:hover{
@@ -231,4 +233,24 @@ margin-left: 10px;
   border-radius: 50%;
   transition: ease 0.2s;
   color:white;
+}
+
+.adminloginback{
+  background-color:transparent;
+  color:black;
+  cursor: pointer;
+  border: 1px solid skyblue;
+  width:40px;
+  height:30px;
+  border-radius: 4px;
+  float:right;
+  margin-left: 314px;
+  margin-top: -42px;
+  margin-bottom: 30px;
+
+}
+.adminloginback:hover{
+  background-color: maroon;
+  color:white;
+  border: none;
 }
