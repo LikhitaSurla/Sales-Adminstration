@@ -11,7 +11,6 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { indexValues } from "../FetchingData/Sales";
-import { SearchIcon } from "@heroicons/react/solid";
 import {
   Button,
   Card,
@@ -30,8 +29,8 @@ import {
 import "../Styling/index.css";
 import custDetails from "../FetchingData/Customers";
 import { useNavigate } from "react-router-dom";
-import { FaUserFriends } from "react-icons/fa";
 import { TextField } from "@mui/material";
+import { FaUserFriends } from "react-icons/fa";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { MdOutlineReceiptLong } from "react-icons/md";
 import { IoClose } from "react-icons/io5"
@@ -518,7 +517,6 @@ export default function Billing() {
                     <form onSubmit={searchCode} style={{display:'flex'}}>
                     Search Product Code :<span> </span>
                     <input style={{marginTop:-7,marginLeft:8}}
-                      icon={SearchIcon}
                       placeholder="Search for Product Code..."
                       type="text"
                       value={code}

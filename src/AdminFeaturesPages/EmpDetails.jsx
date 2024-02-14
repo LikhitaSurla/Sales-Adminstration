@@ -7,16 +7,9 @@ import '../Styling/index.css'
 import { useAsyncError, useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { Tooltip,TextField } from '@mui/material';  
-import { MdKeyboardBackspace } from "react-icons/md";
-import { FaIdCardClip } from "react-icons/fa6";
-import { FaUserAlt } from "react-icons/fa";
-import { FaPhoneVolume } from "react-icons/fa6";
-import { TbCoinRupeeFilled } from "react-icons/tb";
-import { GiTakeMyMoney } from "react-icons/gi";
-import { RiUserHeartFill } from "react-icons/ri";
-import { IoMaleFemale } from "react-icons/io5";
-import { IoMdClose } from "react-icons/io";
-import { IoClose } from "react-icons/io5"
+
+import {MdKeyboardBackspace,FaIdCardClip,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose} from '../exp/reacticons'
+
 
 
 export default function EmpDetails() {

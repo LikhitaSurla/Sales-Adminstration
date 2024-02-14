@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, ResponsiveContainer, LineChart, Line } from 'recharts';
 import reviewData from '../FetchingData/Review';
-import { Title } from '@tremor/react';
 import '../Styling/index.css';
-import {Card,Flex,Text,TabGroup,TabList,Tab,TabPanels,TabPanel,Button} from "@tremor/react";
+import {Card,Flex,TabGroup,TabList,Tab,TabPanels,TabPanel,Title} from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { MdKeyboardBackspace } from "react-icons/md";
