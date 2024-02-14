@@ -37,18 +37,19 @@ export default function Featurespage() {
     if(hasSessionData && hasAdminSessionData){
   return (
    <>
+   <div className='featurespaged'>
    <Tooltip title="Logout"><button className='adminLoggingout' onClick={logOutAdmin} ><IoIosLogOut color='black' style={{marginLeft:'10px'}} size={30}/>
+  
 </button></Tooltip>
    <div className='center-container'>
         <div className="grid-container">
 
-          <Card  className="cardcontainer" onClick={()=> navigate ("/display/admin/featurespage/empdetails")} decoration="top" decorationColor="indigo">
+          <Card  className="cardcontainer" onClick={()=> navigate ("/display/admin/featurespage/empdetails")} decoration="top" decorationColor="Grey">
     <Metric>Employee Details</Metric>
   </Card>
   <Card  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/salesdata")} decoration="top" decorationColor="indigo">
     <Metric> Sales Data</Metric>
   </Card>
-
   <Card  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/newcustomers")} decoration="top" decorationColor="indigo">
     <Metric>Customer Family</Metric>
   </Card>
@@ -57,6 +58,7 @@ export default function Featurespage() {
     <Metric>Customer Reviews </Metric>
   </Card>
 
+</div>
 </div>
 </div>
    </>

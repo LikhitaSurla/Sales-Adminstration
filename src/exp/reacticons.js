@@ -8,7 +8,8 @@ import { IoMaleFemale,IoClose } from "react-icons/io5";
 import { FaUserFriends } from "react-icons/fa";
 import { MdOutlinePhoneInTalk } from "react-icons/md";
 import { MdOutlineReceiptLong } from "react-icons/md";
+import { TbLetterX } from "react-icons/tb";
 
 
-export {MdKeyboardBackspace,FaUserFriends,MdOutlinePhoneInTalk,MdOutlineReceiptLong,FaIdCardClip,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose};
+export {MdKeyboardBackspace,TbLetterX,FaUserFriends,MdOutlinePhoneInTalk,MdOutlineReceiptLong,FaIdCardClip,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose};
 
