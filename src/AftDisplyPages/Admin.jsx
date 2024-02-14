@@ -114,7 +114,7 @@ export default function Admin() {
   
   if (passState && hasSessionData) {
     return (
-      <div className="body">
+      <div className="body2">
         <Card className='update-form ' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
         <Title style={{textAlign:'center',marginBottom:'35px'}}>UPDATE PASSWORD 
 
@@ -153,8 +153,8 @@ export default function Admin() {
   } else if (state === false && hasSessionData) {
     return (
       <>
-        <div className="body">
-          <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)',height:'315px'}}>
+        <div className="body2">
+          <div className='intiallogin2' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)',height:'315px'}}>
             <form className="login-form" >
              <Title style={{textAlign:'center',marginBottom:15}}>ADMIN LOGIN</Title>
              <button className='adminloginback' onClick={logoutAdminop} >X</button>

@@ -45,10 +45,34 @@ export default function LoginPro() {
     if( state==false){
     return (
       <>
+      <div className="nameoffirm">
+        <div className="titlename">
+          <div className="logotitle">
+          <img className='logoimage' src="https://img.freepik.com/premium-vector/hotel-logo-template-icon-illustration-brand-identity-isolated-flat-illustration-vector-graphic_7109-2953.jpg" />
+         <h1>SalesEase</h1>
+          </div>
+         <h2>
+          
+          <div class="word-animation">
+  <span>Welcome</span>
+  <span>.</span>
+  <span>.</span>
+  <span>.</span>
+  <span>SalesEase</span>
+  <span>!</span>
+  <span>!</span>
+
+</div></h2>
+          <h3>Get ready to embark on a journey where managing sales and billing is simpler and more efficient than ever before. We're thrilled to have you join our platform, and we're confident that this new beginning will lead to exciting opportunities and success. Let's start this journey together and achieve great things!!</h3>
+          </div>
+      </div>
      <div className="body">
        <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
        <form className="login-form" onSubmit={submitBtn}>
-        <h1>SalesEase</h1>
+        <div className='titlelogo'>
+             <img className='logoimagelogin' src="https://img.freepik.com/premium-vector/hotel-logo-template-icon-illustration-brand-identity-isolated-flat-illustration-vector-graphic_7109-2953.jpg" />
+<h1>SalesEase</h1>
+</div>
         
 <div className='formsordering'>
 
@@ -62,7 +86,7 @@ export default function LoginPro() {
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}
  inputProps={{style: {height: 20}}}/>
 </div>
-      <Button size="md" style={{width:'300px',marginLeft:'43px',marginTop:'10px'}} type='submit'>Submit </Button>
+      <Button size="md" style={{width:'300px',marginLeft:'43px',marginTop:'10px'}} type='submit'>Login</Button>
       {isValid && 
         <p style={{textAlign:'center',color:'red',marginTop:10}}>Wrong Credentials</p>
           }
