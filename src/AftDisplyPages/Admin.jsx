@@ -20,6 +20,7 @@ export default function Admin() {
   const [hasSessionData, setHasSessionData] = useState(false);
   const[isNotPresent,setIsNotPresent] = useState(false);
   const [isInvalid,setIsInvalid] =useState(false)
+  const [isPasswordOk,setIsPasswordOk] =useState(false)
   const navigate = useNavigate();
   const updatePasswordBtn = () => {
     setPassState(true);
@@ -51,13 +52,20 @@ export default function Admin() {
   }
   const formSubmitted = async (e) => {
     e.preventDefault();
-    setIsValid(false)
+    setIsValid(false);
     try {
       let username = e.target.userId.value;
       let newPassword = e.target.newPassword.value;
       let tempPassword = e.target.tempPassword.value;
       const q = query(collection(db, "userdata"), where("name", "==", username));
       const getData = await getDocs(q);
+      if(newPassword ==' ' || newPassword.length<8){
+        setIsPasswordOk(true)
+        setTimeout(()=>{
+          setIsPasswordOk(false)
+        },1200)
+      }
+      else{
       getData.forEach(async (val) => {
         if (val.data().name === username && val.data().password === tempPassword) {
           const userDocRef = doc(db, "userdata", val.id);
@@ -81,16 +89,13 @@ export default function Admin() {
           },1500)
         }
       });
-     
+    }
     } catch (error) {
       console.error(error);
     }
     setState(false)
   };
 
-    const removeAdminForm=()=>{
-      navigate('/display')
-    }
   useEffect(()=>{
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem('User');
@@ -123,21 +128,21 @@ export default function Admin() {
         
       <div className='formsordering'>
 
-<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 
+<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField required style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 
  InputLabelProps={{style: {height: 25}}} inputProps={{style: {height: 20}}}/>
 </div>
 
 <div className='formsordering'>
 
 <IoKeySharp 
- size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' name="tempPassword" id="outlined-basic" label="Enter Previous Password" variant="outlined" 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField required style={{width:'300px'}} type='password' name="tempPassword" id="outlined-basic" label="Enter Previous Password" variant="outlined" 
  inputProps={{style: {height: 20}}}/>
 </div>
 <div className='formsordering' style={{marginBottom:-10}}>
 
 <FaUserLock 
 
- size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' name="newPassword" id="outlined-basic" label="Enter New Password" variant="outlined" 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField required style={{width:'300px'}} type='password' name="newPassword" id="outlined-basic" label="Enter New Password" variant="outlined" 
  inputProps={{style: {height: 20}}}/>
 </div>
     
@@ -146,6 +151,9 @@ export default function Admin() {
         <Button type='submit' style={{width:'140px',marginTop:'2px',height:'40px'}}>Update</Button></Flex>
 
         {isInvalid && <p style={{textAlign:'center',color:'red',marginTop:5,fontFamily:'arial'}}>Invalid User Tried</p>} 
+        {
+                isPasswordOk && <p style={{textAlign:'center',color:'red',marginTop:5}}>*Password must contain minimum 8 characters</p>
+              }
       </form>
       </Card>
         </div>
@@ -156,20 +164,20 @@ export default function Admin() {
         <div className="body">
           <div className='intiallogin' style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)',height:'315px'}}>
             <form className="login-form" >
-             <Title style={{textAlign:'center',marginBottom:15}}>ADMIN LOGIN</Title>
+             <Title  style={{textAlign:'center',marginBottom:15}}>ADMIN LOGIN</Title>
              <button className='adminloginback' onClick={logoutAdminop} >X</button>
    </form>
    <form onSubmit={formSubmitted}>
               <div className='formsordering'>
 
-<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 
+<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField required style={{width:'300px'}} id="outlined-basic"  name="userId" label="Enter Username" variant="outlined" 
   onChange={(e) => setOwnerName(e.target.value)} InputLabelProps={{style: {height: 25}}} inputProps={{style: {height: 20}}}/>
 </div>
 
 <div className='formsordering'>
 
 <IoKeySharp 
- size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' name="tempPassword" id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e) => setOwnerPassword(e.target.value)} 
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField required style={{width:'300px'}} type='password' name="tempPassword" id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e) => setOwnerPassword(e.target.value)} 
  inputProps={{style: {height: 20}}}/>
 </div>
  <div className='adjustingAdminBtn'>

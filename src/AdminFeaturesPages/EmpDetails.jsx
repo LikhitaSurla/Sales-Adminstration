@@ -4,7 +4,7 @@ import { addDoc, query, where, collection, deleteDoc, getDocs, doc, getDoc, upda
 import { db } from '../config/firebase';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Flex, } from "@tremor/react";
 import '../Styling/index.css'
-import { useNavigate } from 'react-router-dom';
+import { useAsyncError, useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { Tooltip,TextField } from '@mui/material';  
 import { MdKeyboardBackspace } from "react-icons/md";
@@ -29,6 +29,9 @@ export default function EmpDetails() {
   const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
   const[loading,setLoading] = useState(true);
   const [isPresent,setIsPresent] = useState(false);
+  const [searchedEmp,setSearchedEmp] = useState(false);
+  const [isValidId,setIsValidId] = useState(false);
+  const [empCode,setEmpCode] = useState('');
   const [empDetails, setEmpDetails] = useState({
     empid: '',
     name: '',
@@ -202,6 +205,46 @@ export default function EmpDetails() {
     alert("Check Phone Number")
   }
   }
+
+  const searchEmp=async(e)=>{
+    e.preventDefault();
+    let present = false;
+    let userId = empCode.toUpperCase()
+    try{
+      const q = query(employeeCollectionRef, where("empid", "==", userId));
+      const product = await getDocs(q);
+      const data = [];
+      product.forEach((doc) => {
+        data.push(doc.data());
+      });
+      setEmpDetails({
+        empid: data[0].empid,
+        name: data[0].name,
+        age: data[0].age,
+        gender:data[0].gender,
+        number: data[0].phoneNumber,
+        salary: data[0].salary,
+        bonus: data[0].bonus,
+      })
+      console.log(empDetails)
+      present = true
+  }
+    catch{
+      console.log('Error')
+    }
+    if(present){
+      setSearchedEmp(true)
+    }
+    else{
+      setIsValidId(true)
+      setEmpCode("")
+      setTimeout(()=>{
+        setIsValidId(false)
+      },1200)
+    }
+    
+  }
+  
   if(loading && hasAdminSessionData && hasSessionData){
     return(
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
@@ -348,17 +391,77 @@ export default function EmpDetails() {
   }
   else if(hasSessionData){
     return (
-      <>
+      <>  
         <Card>
           <Tooltip ><button style={{marginTop:'0',marginLeft:-8}} className='backToFeaturesPage' onClick={()=>navigate('/display/admin/featurespage')}>
             <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
 </button></Tooltip>
-          <Title style={{textAlign:'center',marginTop:'-35px'}}><b>EMPLOYEE DETAILS</b></Title>
+          <Title style={{textAlign:'center',marginTop:'-35px'}}><b>EMPLOYEE DETAILS</b>
+          </Title>
+          
           <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
-            <Button size="xs" onClick={viewDetails}> +Add new</Button></Flex>
-          <Table className="mt-5">
+            <Button size="xs" style={{marginBottom:20}} onClick={viewDetails}> +Add new</Button>
+            </Flex>
 
+          <form onSubmit={searchEmp} style={{float:'right',marginTop:-53,marginRight:40}}>
+           <input style={{height:'40px'}} type="text" name="search" id="search" value={empCode} placeholder='Search With ID' onChange={(e)=>setEmpCode(e.target.value)} required/>
+
+           <button type='submit' style={{backgroundColor:'grey',marginLeft:5,width:60,color:'white',height:35,borderRadius:4}}>Search</button>
+          {isValidId && <p style={{fontSize:14,marginTop:-10,marginLeft:2,color:'red'}}>*Employee not present</p>}
+           </form>
+            {searchedEmp &&
+             <Table className="mt-5">
+             <TableHead>
+               <TableRow>
+                 <TableHeaderCell>EMPLOYEE ID</TableHeaderCell>
+                 <TableHeaderCell>EMPLOYEE NAME</TableHeaderCell>
+                 <TableHeaderCell>AGE</TableHeaderCell>
+                 <TableHeaderCell>GENDER</TableHeaderCell>
+                 <TableHeaderCell>PHONE NUMBER</TableHeaderCell>
+                 <TableHeaderCell>SALARY</TableHeaderCell>
+                 <TableHeaderCell>BONUS</TableHeaderCell>
+               </TableRow>
+             </TableHead>
+             <TableBody>
+               
+                 <TableRow key={empDetails.empid}>
+                   <TableCell>{empDetails.empid}</TableCell>
+                   <TableCell>
+                     <Text>{empDetails.name}</Text>
+                   </TableCell>
+                   <TableCell>
+                     <Text>{empDetails.age}</Text>
+                   </TableCell>
+                   <TableCell>
+                     <Text>{empDetails.gender}</Text>
+                   </TableCell>
+                   <TableCell>
+                     <Text>{empDetails.number}</Text>
+                   </TableCell>
+                   <TableCell>
+                     <Text>{empDetails.salary}</Text>
+                   </TableCell>
+                   <TableCell>
+                     <Text>{empDetails.bonus}</Text>
+                   </TableCell>
+                   <TableCell>
+                     <Button size="xs" onClick={() => updateEmployeeBtn(empDetails.empid)}>Update</Button>
+                   </TableCell>
+                   <TableCell>
+                     <Button size="xs" onClick={() => {deleteEmployee(empDetails.empid),setSearchedEmp(false),setEmpCode('')}}>Delete</Button>
+                   </TableCell>
+                   <TableCell>
+                     <Button size="xs" style={{backgroundColor:'maroon',border:'none'}} onClick={() =>{ setSearchedEmp(false),setEmpCode('')}}>Go Back</Button>
+                   </TableCell>
+                 </TableRow>
+
+             </TableBody>
+           </Table>
+            }
+
+            {searchedEmp==false&&
+            <Table className="mt-5">
             <TableHead>
               <TableRow>
                 <TableHeaderCell>EMPLOYEE ID</TableHeaderCell>
@@ -402,8 +505,52 @@ export default function EmpDetails() {
               ))}
             </TableBody>
           </Table>
+            }
+          {/* <Table className="mt-5">
+            <TableHead>
+              <TableRow>
+                <TableHeaderCell>EMPLOYEE ID</TableHeaderCell>
+                <TableHeaderCell>EMPLOYEE NAME</TableHeaderCell>
+                <TableHeaderCell>AGE</TableHeaderCell>
+                <TableHeaderCell>GENDER</TableHeaderCell>
+                <TableHeaderCell>PHONE NUMBER</TableHeaderCell>
+                <TableHeaderCell>SALARY</TableHeaderCell>
+                <TableHeaderCell>BONUS</TableHeaderCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {sortedEmpData.map((data) => (
+                <TableRow key={data.empid}>
+                  <TableCell>{data.empid}</TableCell>
+                  <TableCell>
+                    <Text>{data.name}</Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text>{data.age}</Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text>{data.gender}</Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text>{data.phoneNumber}</Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text>{data.salary}</Text>
+                  </TableCell>
+                  <TableCell>
+                    <Text>{data.bonus}</Text>
+                  </TableCell>
+                  <TableCell>
+                    <Button size="xs" onClick={() => updateEmployeeBtn(data.empid)}>Update</Button>
+                  </TableCell>
+                  <TableCell>
+                    <Button size="xs" onClick={() => deleteEmployee(data.empid)}>Delete</Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table> */}
         </Card>
-
 
       </>
     )
