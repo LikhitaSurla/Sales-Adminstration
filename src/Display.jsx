@@ -90,14 +90,17 @@ const Display = () => {
   else if (state && hasSessionData) {
     return (
       <>
-        <div className="body2">
+        {/* <div className="body2"> */}
+          <div className="displaybg">
           <Button size="lg" onClick={newBill}>
             + New Bill
           </Button>
         </div>
+        {/* </div> */}
         <Button size="xs" className='adminlogin' onClick={ownerLogin}>
           Admin
         </Button>
+        
       </>
     );
   } else {
