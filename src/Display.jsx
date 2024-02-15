@@ -90,7 +90,7 @@ const Display = () => {
   else if (state && hasSessionData) {
     return (
       <>
-        <div className="body">
+        <div className="body2">
           <Button size="lg" onClick={newBill}>
             + New Bill
           </Button>

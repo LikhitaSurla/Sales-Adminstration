@@ -572,7 +572,7 @@ export default function Billing() {
                     <Table className="mt-5">
                       <TableHead>
                         <TableRow>
-                          <TableHeaderCell>PRODUCT ID</TableHeaderCell>
+                          <TableHeaderCell> ID</TableHeaderCell>
                           <TableHeaderCell>PRODUCT NAME</TableHeaderCell>
                           <TableHeaderCell>PRICE</TableHeaderCell>
                           <TableHeaderCell>QUANTITY</TableHeaderCell>

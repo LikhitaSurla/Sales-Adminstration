@@ -8,7 +8,8 @@ import { useAsyncError, useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { Tooltip,TextField } from '@mui/material';  
 
-import {MdKeyboardBackspace,FaIdCardClip,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose} from '../exp/reacticons'
+
+import {MdKeyboardBackspace,FaIdCardClip,TbLetterX,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose} from '../exp/reacticons'
 
 
 
@@ -294,19 +295,6 @@ export default function EmpDetails() {
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="salary"  value={empDetails.salary} id="outlined-basic"  variant="outlined"  onChange={handleChange} required
  inputProps={{style: {height: 20}}}/>
 </div>
-{/* <div className='formsordering'>
-<GiTakeMyMoney 
- size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number'  name="bonus" value={empDetails.bonus} id="outlined-disabled"  variant="outlined"  disabled
- inputProps={{style: {height: 20}}}/>
-</div> */}
-{/* 
-            <p>Employee ID : <input type="text" name="empid" placeholder='Employee id' value={tempId} readOnly /></p>
-            <p>Employee Name : <input type="text" name="name" placeholder='Enter Name' value={empDetails.name} onChange={handleChange} required /></p>
-            <p>Age : <input type="number" name="age" placeholder='Enter Age' value={empDetails.age} onChange={handleChange} required/></p>
-            <p>Gender : <input type="text" name="gender" placeholder='Enter Gender' value={empDetails.gender} onChange={handleChange} required/></p>
-            <p>Phone Number :<input type="number" name="number" placeholder='Enter Phone number' value={empDetails.number} onChange={handleChange} required/></p>
-            <p> Salary : <input type="number" name="salary" placeholder='Salary' value={empDetails.salary} onChange={handleChange} required /></p>
-            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' value={empDetails.bonus} readOnly/></p> */}
             <Button type='submit' style={{ margin: '0 auto', display: 'block' ,backgroundColor:'green',border:'none'}}>ChangeDetails</Button>
             </form>
           </Card>
@@ -359,20 +347,7 @@ export default function EmpDetails() {
  size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number' name="salary"  id="outlined-basic" label="Enter Salary" variant="outlined"  onChange={handleChange} required
  inputProps={{style: {height: 20}}}/>
 </div>
-{/* <div className='formsordering'>
-<GiTakeMyMoney 
- size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='number'  name="bonus"  id="outlined-disabled" label="Bonus" variant="outlined"  disabled
- inputProps={{style: {height: 20}}}/>
-</div> */}
 
-            {/* <p>Employee ID: <span></span><input type="text" name="empid" placeholder='Employee id' onChange={handleChange} required /></p> */}
-            {/* <p> Employee Name : <input type="text" name="name" placeholder='enter name' onChange={handleChange} required/></p>
-            <p> Age :  <input type="number" name="age" placeholder='Enter Age' onChange={handleChange} required/></p>
-            <p>Gender :   <input type="text" name="gender" placeholder='Enter Gender' onChange={handleChange} required/></p>
-            <p> Phone Number :<input type="number" name="number" placeholder='Enter Phonenumber' onChange={handleChange} required/></p>
-            <p>Salary: <input type="number" name="salary" placeholder='Salary' onChange={handleChange} required/></p>
-            <p> Bonus :<input type="number" name="bonus" placeholder='Bonus' onChange={handleChange} required/></p> */}
-            {/* <Button type='submit' style={{marginLeft:'150px'}}>Submit</Button> */}
             <Button type='submit' style={{ margin: '0 auto', display: 'block',border:'none',backgroundColor:'green'}}>SUBMIT</Button>
 
             {isPresent && <p style={{color:'red',marginTop:8,textAlign:'center'}}>Employee Already Present</p> } 
@@ -398,9 +373,9 @@ export default function EmpDetails() {
             </Flex>
 
           <form onSubmit={searchEmp} style={{float:'right',marginTop:-53,marginRight:40}}>
-           <input style={{height:'40px'}} type="text" name="search" id="search" value={empCode} placeholder='Search With ID' onChange={(e)=>setEmpCode(e.target.value)} required/>
+           <input style={{height:'40px',width:'300px'}} type="text" name="search" id="search" value={empCode} placeholder='Search With Employee Id' onChange={(e)=>setEmpCode(e.target.value)} required/>
 
-           <button type='submit' style={{backgroundColor:'grey',marginLeft:5,width:60,color:'white',height:35,borderRadius:4}}>Search</button>
+           <button type='submit' style={{backgroundColor:'grey',marginLeft:5,width:65,color:'white',height:37,borderRadius:4}}>Search</button>
           {isValidId && <p style={{fontSize:14,marginTop:-10,marginLeft:2,color:'red'}}>*Employee not present</p>}
            </form>
             {searchedEmp &&
@@ -445,7 +420,8 @@ export default function EmpDetails() {
                      <Button size="xs" onClick={() => {deleteEmployee(empDetails.empid),setSearchedEmp(false),setEmpCode('')}}>Delete</Button>
                    </TableCell>
                    <TableCell>
-                     <Button size="xs" style={{backgroundColor:'maroon',border:'none'}} onClick={() =>{ setSearchedEmp(false),setEmpCode('')}}>Go Back</Button>
+                     <Button  style={{backgroundColor:'maroon',border:'none',borderRadius:'50%',height:'30px',width:'30px'}} onClick={() =>{ setSearchedEmp(false),setEmpCode('')}}><  TbLetterX />
+</Button>
                    </TableCell>
                  </TableRow>
 
@@ -499,50 +475,9 @@ export default function EmpDetails() {
             </TableBody>
           </Table>
             }
-          {/* <Table className="mt-5">
-            <TableHead>
-              <TableRow>
-                <TableHeaderCell>EMPLOYEE ID</TableHeaderCell>
-                <TableHeaderCell>EMPLOYEE NAME</TableHeaderCell>
-                <TableHeaderCell>AGE</TableHeaderCell>
-                <TableHeaderCell>GENDER</TableHeaderCell>
-                <TableHeaderCell>PHONE NUMBER</TableHeaderCell>
-                <TableHeaderCell>SALARY</TableHeaderCell>
-                <TableHeaderCell>BONUS</TableHeaderCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {sortedEmpData.map((data) => (
-                <TableRow key={data.empid}>
-                  <TableCell>{data.empid}</TableCell>
-                  <TableCell>
-                    <Text>{data.name}</Text>
-                  </TableCell>
-                  <TableCell>
-                    <Text>{data.age}</Text>
-                  </TableCell>
-                  <TableCell>
-                    <Text>{data.gender}</Text>
-                  </TableCell>
-                  <TableCell>
-                    <Text>{data.phoneNumber}</Text>
-                  </TableCell>
-                  <TableCell>
-                    <Text>{data.salary}</Text>
-                  </TableCell>
-                  <TableCell>
-                    <Text>{data.bonus}</Text>
-                  </TableCell>
-                  <TableCell>
-                    <Button size="xs" onClick={() => updateEmployeeBtn(data.empid)}>Update</Button>
-                  </TableCell>
-                  <TableCell>
-                    <Button size="xs" onClick={() => deleteEmployee(data.empid)}>Delete</Button>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table> */}
+            
+               
+  
         </Card>
 
       </>
