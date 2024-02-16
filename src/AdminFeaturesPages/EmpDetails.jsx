@@ -417,11 +417,11 @@ export default function EmpDetails() {
                      <Button size="xs" onClick={() => updateEmployeeBtn(empDetails.empid)}>Update</Button>
                    </TableCell>
                    <TableCell>
-                     <Button size="xs" onClick={() => {deleteEmployee(empDetails.empid),setSearchedEmp(false),setEmpCode('')}}>Delete</Button>
+                     <Button size="xs" style={{backgroundColor:'maroon',border:'None'}} onClick={() => {deleteEmployee(empDetails.empid),setSearchedEmp(false),setEmpCode('')}}>Delete</Button>
                    </TableCell>
                    <TableCell>
-                     <Button  style={{backgroundColor:'maroon',border:'none',borderRadius:'50%',height:'30px',width:'30px'}} onClick={() =>{ setSearchedEmp(false),setEmpCode('')}}><  TbLetterX />
-</Button>
+                     <button  style={{Color:'black',border:'none',borderRadius:'50%',height:'30px',width:'25px'}} onClick={() =>{ setSearchedEmp(false),setEmpCode('')}}><  TbLetterX size={15}/>
+</button>
                    </TableCell>
                  </TableRow>
 
@@ -468,7 +468,7 @@ export default function EmpDetails() {
                     <Button size="xs" onClick={() => updateEmployeeBtn(data.empid)}>Update</Button>
                   </TableCell>
                   <TableCell>
-                    <Button size="xs" onClick={() => deleteEmployee(data.empid)}>Delete</Button>
+                    <Button size="xs" style={{backgroundColor:'maroon',border:'None'}} onClick={() => deleteEmployee(data.empid)}>Delete</Button>
                   </TableCell>
                 </TableRow>
               ))}

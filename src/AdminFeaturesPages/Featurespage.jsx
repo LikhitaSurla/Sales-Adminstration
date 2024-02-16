@@ -44,7 +44,7 @@ export default function Featurespage() {
    <div className='center-container'>
         <div className="grid-container">
 
-          <Card  className="cardcontainer" onClick={()=> navigate ("/display/admin/featurespage/empdetails")} decoration="top" decorationColor="Grey">
+          <Card  className="cardcontainer" onClick={()=> navigate ("/display/admin/featurespage/empdetails")} decoration="top" decorationColor="indigo">
     <Metric>Employee Details</Metric>
   </Card>
   <Card  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/salesdata")} decoration="top" decorationColor="indigo">

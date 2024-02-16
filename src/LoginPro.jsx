@@ -76,14 +76,14 @@ export default function LoginPro() {
         
 <div className='formsordering'>
 
-<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} id="outlined-basic" label="Enter Username" variant="outlined" onChange={(e)=>setUserName(e.target.value)} 
+<FaUser  size={20} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField required style={{width:'300px'}} id="outlined-basic" label="Enter Username" variant="outlined" onChange={(e)=>setUserName(e.target.value) } 
  InputLabelProps={{style: {height: 25}}} inputProps={{style: {height: 20}}}/>
 </div>
 
 <div className='formsordering'>
 
 <IoKeySharp 
- size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} type='password' id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}
+ size={22} style={{marginTop:'14px',marginLeft:'10px',marginRight:'10px'}} /> <TextField style={{width:'300px'}} required type='password' id="outlined-basic" label="Enter Password" variant="outlined" onChange={(e)=>setPassword(e.target.value)}
  inputProps={{style: {height: 20}}}/>
 </div>
       <Button size="md" style={{width:'300px',marginLeft:'43px',marginTop:'10px'}} type='submit'>Login</Button>

@@ -180,23 +180,23 @@ if(loading && hasAdminSessionData && hasSessionData){
   {indexCollection.map((data, index) => (
     <React.Fragment key={index}>
       <Card className="cards-container" decoration="top" decorationColor="indigo">
-        <Title>Today Sales</Title>
-        <div style={{marginTop:'60px',marginRight:'90px'}}>
-        <Metric>{'\u20B9'}{data.dailysales}</Metric>
+        <Title style={{fontSize:'26px',marginTop:'40px'}}>Today Sales</Title>
+        <div style={{marginTop:'37px',marginRight:'90px'}}>
+        <Metric style={{color:'#910A67',fontWeight:'bold'}}>{'\u20B9'}{data.dailysales}</Metric>
         </div>
       </Card>
 
       <Card className="cards-container" decoration="top" decorationColor="indigo">
-        <Title >Month Sales</Title>
-        <div style={{marginTop:'60px',marginRight:'90px'}}> 
-        <Metric>{'\u20B9'}{data.monthlysales }</Metric>
+        <Title style={{fontSize:'26px',marginTop:'30px'}} >Month Sales</Title>
+        <div style={{marginTop:'40px',marginRight:'90px'}}> 
+        <Metric style={{color:'#151965',fontWeight:'bold'}}>{'\u20B9'}{data.monthlysales }</Metric>
         </div>
       </Card>
 
       <Card className="cards-container" decoration="top" decorationColor="indigo">
-        <Title>Total Sales</Title>
-        <div style={{marginTop:'60px',marginRight:'90px'}}> 
-        <Metric>{'\u20B9'}{data.totalsales }</Metric>
+        <Title style={{fontSize:'26px',marginTop:'40px'}}>Total Sales</Title>
+        <div style={{marginTop:'37px',marginRight:'70px'}}> 
+        <Metric style={{color:'#016A70',fontWeight:'bold'}}>{'\u20B9'}{data.totalsales }</Metric>
         </div>
       </Card>
     </React.Fragment>
@@ -235,7 +235,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="dailysales" stroke="#8884d8" strokeWidth={2} name="Daily Purchases" />
+    <Line type="monotone" dataKey="dailysales" stroke="#910A67" strokeWidth={2} name="Today Sale" />
   </LineChart>
 
 </TabPanel>
@@ -245,7 +245,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     <YAxis />
     <Tooltip />
     <Legend />
-    <Bar dataKey="dailysales" fill="#8884d8" />
+    <Bar dataKey="dailysales" fill="#910A67" />
   </BarChart>
 
 </TabPanel>
@@ -278,7 +278,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="monthlysales" stroke="#8884d8" strokeWidth={2} name="Montly Sales" />
+    <Line type="monotone" dataKey="monthlysales" stroke="#151965" strokeWidth={2} name="Montly Sales" />
   </LineChart>
 
 </TabPanel>
@@ -288,7 +288,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     <YAxis />
     <Tooltip />
     <Legend />
-    <Bar dataKey="monthlysales" fill="#8884d8" name="Montly Sales" />
+    <Bar dataKey="monthlysales" fill="#151965" name="Montly Sales" />
   </BarChart>
 
 </TabPanel>
@@ -320,7 +320,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     <XAxis dataKey="billid" />
     <YAxis />
     <Tooltip />
-    <Area type="monotone" dataKey="purchase" fill="#8884d8" stroke="#8884d8" name="Bill-Purchase" />
+    <Area type="monotone" dataKey="purchase" fill="#557153" stroke="#8884d8" name="Bill-Purchase" />
   </AreaChart>
 </TabPanel>
 <TabPanel>
@@ -329,7 +329,7 @@ if(loading && hasAdminSessionData && hasSessionData){
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="purchase" stroke="#8884d8" strokeWidth={2} name="Bill-Purchase" />
+    <Line type="monotone" dataKey="purchase" stroke="#557153" strokeWidth={2} name="Bill-Purchase" />
   </LineChart>
 
 </TabPanel>
@@ -354,7 +354,7 @@ if(loading && hasAdminSessionData && hasSessionData){
 
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="totalsales" stroke="#8884d8" strokeWidth={2} name="Total Sales" />
+    <Line type="monotone" dataKey="totalsales" stroke="#016A70" strokeWidth={2} name="Total Sales" />
   </LineChart>
 </Card>
                 </Flex>
