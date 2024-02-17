@@ -62,7 +62,6 @@ export default function Billing() {
   const [currDate, setCurrDate] = useState("");
   const [currMonth, setCurrMonth] = useState("");
   const [hasSessionData, setHasSessionData] = useState(false);
-
   const [newCustomersCount, setNewCustomersCount] = useState(0);
 
   const indexDetails = async () => {

@@ -94,7 +94,7 @@ export default function NewCustomers() {
 <Button onClick={viewCustomersList} size="xs">View Customer List</Button></Flex>
     <div className='newcutomers'>
   <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo" style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
-    <Title style={{textAlign:'center',marginBottom:'5px'}}>New Customers</Title>
+    <Title style={{textAlign:'center',marginBottom:'5px'}}>New Customers Today</Title>
     <Metric style={{textAlign:'center',padding:'5px'}}>{newCust}</Metric>
   </Card>
 <br/>

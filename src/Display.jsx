@@ -29,7 +29,8 @@ const Display = () => {
       indexDb.map(async(data)=>{
         if(data.currDate!=currentDate){
           await updateDoc(indexDocumentRef,{
-            dailysales:0
+            dailysales:0,
+            newcustomers:0
           })
         }
         if(data.currMonth!=currentMonth){
