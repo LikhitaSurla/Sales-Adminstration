@@ -135,10 +135,8 @@ if(loading && hasAdminSessionData && hasSessionData){
          <TableRow>
            <TableHeaderCell>BILL-ID</TableHeaderCell>
            <TableHeaderCell>DATE</TableHeaderCell>
-
            <TableHeaderCell>NAME</TableHeaderCell>
            <TableHeaderCell>PURCHASE</TableHeaderCell>
-           <TableHeaderCell>TOTAL SALES</TableHeaderCell>
          </TableRow>
        </TableHead>
        <TableBody>
@@ -152,10 +150,6 @@ if(loading && hasAdminSessionData && hasSessionData){
              </TableCell>
              <TableCell>
                <Text>{data.purchase}</Text>
-             </TableCell>
-             <TableCell>
-             {data.totalsales}
-              
              </TableCell>
            </TableRow>
          ))}
@@ -179,24 +173,24 @@ if(loading && hasAdminSessionData && hasSessionData){
           <div className='salescards'>
   {indexCollection.map((data, index) => (
     <React.Fragment key={index}>
-      <Card className="cards-container" decoration="top" decorationColor="indigo">
-        <Title style={{fontSize:'26px',marginTop:'40px'}}>Today Sales</Title>
+      <Card className="cards-container" decoration="top" decorationColor="yellow" style={{backgroundColor:"#F0F0F0"}}>
+        <Title style={{fontSize:'26px'}}>Today Sales</Title>
         <div style={{marginTop:'37px',marginRight:'90px'}}>
         <Metric style={{color:'#910A67',fontWeight:'bold'}}>{'\u20B9'}{data.dailysales}</Metric>
         </div>
       </Card>
 
-      <Card className="cards-container" decoration="top" decorationColor="indigo">
-        <Title style={{fontSize:'26px',marginTop:'30px'}} >Month Sales</Title>
+      <Card className="cards-container" decoration="top" decorationColor="yellow" style={{backgroundColor:"#F0F0F0"}}>
+        <Title style={{fontSize:'26px'}} >Month Sales</Title>
         <div style={{marginTop:'40px',marginRight:'90px'}}> 
-        <Metric style={{color:'#151965',fontWeight:'bold'}}>{'\u20B9'}{data.monthlysales }</Metric>
+        <Metric style={{color:'green',fontWeight:'bold'}}>{'\u20B9'}{data.monthlysales }</Metric>
         </div>
       </Card>
 
-      <Card className="cards-container" decoration="top" decorationColor="indigo">
-        <Title style={{fontSize:'26px',marginTop:'40px'}}>Total Sales</Title>
+      <Card className="cards-container" decoration="top" decorationColor="yellow" style={{backgroundColor:"#F0F0F0"}}>
+        <Title style={{fontSize:'26px',display:'flex'}}>Total Sales</Title>
         <div style={{marginTop:'37px',marginRight:'70px'}}> 
-        <Metric style={{color:'#016A70',fontWeight:'bold'}}>{'\u20B9'}{data.totalsales }</Metric>
+        <Metric style={{color:'#151965',fontWeight:'bold'}}>{'\u20B9'}{data.totalsales }</Metric>
         </div>
       </Card>
     </React.Fragment>

@@ -426,6 +426,18 @@ margin-right: 5px;
   align-items: center;
   width:100%;
   background-image: url('./features-bg.jpg');
+  background-size: cover; 
+}
+.body2{
+  width:100%;
+  height: 100vh;
+  background-image: url('./features-bg.jpg');
   background-size: cover;
-  
+}
+.employesubmit{
+  padding-top: 210px;
+  width:100%;
+  height: 100vh;
+  background-image: url('./features-bg.jpg');
+  background-size: cover;
 }

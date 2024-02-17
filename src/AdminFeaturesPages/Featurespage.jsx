@@ -44,17 +44,17 @@ export default function Featurespage() {
    <div className='center-container'>
         <div className="grid-container">
 
-          <Card  className="cardcontainer" onClick={()=> navigate ("/display/admin/featurespage/empdetails")} decoration="top" decorationColor="indigo">
+          <Card  style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}} className="cardcontainer" onClick={()=> navigate ("/display/admin/featurespage/empdetails")} decoration="top" decorationColor="indigo">
     <Metric>Employee Details</Metric>
   </Card>
-  <Card  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/salesdata")} decoration="top" decorationColor="indigo">
+  <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/salesdata")} decoration="top" decorationColor="indigo">
     <Metric> Sales Data</Metric>
   </Card>
-  <Card  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/newcustomers")} decoration="top" decorationColor="indigo">
+  <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}} className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/newcustomers")} decoration="top" decorationColor="indigo">
     <Metric>Customer Family</Metric>
   </Card>
 
-  <Card  className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/customerreviews")} decoration="top" decorationColor="indigo">
+  <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}} className="cardcontainer" onClick={() =>navigate("/display/admin/featurespage/customerreviews")} decoration="top" decorationColor="indigo">
     <Metric>Customer Reviews </Metric>
   </Card>
 

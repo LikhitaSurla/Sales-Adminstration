@@ -318,7 +318,7 @@ export default function Billing() {
             <p>
               
                <TextField
-                      style={{ width: "300px",marginBottom:-15}}
+                      style={{ width: "337px",marginBottom:-15}}
                       id="outlined-basic"
                       label="Enter Employee ID"
                       variant="outlined"
@@ -365,9 +365,9 @@ export default function Billing() {
             size={24}
               style={{
                 textAlign:'center',
-                color: "white",
+                color: "#A69A03",
                 float: "right",
-                marginLeft: "4px",
+                marginLeft: "8px",
                 marginTop: "2px",
               }}
             />
