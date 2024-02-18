@@ -4,7 +4,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,BarChart,
 import '../Styling/index.css';
 import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric,Flex,TabGroup,TabList,Tab,TabPanels,TabPanel,} from '@tremor/react';
 import { indexValues } from '../FetchingData/Sales'
-import { arrayUnion, collection,doc, updateDoc } from 'firebase/firestore';
+import {  collection,doc,  } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'

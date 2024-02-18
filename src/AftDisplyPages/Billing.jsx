@@ -11,29 +11,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { indexValues } from "../FetchingData/Sales";
-import {
-  Button,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-  Text,
-  Title,
-  Grid,
-  Col,
-  Flex,
-} from "@tremor/react";
+import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Grid,Col,Flex,} from "@tremor/react";
 import "../Styling/index.css";
 import custDetails from "../FetchingData/Customers";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
-import { FaUserFriends } from "react-icons/fa";
-import { MdOutlinePhoneInTalk } from "react-icons/md";
-import { MdOutlineReceiptLong } from "react-icons/md";
-import { IoClose } from "react-icons/io5"
+import {IoClose,FaUserFriends,MdOutlinePhoneInTalk,MdOutlineReceiptLong} from '../exp/reacticons'
 
 export default function Billing() {
   const productCollectionRef = collection(db, "productdetails");

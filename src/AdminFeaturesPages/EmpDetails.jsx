@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import employeeData from '../FetchingData/Employee'
-import { addDoc, query, where, collection, deleteDoc, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, query, where, collection, deleteDoc, getDocs,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Flex, } from "@tremor/react";
 import '../Styling/index.css'
-import { useAsyncError, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { Tooltip,TextField } from '@mui/material';  
-
-
 import {MdKeyboardBackspace,FaIdCardClip,TbLetterX,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose} from '../exp/reacticons'
 
 

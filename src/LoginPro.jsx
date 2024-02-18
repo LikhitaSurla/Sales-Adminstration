@@ -1,13 +1,11 @@
 import React from 'react'
-import Display from './Display'
 import fetchData from './FetchingData/Data'
 import {useState } from 'react'
 import './Styling/index.css'
+import { TextField} from '@mui/material'
 import { Button } from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
-import { FaUser } from "react-icons/fa";
-import { TextField,} from '@mui/material'
-import { IoKeySharp } from "react-icons/io5";
+import {IoKeySharp,FaUser} from './exp/reacticons'
 
 
 
