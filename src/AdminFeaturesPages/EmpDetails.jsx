@@ -253,6 +253,7 @@ export default function EmpDetails() {
   else if (updateData &&hasSessionData && hasAdminSessionData) {
     return (
       <>
+      <div className='bgimageemp'>
         <div className='employesubmit'>
           <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
           <Tooltip title='Exit'><button style={{float:'right',marginTop:'1px',marginLeft:'-20px'}} className='backToFeaturesEmp' onClick={removeForm}>
@@ -299,12 +300,15 @@ export default function EmpDetails() {
             </form>
           </Card>
         </div>
+        </div>
       </>
     )
   }
   else if (form == true &&hasSessionData &&hasAdminSessionData) {
     return (
       <>
+            <div className='bgimageemp'>
+
         <div className='employesubmit'>
           <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
             <Tooltip title='Exit'><button style={{float:'right',marginTop:'0px',marginLeft:'-20px'}} className='backToFeaturesEmp' onClick={removeForm}>
@@ -353,6 +357,7 @@ export default function EmpDetails() {
             {isPresent && <p style={{color:'red',marginTop:8,textAlign:'center'}}>Employee Already Present</p> } 
             </form>
           </Card>
+        </div>
         </div>
       </>
     )
