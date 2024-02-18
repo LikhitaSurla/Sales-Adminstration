@@ -91,7 +91,7 @@ export default function NewCustomers() {
 </button>
     <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
 
-<Button onClick={viewCustomersList} size="xs">View Customer List</Button></Flex>
+</Flex>
     <div className='newcutomers'>
   <Card className="max-w-xs mx-auto" decoration="top" decorationColor="indigo" style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
     <Title style={{textAlign:'center',marginBottom:'5px'}}>New Customers Today</Title>
@@ -105,22 +105,14 @@ export default function NewCustomers() {
   </Card>
   
   </div>
- 
- 
-    </>
-  )}
-  else if(hasSessionData &&hasAdminSessionData){
-    return(
-      <>
-      <Card>
-        <button style={{marginLeft:-8}} className='backToFeaturesPage' onClick={checkNewCustPage}> <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
-</button>
     <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'8px'}} ><b>OUR CUSTOMERS</b></Title>
-    <Table className="mt-4">
+  <div  className="customerdetailspages" >
+  <Card>
+    <Table className="mt-4" >
       <TableHead>
         <TableRow >
-          <TableHeaderCell>NAME</TableHeaderCell>
-          <TableHeaderCell>PHONE NUMBER</TableHeaderCell>
+          <TableHeaderCell><b>NAME</b></TableHeaderCell>
+          <TableHeaderCell><b>PHONE NUMBER</b></TableHeaderCell>
           
         </TableRow>
       </TableHead>
@@ -138,7 +130,10 @@ export default function NewCustomers() {
     </Table>
   </Card>
      
-         </>
-    )
-  }
+  </div>
+ 
+ 
+    </>
+  )}
+  
 }

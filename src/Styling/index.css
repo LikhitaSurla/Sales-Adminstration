@@ -291,7 +291,7 @@ h1{
   
   .newcutomers{
     display: flex;
-    margin:  100px 200px;
+    margin:  50px 200px;
   }
   .reviewques{
     display: flex;
@@ -434,4 +434,18 @@ margin-right: 5px;
   height: 100vh;
   background-image: url('./features-bg.jpg');
   background-size: cover;
+}
+
+.customerdetailspages{
+  
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 365px;
+  width:900px;
+  overflow: auto;
+  margin-left: 315px;
+  border:1px solid grey;
+  border-radius: 5px;
+  padding:1px
 }

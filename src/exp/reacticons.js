@@ -11,8 +11,7 @@ import { MdOutlineReceiptLong } from "react-icons/md";
 import { TbLetterX } from "react-icons/tb";
 import { FaUser } from "react-icons/fa";
 import { IoKeySharp } from "react-icons/io5";
-import { FaUserFriends } from "react-icons/fa";
-import { IoClose } from "react-icons/io5";
+// import { IoClose } from "react-icons/io5";
 import { FaUserLock } from "react-icons/fa";
 
 export {MdKeyboardBackspace,FaUserLock,FaUser,IoKeySharp,TbLetterX,FaUserFriends,MdOutlinePhoneInTalk,MdOutlineReceiptLong,FaIdCardClip,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose};
