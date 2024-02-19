@@ -348,7 +348,7 @@ if(loading && hasAdminSessionData && hasSessionData){
 
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="totalsales" stroke="##8884d8" strokeWidth={2} name="Total Sales" />
+    <Line type="monotone" dataKey="totalsales" stroke="#8884d8" strokeWidth={2} name="Total Sales" />
   </LineChart>
 </Card>
                 </Flex>
