@@ -1,16 +1,27 @@
-
-
 import React, { useState, useEffect } from 'react';
 import { fetchSales } from '../FetchingData/Sales';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,BarChart, Bar, AreaChart, Area,} from 'recharts';
 import '../Styling/index.css';
 import {Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Button,Metric,Flex,TabGroup,TabList,Tab,TabPanels,TabPanel,} from '@tremor/react';
+import { indexValues } from '../FetchingData/Sales'
+import {  collection,doc,  } from 'firebase/firestore';
+import { db } from '../config/firebase';
+import { useNavigate } from 'react-router-dom';
+import 'ldrs/bouncy'
+import { MdKeyboardBackspace } from "react-icons/md";
 
-import { PieChart, Pie, Cell, Legend as RechartsLegend } from 'recharts';
 
 export default function SalesData() {
   const [salesCollection, setSalesCollection] = useState([]);
+  const [indexCollection, setIndexCollection] = useState([]);
   const [viewSalesData, setViewSalesData] = useState(false);
+  const indexCollectionRef = collection(db, 'indexes')
+  const documentId = 'WH23CKiI1e0rKiGaKz4R';
+  const indexDocumentRef = doc(indexCollectionRef, documentId);
+  const [hasSessionData, setHasSessionData] = useState(false);
+  const [hasAdminSessionData, setHasAdminSessionData] = useState(false);
+  const[loading,setLoading] = useState(true);
+  const navigate = useNavigate();
 
   const salesDetails = async () => {
     try {
@@ -22,24 +33,59 @@ export default function SalesData() {
       console.error(err);
     }
   };
-
+ 
+  const indexDetails=async()=>{
+    const date = new Date();
+    let day = date.getDate();
+    let month = date.getMonth() + 1;
+    let year = date.getFullYear();
+    let currentDate = `${day}-${month}-${year}`;
+    try{
+     const indexDb = await indexValues();
+     setIndexCollection(indexDb);
+    }
+    catch{
+      console.error(error);
+    }
+  }
+  setTimeout(()=>{
+    setLoading(false)
+  },800)
   useEffect(() => {
+    const checkSessionData = async () => {
+      const dataInSession = sessionStorage.getItem('User');
+      const dataInAdminSession = sessionStorage.getItem('admin'); 
+      console.log(dataInAdminSession)
+      console.log(dataInSession)
+      if(dataInSession && dataInAdminSession){
+        setHasSessionData(true);
+        setHasAdminSessionData(true);
+      }
+      else if (dataInSession && !dataInAdminSession) {
+          navigate('/display')
+      }
+      else if(!dataInSession){
+        navigate('/')
+      }
+    };
     salesDetails();
+    indexDetails();
+    checkSessionData();
   }, []);
 
 
   const viewData = () => {
     setViewSalesData(true);
   };
-  // Update aggregateSales function
-const aggregateSales = (salesDb) => {
+
+
+  const aggregateSales = (salesDb) => {
   const dailyAggregatedData = salesDb.reduce((acc, data) => {
     const key = `${data.date}-${data.month}-${data.year}`;
 
     if (!acc[key]) {
       acc[key] = { date: key, dailysales: 0, totalsales: data.purchase };
     }
-
     acc[key].dailysales += data.purchase;
 
     return acc;
@@ -60,23 +106,37 @@ const aggregateSales = (salesDb) => {
   return { dailySales: Object.values(dailyAggregatedData), monthlySales: Object.values(monthlyAggregatedData) };
 };
 
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#AF19FF', '#FF6666'];
+const viewSalesStat=()=>{
+  setViewSalesData(false);
+}
 
 
-  if (viewSalesData) {
+if(loading && hasAdminSessionData && hasSessionData){
+  return(
+    <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
+    <l-bouncy
+      size="45"
+      speed="1.75"
+      color="#0A1052" 
+    ></l-bouncy>
+  </div>
+  )
+}
+  else if (viewSalesData && hasSessionData && hasAdminSessionData) {
     return (
       <>
+      <button className='backToFeaturesPage' style={{marginLeft:13}} onClick={viewSalesStat}>
+      <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
+      </button>
+    <Title style={{textAlign:'center',marginTop:'-30px',marginBottom:'15px'}}><b>SALES DATA</b></Title>
         <Card>
-    <Title>Sales Data</Title>
      <Table className="mt-4">
        <TableHead>
          <TableRow>
            <TableHeaderCell>BILL-ID</TableHeaderCell>
            <TableHeaderCell>DATE</TableHeaderCell>
-
            <TableHeaderCell>NAME</TableHeaderCell>
            <TableHeaderCell>PURCHASE</TableHeaderCell>
-           <TableHeaderCell>TOTAL SALES</TableHeaderCell>
          </TableRow>
        </TableHead>
        <TableBody>
@@ -91,10 +151,6 @@ const aggregateSales = (salesDb) => {
              <TableCell>
                <Text>{data.purchase}</Text>
              </TableCell>
-             <TableCell>
-             {data.totalsales}
-              
-             </TableCell>
            </TableRow>
          ))}
        </TableBody>
@@ -105,28 +161,42 @@ const aggregateSales = (salesDb) => {
       
       </>
     );
-  } else {
+  } else if(hasSessionData && hasAdminSessionData){
     return (
       <>
-        <Title style={{textAlign:'center'}}>Sales data</Title>
+        <Title style={{textAlign:'center',marginTop:'36px',fontFamily:'Arial'}}> <b>SALES DATA</b></Title>
+      <button className='backToFeaturesPage' style={{marginLeft:13,marginTop:'-38px',float:'left'}} onClick={()=>navigate("/display/admin/featurespage")}>      <MdKeyboardBackspace color='black' style={{marginLeft:'8px'}} size={30}/>
+</button>
 
         <Flex justifyContent="center" className="space-x-2 border-t pt-4 mt-8">
-
           <Button size="xs" onClick={viewData}> View Data</Button></Flex>
-      <div className='salescards'>
-
-        <Card className="cards-container" decoration="top" decorationColor="indigo">
-          <Title>Today Sales</Title>
-        </Card>
-
-        <Card className="cards-container" decoration="top" decorationColor="indigo">
-          <Title>Monthly Sales</Title>
-        </Card>
-        <Card className="cards-container" decoration="top" decorationColor="indigo">
-          <Title >Total Sales</Title>
-        </Card>
-
+          <div className='salescards'>
+  {indexCollection.map((data, index) => (
+    <React.Fragment key={index}>
+      <Card className="cards-container" decoration="top" decorationColor="yellow" style={{backgroundColor:"#F0F0F0"}}>
+        <Title style={{fontSize:'23px',marginTop:'5px',marginLeft:'25px'}}>Today Sales</Title>
+        <div style={{marginTop:'65px',marginRight:'70px'}}>
+        <Metric style={{color:'#910A67',fontWeight:'bold'}}>{'\u20B9'}{data.dailysales}</Metric>
         </div>
+      </Card>
+
+      <Card className="cards-container" decoration="top" decorationColor="yellow" style={{backgroundColor:"#F0F0F0"}}>
+        <Title style={{fontSize:'23px',marginTop:'5px',marginLeft:'25px'}} >Month Sales</Title>
+        <div style={{marginTop:'65px',marginRight:'70px'}}> 
+        <Metric style={{color:'green',fontWeight:'bold'}}>{'\u20B9'}{data.monthlysales }</Metric>
+        </div>
+      </Card>
+
+      <Card className="cards-container" decoration="top" decorationColor="yellow" style={{backgroundColor:"#F0F0F0"}}>
+        <Title style={{fontSize:'23px',marginTop:'5px',marginLeft:'25px'}}>Total Sales</Title>
+        <div style={{marginTop:'65px',marginRight:'70px'}}> 
+        <Metric style={{color:'#151965',fontWeight:'bold'}}>{'\u20B9'}{data.totalsales }</Metric>
+        </div>
+      </Card>
+    </React.Fragment>
+  ))}
+</div>
+
         <div>
        <TabGroup  justifyContent='center'>
         <TabList className="mt-8">
@@ -159,7 +229,7 @@ const aggregateSales = (salesDb) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="dailysales" stroke="#8884d8" name="Daily Purchases" />
+    <Line type="monotone" dataKey="dailysales" stroke="#8884d8" strokeWidth={2} name="Today Sale" />
   </LineChart>
 
 </TabPanel>
@@ -202,7 +272,7 @@ const aggregateSales = (salesDb) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="monthlysales" stroke="#8884d8" name="Montly Sales" />
+    <Line type="monotone" dataKey="monthlysales" stroke="#8884d8" strokeWidth={2} name="Montly Sales" />
   </LineChart>
 
 </TabPanel>
@@ -253,7 +323,7 @@ const aggregateSales = (salesDb) => {
     <YAxis />
     <Tooltip />
     <Legend />
-    <Line type="monotone" dataKey="purchase" stroke="#8884d8" name="Bill-Purchase" />
+    <Line type="monotone" dataKey="purchase" stroke="#8884d8" strokeWidth={2} name="Bill-Purchase" />
   </LineChart>
 
 </TabPanel>
@@ -294,5 +364,6 @@ const aggregateSales = (salesDb) => {
       </>
     );
   }
+
 }
 

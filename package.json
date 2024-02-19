@@ -10,12 +10,17 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@emotion/react": "^11.11.3",
+    "@emotion/styled": "^11.11.0",
     "@headlessui/react": "^1.7.18",
     "@heroicons/react": "^1.0.6",
+    "@mui/material": "^5.15.7",
     "@tremor/react": "^3.13.2",
     "firebase": "^10.7.1",
+    "ldrs": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.0.1",
     "recharts": "^2.11.0",
     "remixicon": "^4.1.0"
   },
