@@ -82,7 +82,6 @@ export default function EmpDetails() {
   const addEmployee = async (e) => {
     e.preventDefault();
     let len = empDetails.number.toString().length;
-    console.log(empDetails.empid);
   
     if (len === 10) {
       try {
@@ -159,7 +158,6 @@ export default function EmpDetails() {
     }
   };
   useEffect(() => {
-    console.log(empDetails);
   }, [empDetails]);
 
   const removeForm=()=>{
@@ -218,7 +216,6 @@ export default function EmpDetails() {
         salary: data[0].salary,
         bonus: data[0].bonus,
       })
-      console.log(empDetails)
       present = true
   }
     catch{

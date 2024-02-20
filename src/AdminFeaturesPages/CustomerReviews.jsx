@@ -70,11 +70,12 @@ export default function CustomerReviews() {
 
   const renderBarCharts = () => {
     const questionNumbers = [1, 2, 3];
+    const questions=["How was your shopping experience with us today?","How would you rate the service you received from our staff?","Would you recommend our store to your friends or family?"]
     return (
       <div className='reviewbarchart-column'>
         {questionNumbers.map((questionNumber) => (
           <div key={questionNumber} className='reviewbarchart'>
-            <Title>{`${questionNumber}. How was your shopping experience with us today?`}</Title>
+            <Title>{`${questionNumber}. ${questions[questionNumber-1]}`}</Title>
             <br/>
             <br/>
             <ResponsiveContainer padding={50} width={700} height={400}>
@@ -94,11 +95,13 @@ export default function CustomerReviews() {
 
   const renderLineCharts = () => {
     const questionNumbers = [1, 2, 3];
+    const questions=["How was your shopping experience with us today?","How would you rate the service you received from our staff?","Would you recommend our store to your friends or family?"]
+
     return (
       <div className='reviewlinegraph-column' justifyContent='center'>
         {questionNumbers.map((questionNumber) => (
           <div key={questionNumber} className='reviewlinegraph'>
-            <Title>{`${questionNumber}. How was your shopping experience with us today?`}</Title>
+            <Title>{`${questionNumber}. ${questions[questionNumber-1]}`}</Title>
             <br/>
             <br/>
             <ResponsiveContainer padding={50} width={700} height={400}>

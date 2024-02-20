@@ -64,7 +64,6 @@ const Display = () => {
   }, [hasSessionData]);
 
   const newBill = () => {
-    console.log('hii');
     setState(false);
   };
 
