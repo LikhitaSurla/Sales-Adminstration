@@ -55,8 +55,6 @@ export default function SalesData() {
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem('User');
       const dataInAdminSession = sessionStorage.getItem('admin'); 
-      console.log(dataInAdminSession)
-      console.log(dataInSession)
       if(dataInSession && dataInAdminSession){
         setHasSessionData(true);
         setHasAdminSessionData(true);

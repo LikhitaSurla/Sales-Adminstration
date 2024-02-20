@@ -17,7 +17,6 @@ export default function LoginPro() {
     const navigate = useNavigate();
     const submitBtn =async(e)=>{
       e.preventDefault();
-      console.log("Button clicked!");
         try{
             const usersData = await fetchData();
             usersData.forEach((doc)=>{

@@ -116,16 +116,23 @@ export default function Billing() {
     e.preventDefault();
     itemCode = code.toUpperCase();
     try {
+      
       const q = query(productCollectionRef, where("code", "==", itemCode));
       const product = await getDocs(q);
       const data = [];
       product.forEach((doc) => {
         data.push(doc.data());
       });
-      setObj({
-        productname: data[0].name,
-        price: data[0].price,
-      });
+     
+      if (data.length === 0) {
+       
+        alert('Product Code not found..!! Please re-check')
+      } else {
+        setObj({
+          productname: data[0].name,
+          price: data[0].price,
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -152,7 +159,6 @@ export default function Billing() {
         await updateDoc(indexDocumentRef, {
           newcustomers: newCustomersCount + 1,
         });
-        console.log("Data updated");
       } catch {
         console.log("error");
       }
