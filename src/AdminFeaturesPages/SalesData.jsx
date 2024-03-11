@@ -52,6 +52,7 @@ export default function SalesData() {
     setLoading(false)
   },800)
   useEffect(() => {
+    
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem('User');
       const dataInAdminSession = sessionStorage.getItem('admin'); 

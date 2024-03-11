@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Display from './Display'
 import fetchData from './FetchingData/Data'
 import {useState } from 'react'
@@ -8,10 +8,28 @@ import { useNavigate } from 'react-router-dom';
 import { FaUser } from "react-icons/fa";
 import { TextField,} from '@mui/material'
 import { IoKeySharp } from "react-icons/io5";
-
-
-
+import { collection, getDoc } from 'firebase/firestore'
+import { doc } from 'firebase/firestore'
+import { db } from './config/firebase'
 export default function LoginPro() {
+    const indexCollectionRef = collection(db, 'userdata')
+    const documentId = '9jJxtoADDQR0mp3PtUaW';
+    const indexDocumentRef = doc(indexCollectionRef, documentId);
+    const getData = async () => {
+      try {
+        const documentSnapshot = await getDoc(indexDocumentRef);
+          const data =   documentSnapshot.data();
+          console.log(data.name);
+          alert(`Login with "${data.name}" and "${data.password}" to use the Website`)
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
+    };
+    useEffect(()=>{
+
+      getData();    
+    },[])
+    
     const [userName,setUserName]=useState('');
     const [password,setPassword]=useState('');
     const [state,setState] = useState(false);

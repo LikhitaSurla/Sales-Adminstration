@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Tooltip }from "@mui/material";
+import {Tooltip, alertTitleClasses }from "@mui/material";
 import {
   collection,
   query,
@@ -65,6 +65,7 @@ export default function Billing() {
 
   const [newCustomersCount, setNewCustomersCount] = useState(0);
 
+
   const indexDetails = async () => {
     try {
       const indexDb = await indexValues();
@@ -83,8 +84,11 @@ export default function Billing() {
       console.error(err);
     }
   };
-
+const getAlert = ()=>{
+  alert(`Use Employee Id as "VLE0001" or "VLE0016 " \nProduct Codes:"VLBS001" "VLBS002" "VLBP004"`);
+}
   useEffect(() => {
+    getAlert();
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem("User");
       if (!dataInSession) {
@@ -309,8 +313,11 @@ export default function Billing() {
   const goToDisplay= ()=>{
     navigate('/display')
   }
+ 
   if (state && hasSessionData) {
+    
     return (
+
       <div className = "employesubmit">
         <form onSubmit={idSubmit}>
           <Card className="max-w-sm mx-auto" style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
@@ -346,7 +353,6 @@ export default function Billing() {
   } else if (billPage && hasSessionData) {
     return (
       <>
-     
         <Title
           style={{
             textAlign: "center",
