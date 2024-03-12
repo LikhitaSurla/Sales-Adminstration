@@ -1,6 +1,6 @@
 import React from 'react'
 import fetchData from './FetchingData/Data'
-import {useState } from 'react'
+import {useState,useEffect } from 'react'
 import './Styling/index.css'
 import { TextField} from '@mui/material'
 import { Button } from "@tremor/react";
@@ -15,11 +15,21 @@ export default function LoginPro() {
     const [state,setState] = useState(false);
     const[isValid,setIsValid] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+      const alertTimeout = setTimeout(() => {
+          alert("Considering the scenario: a company similar to SalesEase is now using our platform, and here are the login details required.\n \n Username : Salesease \n Password : Salesease@2024  ");
+      }, 1600); 
+
+      return () => clearTimeout(alertTimeout);
+  }, []);
+
     const submitBtn =async(e)=>{
       e.preventDefault();
         try{
             const usersData = await fetchData();
             usersData.forEach((doc)=>{
+             
               if(doc.name===userName && doc.password === password){
                 setState(true);
                 sessionStorage.setItem('User', "LoggedIn");
@@ -33,6 +43,7 @@ export default function LoginPro() {
               if(state==true){
               navigate('/display');
             }
+            
         }
         catch(err){
           console.error(err);
