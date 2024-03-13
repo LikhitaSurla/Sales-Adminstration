@@ -47,6 +47,18 @@ export default function Billing() {
   const [hasSessionData, setHasSessionData] = useState(false);
   const [newCustomersCount, setNewCustomersCount] = useState(0);
 
+
+  useEffect(() => {
+    const alertTimeout = setTimeout(() => {
+        alert("Some of the few Employee IDs of this company are between: \n VLE0001 - VLE0010 \n VLE0011 - VLE0020 \n \n For product codes, explore within following : \n For Men : VLM001 - VLM010 \n For Women : VLW001 -VLW010");
+      
+    }, 500); 
+    
+     
+    return () => clearTimeout(alertTimeout);
+
+}, []);
+
   const indexDetails = async () => {
     try {
       const indexDb = await indexValues();
@@ -112,9 +124,11 @@ export default function Billing() {
     newInput();
   };
   let itemCode;
+  
   const searchCode = async (e) => {
     e.preventDefault();
     itemCode = code.toUpperCase();
+    
     try {
       
       const q = query(productCollectionRef, where("code", "==", itemCode));
@@ -126,7 +140,7 @@ export default function Billing() {
      
       if (data.length === 0) {
        
-        alert('Product Code not found..!! Please re-check')
+        alert('Product Code not found..!! Please re-check \n  \n For product codes, explore within following : \n For Men : VLM001 - VLM010 \n For Women : VLW001 -VLW010')
       } else {
         setObj({
           productname: data[0].name,
@@ -331,7 +345,7 @@ export default function Billing() {
         </form>
       </div>
     );
-  } else if (billPage && hasSessionData) {
+  } else if (billPage && hasSessionData ) {
     return (
       <>
      
@@ -519,6 +533,7 @@ export default function Billing() {
                   </p>
 
                   <div style={{display:'flex'}}>
+
                     <div style={{ fontWeight: "500" ,marginRight:'4px'}}>Product name: </div>{ obj.productname}
                   </div>
 
