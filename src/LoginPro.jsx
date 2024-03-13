@@ -5,7 +5,9 @@ import './Styling/index.css'
 import { TextField} from '@mui/material'
 import { Button } from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
-import {IoKeySharp,FaUser} from './exp/reacticons'
+import {IoKeySharp,FaUser} from './exp/reacticons';
+import { db } from './config/firebase';
+import { collection,getDoc ,doc} from 'firebase/firestore'
 
 
 
@@ -14,16 +16,43 @@ export default function LoginPro() {
     const [password,setPassword]=useState('');
     const [state,setState] = useState(false);
     const[isValid,setIsValid] = useState(false);
+
+    
     const navigate = useNavigate();
+    const indexCollectionRef = collection(db, 'userdata')
+    const documentId = 'Tlk5uWaCkU9YMvOUQGcu';
+    const indexDocumentRef = doc(indexCollectionRef, documentId);
+
+     let pass='';
+     let alerting=true;
+
+     const alertTimeout=()=> {
+if(alerting)
+      alert(`Considering the scenario: a company similar to SalesEase is now using our platform, and here are the login details required.\n \n Username : Salesease \n Password : ${pass}  `);
+alerting=false
+  }
+
+
+    const getData = async () => {
+      try {
+        const documentSnapshot = await getDoc(indexDocumentRef);
+          const data =   documentSnapshot.data();
+          pass=data.password;
+          setTimeout(()=>{
+            alertTimeout()
+          },1000)
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
+    };
+
 
     useEffect(() => {
-      const alertTimeout = setTimeout(() => {
-          alert("Considering the scenario: a company similar to SalesEase is now using our platform, and here are the login details required.\n \n Username : Salesease \n Password : Salesease@2024  ");
-      }, 1600); 
-
-      return () => clearTimeout(alertTimeout);
+      getData();  
+  
   }, []);
 
+  
     const submitBtn =async(e)=>{
       e.preventDefault();
         try{
@@ -49,7 +78,8 @@ export default function LoginPro() {
           console.error(err);
         }
     }
-  
+ 
+
     if( state==false){
     return (
       <>
