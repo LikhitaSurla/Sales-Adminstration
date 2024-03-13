@@ -84,11 +84,8 @@ export default function Billing() {
       console.error(err);
     }
   };
-const getAlert = ()=>{
-  alert(`Use Employee Id as "VLE0001" or "VLE0016 " \nProduct Codes:"VLBS001" "VLBS002" "VLBP004"`);
-}
+
   useEffect(() => {
-    getAlert();
     const checkSessionData = async () => {
       const dataInSession = sessionStorage.getItem("User");
       if (!dataInSession) {
