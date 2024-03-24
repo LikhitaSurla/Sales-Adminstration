@@ -6,9 +6,7 @@ import { Button, Card,Flex,Title } from "@tremor/react";
 import '../Styling/index.css';
 import { collection,getDocs,doc, query,updateDoc,where } from 'firebase/firestore';
 import { TextField,} from '@mui/material'
-import { FaUser } from "react-icons/fa";
-import { IoKeySharp } from "react-icons/io5";
-import { FaUserLock } from "react-icons/fa";
+import {FaUser,FaUserLock,IoKeySharp} from "../exp/reacticons"
 
 
 export default function Admin() {
@@ -202,6 +200,3 @@ export default function Admin() {
     }
 
 }
-
-
-

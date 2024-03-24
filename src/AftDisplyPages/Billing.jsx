@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Tooltip, alertTitleClasses }from "@mui/material";
+import {Tooltip }from "@mui/material";
 import {
   collection,
   query,
@@ -11,29 +11,12 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 import { indexValues } from "../FetchingData/Sales";
-import {
-  Button,
-  Card,
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeaderCell,
-  TableRow,
-  Text,
-  Title,
-  Grid,
-  Col,
-  Flex,
-} from "@tremor/react";
+import {Button,Card,Table,TableBody,TableCell,TableHead,TableHeaderCell,TableRow,Text,Title,Grid,Col,Flex,} from "@tremor/react";
 import "../Styling/index.css";
 import custDetails from "../FetchingData/Customers";
 import { useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
-import { FaUserFriends } from "react-icons/fa";
-import { MdOutlinePhoneInTalk } from "react-icons/md";
-import { MdOutlineReceiptLong } from "react-icons/md";
-import { IoClose } from "react-icons/io5"
+import {IoClose,FaUserFriends,MdOutlinePhoneInTalk,MdOutlineReceiptLong} from '../exp/reacticons'
 
 export default function Billing() {
   const productCollectionRef = collection(db, "productdetails");
@@ -62,9 +45,19 @@ export default function Billing() {
   const [currDate, setCurrDate] = useState("");
   const [currMonth, setCurrMonth] = useState("");
   const [hasSessionData, setHasSessionData] = useState(false);
-
   const [newCustomersCount, setNewCustomersCount] = useState(0);
 
+
+  useEffect(() => {
+    const alertTimeout = setTimeout(() => {
+        alert("Some of the few Employee IDs of this company are between: \n VLE0001 - VLE0010 \n VLE0011 - VLE0020 \n \n For product codes, explore within following : \n For Men : VLM001 - VLM010 \n For Women : VLW001 -VLW010");
+      
+    }, 500); 
+    
+     
+    return () => clearTimeout(alertTimeout);
+
+}, []);
 
   const indexDetails = async () => {
     try {
@@ -131,20 +124,29 @@ export default function Billing() {
     newInput();
   };
   let itemCode;
+  
   const searchCode = async (e) => {
     e.preventDefault();
     itemCode = code.toUpperCase();
+    
     try {
+      
       const q = query(productCollectionRef, where("code", "==", itemCode));
       const product = await getDocs(q);
       const data = [];
       product.forEach((doc) => {
         data.push(doc.data());
       });
-      setObj({
-        productname: data[0].name,
-        price: data[0].price,
-      });
+     
+      if (data.length === 0) {
+       
+        alert('Product Code not found..!! Please re-check \n  \n For product codes, explore within following : \n For Men : VLM001 - VLM010 \n For Women : VLW001 -VLW010')
+      } else {
+        setObj({
+          productname: data[0].name,
+          price: data[0].price,
+        });
+      }
     } catch (err) {
       console.log(err);
     }
@@ -171,7 +173,6 @@ export default function Billing() {
         await updateDoc(indexDocumentRef, {
           newcustomers: newCustomersCount + 1,
         });
-        console.log("Data updated");
       } catch {
         console.log("error");
       }
@@ -310,11 +311,8 @@ export default function Billing() {
   const goToDisplay= ()=>{
     navigate('/display')
   }
- 
   if (state && hasSessionData) {
-    
     return (
-
       <div className = "employesubmit">
         <form onSubmit={idSubmit}>
           <Card className="max-w-sm mx-auto" style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
@@ -347,9 +345,10 @@ export default function Billing() {
         </form>
       </div>
     );
-  } else if (billPage && hasSessionData) {
+  } else if (billPage && hasSessionData ) {
     return (
       <>
+     
         <Title
           style={{
             textAlign: "center",
@@ -534,6 +533,7 @@ export default function Billing() {
                   </p>
 
                   <div style={{display:'flex'}}>
+
                     <div style={{ fontWeight: "500" ,marginRight:'4px'}}>Product name: </div>{ obj.productname}
                   </div>
 

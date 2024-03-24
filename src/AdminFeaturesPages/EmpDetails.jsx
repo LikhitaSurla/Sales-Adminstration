@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import employeeData from '../FetchingData/Employee'
-import { addDoc, query, where, collection, deleteDoc, getDocs, doc, getDoc, updateDoc } from 'firebase/firestore';
+import { addDoc, query, where, collection, deleteDoc, getDocs,updateDoc } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { Button, Card, Table, TableBody, TableCell, TableHead, TableHeaderCell, TableRow, Text, Title, Flex, } from "@tremor/react";
 import '../Styling/index.css'
-import { useAsyncError, useNavigate } from 'react-router-dom';
+import {  useNavigate } from 'react-router-dom';
 import 'ldrs/bouncy'
 import { Tooltip,TextField } from '@mui/material';  
-
-
 import {MdKeyboardBackspace,FaIdCardClip,TbLetterX,FaUserAlt,FaPhoneVolume,TbCoinRupeeFilled,RiUserHeartFill,IoMaleFemale,IoClose} from '../exp/reacticons'
 
 
@@ -84,7 +82,6 @@ export default function EmpDetails() {
   const addEmployee = async (e) => {
     e.preventDefault();
     let len = empDetails.number.toString().length;
-    console.log(empDetails.empid);
   
     if (len === 10) {
       try {
@@ -161,7 +158,6 @@ export default function EmpDetails() {
     }
   };
   useEffect(() => {
-    console.log(empDetails);
   }, [empDetails]);
 
   const removeForm=()=>{
@@ -220,7 +216,6 @@ export default function EmpDetails() {
         salary: data[0].salary,
         bonus: data[0].bonus,
       })
-      console.log(empDetails)
       present = true
   }
     catch{
@@ -253,6 +248,7 @@ export default function EmpDetails() {
   else if (updateData &&hasSessionData && hasAdminSessionData) {
     return (
       <>
+      <div className='bgimageemp'>
         <div className='employesubmit'>
           <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
           <Tooltip title='Exit'><button style={{float:'right',marginTop:'1px',marginLeft:'-20px'}} className='backToFeaturesEmp' onClick={removeForm}>
@@ -299,12 +295,15 @@ export default function EmpDetails() {
             </form>
           </Card>
         </div>
+        </div>
       </>
     )
   }
   else if (form == true &&hasSessionData &&hasAdminSessionData) {
     return (
       <>
+            <div className='bgimageemp'>
+
         <div className='employesubmit'>
           <Card style={{boxShadow:'-1px 2px 14px -1px rgba(0,0,0,0.34)'}}>
             <Tooltip title='Exit'><button style={{float:'right',marginTop:'0px',marginLeft:'-20px'}} className='backToFeaturesEmp' onClick={removeForm}>
@@ -353,6 +352,7 @@ export default function EmpDetails() {
             {isPresent && <p style={{color:'red',marginTop:8,textAlign:'center'}}>Employee Already Present</p> } 
             </form>
           </Card>
+        </div>
         </div>
       </>
     )

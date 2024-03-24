@@ -29,7 +29,8 @@ const Display = () => {
       indexDb.map(async(data)=>{
         if(data.currDate!=currentDate){
           await updateDoc(indexDocumentRef,{
-            dailysales:0
+            dailysales:0,
+            newcustomers:0
           })
         }
         if(data.currMonth!=currentMonth){
@@ -63,7 +64,6 @@ const Display = () => {
   }, [hasSessionData]);
 
   const newBill = () => {
-    console.log('hii');
     setState(false);
   };
 
@@ -90,13 +90,11 @@ const Display = () => {
   else if (state && hasSessionData) {
     return (
       <>
-        {/* <div className="body2"> */}
           <div className="displaybg">
           <Button size="lg" onClick={newBill}>
             + New Bill
           </Button>
         </div>
-        {/* </div> */}
         <Button size="xs" className='adminlogin' onClick={ownerLogin}>
           Admin
         </Button>

@@ -1,28 +1,64 @@
-import React, { useEffect } from 'react'
-import Display from './Display'
+import React from 'react'
 import fetchData from './FetchingData/Data'
-import {useState } from 'react'
+import {useState,useEffect } from 'react'
 import './Styling/index.css'
+import { TextField} from '@mui/material'
 import { Button } from "@tremor/react";
 import { useNavigate } from 'react-router-dom';
-import { FaUser } from "react-icons/fa";
-import { TextField,} from '@mui/material'
-import { IoKeySharp } from "react-icons/io5";
-import { collection, getDoc } from 'firebase/firestore'
-import { doc } from 'firebase/firestore'
-import { db } from './config/firebase'
+import {IoKeySharp,FaUser} from './exp/reacticons';
+import { db } from './config/firebase';
+import { collection,getDoc ,doc} from 'firebase/firestore'
+
+
+
 export default function LoginPro() {
     const [userName,setUserName]=useState('');
     const [password,setPassword]=useState('');
     const [state,setState] = useState(false);
     const[isValid,setIsValid] = useState(false);
+
+    
     const navigate = useNavigate();
+    const indexCollectionRef = collection(db, 'userdata')
+    const documentId = 'Tlk5uWaCkU9YMvOUQGcu';
+    const indexDocumentRef = doc(indexCollectionRef, documentId);
+
+     let pass='';
+     let alerting=true;
+
+     const alertTimeout=()=> {
+if(alerting)
+      alert(`Considering the scenario: a company similar to SalesEase is now using our platform, and here are the login details required.\n \n Username : Salesease \n Password : ${pass}  `);
+alerting=false
+  }
+
+
+    const getData = async () => {
+      try {
+        const documentSnapshot = await getDoc(indexDocumentRef);
+          const data =   documentSnapshot.data();
+          pass=data.password;
+          setTimeout(()=>{
+            alertTimeout()
+          },1000)
+      } catch (error) {
+        console.error("Error getting document:", error);
+      }
+    };
+
+
+    useEffect(() => {
+      getData();  
+  
+  }, []);
+
+  
     const submitBtn =async(e)=>{
       e.preventDefault();
-      console.log("Button clicked!");
         try{
             const usersData = await fetchData();
             usersData.forEach((doc)=>{
+             
               if(doc.name===userName && doc.password === password){
                 setState(true);
                 sessionStorage.setItem('User', "LoggedIn");
@@ -36,12 +72,14 @@ export default function LoginPro() {
               if(state==true){
               navigate('/display');
             }
+            
         }
         catch(err){
           console.error(err);
         }
     }
-  
+ 
+
     if( state==false){
     return (
       <>

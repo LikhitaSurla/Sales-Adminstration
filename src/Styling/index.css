@@ -125,13 +125,12 @@ margin-bottom: 5px;
   color:#D5F0C1;
 
 }
+
 .word-animation span:nth-child(7) {
   animation-delay: 1.3s;
   color:#D5F0C1;
 
 }
-
-
 
 .nameoffirm{
   height: 100vh;
@@ -201,7 +200,6 @@ h1{
     margin:10px;
 }
 
- 
   .card {
     max-width: 500px;
 
@@ -214,10 +212,11 @@ h1{
   }
   .employesubmit
   {
-    position: absolute; 
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
   }
   .reviewcharts {
     display: flex;
@@ -248,7 +247,7 @@ h1{
   display: flex;
   justify-content: space-between;
   width: 500px;
-  height: 150px;
+  height: 200px;
   margin:20px 50px; 
 }
   .cardcontainer {
@@ -260,9 +259,6 @@ h1{
     cursor: pointer;
     height:200px;
     width:310px;
-    /* border:4px solid #435585; */
-    /* box-shadow: 0px 0px 6px 1px #435585; */
-
   }
  
   .grid-container {
@@ -287,9 +283,10 @@ h1{
   .graph-card{
     margin:0px 150px;
   }
+  
   .newcutomers{
     display: flex;
-    margin:  100px 200px;
+    margin:  50px 200px;
   }
   .reviewques{
     display: flex;
@@ -309,11 +306,13 @@ h1{
     display: flex;
     margin-bottom: 18px;
 
-  }
+  }  
+
  .adjustingAdminBtn{
 display: flex;
 margin-left: -12px;
  }  
+
 .adminClickedBack{
   background-color:transparent;
   color:black;
@@ -345,8 +344,8 @@ color: black;}
   background-color: white;
   border-radius: 50%;
   border:1px solid black;
-  
 }
+
 .backToFeaturesPage{
   background-color: white;
   width: 45px;
@@ -357,11 +356,13 @@ border: none;
 margin-top: 12px;
 margin-left: 10px;
 }
+
 .backToFeaturesPage:hover{
   background-color: rgb(230, 227, 227);
   border-radius: 50%;
   transition: ease 0.2s;
 }
+
 .backToFeaturesEmp{
   background-color: #ffffff;
   width: 30px;
@@ -394,8 +395,8 @@ margin-right: 5px;
   margin-left: 314px;
   margin-top: -44px;
   margin-bottom: 30px;
-
 }
+
 .adminloginback:hover{
   background-color: maroon;
   color:white;
@@ -409,13 +410,7 @@ margin-right: 5px;
   background-size: cover;
   
 }
-/* .displaybg{
-  width:100%;
-  height: 100vh;
-  background-image: url('./bill-bg.jpg');
-  background-size: cover;
-  
-} */
+
 .displaybg{
   margin: 0;
   padding: 0;
@@ -433,10 +428,22 @@ margin-right: 5px;
   background-image: url('./features-bg.jpg');
   background-size: cover;
 }
-.employesubmit{
-  padding-top: 210px;
+.bgimageemp{
   width:100%;
   height: 100vh;
   background-image: url('./features-bg.jpg');
   background-size: cover;
+}
+
+.customerdetailspages{
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  height: 365px;
+  width:900px;
+  overflow: auto;
+  margin-left: 315px;
+  border:1px solid grey;
+  border-radius: 5px;
+  padding:1px
 }

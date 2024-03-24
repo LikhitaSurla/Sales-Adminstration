@@ -1,4 +1,4 @@
-import { BrowserRouter as Router,Routes,Route,useNavigate} from "react-router-dom";
+import { BrowserRouter as Router,Routes,Route,} from "react-router-dom";
 import EmpDetails from "./AdminFeaturesPages/EmpDetails";
 import SalesData from "./AdminFeaturesPages/SalesData";
 import React from 'react'
